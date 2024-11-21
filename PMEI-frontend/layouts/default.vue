@@ -1,10 +1,14 @@
 <template>
   <div class="layout-wrapper">
-    <Header />
+    <header class="header">
+      <Header />
+    </header>
     <main class="main-content">
       <NuxtPage />
     </main>
-    <Footer />
+    <footer class="footer">
+      <Footer />
+    </footer>
   </div>
 </template>
 
@@ -27,7 +31,23 @@ export default {
   min-height: 100vh;
 }
 
+.header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000; /* Ensure it stays above other content */
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 1000; /* Ensure it stays above other content */
+}
+
 .main-content {
   flex: 1;
+  /* Adjust based on the height of your header */
+  /* Adjust based on the height of your footer */
 }
 </style>
