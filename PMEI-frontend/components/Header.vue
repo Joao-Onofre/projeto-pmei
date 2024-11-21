@@ -1,7 +1,10 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
+      <!-- Brand/Home Link -->
       <NuxtLink class="navbar-brand" to="/">Home</NuxtLink>
+
+      <!-- Toggler for Mobile View -->
       <button
         class="navbar-toggler"
         type="button"
@@ -13,8 +16,11 @@
       >
         <span class="navbar-toggler-icon"></span>
       </button>
+
+      <!-- Navigation Links -->
       <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
+        <ul class="navbar-nav me-auto">
+          <!-- Align to the left -->
           <li class="nav-item">
             <NuxtLink class="nav-link" to="/packages">Packages</NuxtLink>
           </li>
@@ -28,6 +34,11 @@
             <NuxtLink class="nav-link" to="/sensors">Sensors</NuxtLink>
           </li>
         </ul>
+        <!-- Login Link -->
+        <div class="navbar-nav ms-auto">
+          <!-- Align to the right -->
+          <NuxtLink class="nav-link login-link" to="/auth">Login</NuxtLink>
+        </div>
       </div>
     </div>
   </nav>
@@ -40,8 +51,20 @@ export default {
 </script>
 
 <style scoped>
-/* Custom header styles */
+/* Space below the navbar */
 .navbar {
-  margin-bottom: 20px; /* Space between the navbar and the content */
+  margin-bottom: 20px;
+}
+
+/* Custom style for the login link */
+.login-link {
+  font-weight: bold;
+  color: #007bff;
+  transition: color 0.3s ease;
+}
+
+.login-link:hover {
+  color: #0056b3;
+  text-decoration: underline;
 }
 </style>
