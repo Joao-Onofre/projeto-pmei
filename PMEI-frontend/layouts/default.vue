@@ -1,7 +1,9 @@
 <template>
-  <div>
+  <div class="layout-wrapper">
     <Header />
-    <NuxtPage />
+    <main class="main-content">
+      <NuxtPage />
+    </main>
     <Footer />
   </div>
 </template>
@@ -17,3 +19,15 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.layout-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+}
+</style>
