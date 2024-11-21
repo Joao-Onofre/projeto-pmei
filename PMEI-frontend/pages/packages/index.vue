@@ -1,6 +1,5 @@
 <template>
   <div class="packages-container">
-    <h2>Packages</h2>
     <div class="package-list">
       <div
         class="package-item"
@@ -53,6 +52,7 @@ export default {
 
 <style scoped>
 .packages-container {
+  margin-top: 50px;
   padding: 20px;
   background-color: #f9f9f9;
 }

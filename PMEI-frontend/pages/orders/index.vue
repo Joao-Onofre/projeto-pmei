@@ -1,6 +1,5 @@
 <template>
   <div class="orders-container">
-    <h2>Orders</h2>
     <div class="order-list">
       <div class="order-item" v-for="order in orders" :key="order.id">
         <h3>{{ order.title }}</h3>
@@ -49,6 +48,7 @@ export default {
 
 <style scoped>
 .orders-container {
+  margin-top: 50px;
   padding: 20px;
   background-color: #f9f9f9;
 }

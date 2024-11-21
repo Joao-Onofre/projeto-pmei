@@ -1,6 +1,5 @@
 <template>
   <div class="alerts-container">
-    <h2>Alerts</h2>
     <div class="alert-list">
       <div class="alert-item" v-for="alert in alerts" :key="alert.id">
         <h3>{{ alert.title }}</h3>
@@ -49,6 +48,7 @@ export default {
 
 <style scoped>
 .alerts-container {
+  margin-top: 50px;
   padding: 20px;
   background-color: #f9f9f9;
 }

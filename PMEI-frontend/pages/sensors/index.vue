@@ -1,6 +1,5 @@
 <template>
   <div class="sensors-container">
-    <h2>Sensors</h2>
     <div class="sensor-list">
       <div class="sensor-item" v-for="sensor in sensors" :key="sensor.id">
         <h3>{{ sensor.title }}</h3>
@@ -29,6 +28,7 @@ export default {
 
 <style scoped>
 .sensors-container {
+  margin-top: 50px;
   padding: 20px;
   background-color: #f9f9f9;
 }
