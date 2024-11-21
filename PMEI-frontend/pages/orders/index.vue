@@ -1,12 +1,25 @@
 <template>
-  <div class="orders-container">
-    <div class="order-list">
-      <div class="order-item" v-for="order in orders" :key="order.id">
-        <h3>{{ order.title }}</h3>
-        <p>{{ order.description }}</p>
-        <span>Status: {{ order.status }}</span>
-      </div>
-    </div>
+  <div class="wrapper">
+    <table class="order-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Status</th>
+          <th>Customer ID</th>
+          <th>Creation Date</th>
+          <th>Delivery Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="order in orders" :key="order.id">
+          <td>{{ order.id }}</td>
+          <td>{{ order.status }}</td>
+          <td>{{ order.customerId }}</td>
+          <td>{{ new Date(order.creationDate).toLocaleString() }}</td>
+          <td>{{ new Date(order.deliveryDate).toLocaleString() }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
@@ -14,31 +27,21 @@
 export default {
   data() {
     return {
-      // Hardcoded list of orders
+      // Mock API data
       orders: [
         {
-          id: 1,
-          title: 'Order 1',
-          description: 'This is the description for Order 1',
-          status: 'Pending',
+          id: '12345',
+          status: 'pending',
+          customerId: '67890',
+          creationDate: '2023-10-01T12:34:56Z',
+          deliveryDate: '2023-10-10T10:00:00Z',
         },
         {
-          id: 2,
-          title: 'Order 2',
-          description: 'This is the description for Order 2',
-          status: 'Shipped',
-        },
-        {
-          id: 3,
-          title: 'Order 3',
-          description: 'This is the description for Order 3',
-          status: 'Delivered',
-        },
-        {
-          id: 4,
-          title: 'Order 4',
-          description: 'This is the description for Order 4',
-          status: 'Processing',
+          id: '67890',
+          status: 'shipped',
+          customerId: '12345',
+          creationDate: '2023-09-20T08:15:00Z',
+          deliveryDate: '2023-09-30T18:00:00Z',
         },
       ],
     }
@@ -47,39 +50,23 @@ export default {
 </script>
 
 <style scoped>
-.orders-container {
-  margin-top: 50px;
-  padding: 20px;
-  background-color: #f9f9f9;
+.wrapper {
+  padding: 50px;
+}
+.order-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
 }
 
-.order-list {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.order-item {
-  padding: 15px;
-  background-color: #fff;
+.order-table th,
+.order-table td {
   border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 8px;
 }
 
-.order-item h3 {
-  margin: 0 0 10px;
-  font-size: 18px;
+.order-table th {
+  background-color: #f4f4f4;
   font-weight: bold;
-}
-
-.order-item p {
-  margin: 0 0 10px;
-  font-size: 14px;
-}
-
-.order-item span {
-  font-size: 14px;
-  color: #666;
 }
 </style>

@@ -1,16 +1,27 @@
 <template>
-  <div class="packages-container">
-    <div class="package-list">
-      <div
-        class="package-item"
-        v-for="packageItem in packages"
-        :key="packageItem.id"
-      >
-        <h3>{{ packageItem.title }}</h3>
-        <p>{{ packageItem.description }}</p>
-        <span>Status: {{ packageItem.status }}</span>
-      </div>
-    </div>
+  <div class="wrapper">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Status</th>
+          <th>Sensors</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="pkg in packages" :key="pkg.id">
+          <td>{{ pkg.id }}</td>
+          <td>{{ pkg.status }}</td>
+          <td>
+            <ul>
+              <li v-for="sensor in pkg.sensors" :key="sensor.sensorId">
+                {{ sensor.type }} ({{ sensor.status }})
+              </li>
+            </ul>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
@@ -18,31 +29,22 @@
 export default {
   data() {
     return {
-      // Hardcoded list of packages
+      // Mock package data
       packages: [
         {
-          id: 1,
-          title: 'Package 1',
-          description: 'Description for Package 1',
-          status: 'Shipped',
+          id: 'package123',
+          status: 'in_transit',
+          sensors: [
+            { sensorId: 'sensor001', type: 'temperature', status: 'active' },
+            { sensorId: 'sensor002', type: 'acceleration', status: 'active' },
+          ],
         },
         {
-          id: 2,
-          title: 'Package 2',
-          description: 'Description for Package 2',
-          status: 'In Transit',
-        },
-        {
-          id: 3,
-          title: 'Package 3',
-          description: 'Description for Package 3',
-          status: 'Delivered',
-        },
-        {
-          id: 4,
-          title: 'Package 4',
-          description: 'Description for Package 4',
-          status: 'Pending',
+          id: 'package456',
+          status: 'delivered',
+          sensors: [
+            { sensorId: 'sensor003', type: 'humidity', status: 'inactive' },
+          ],
         },
       ],
     }
@@ -51,39 +53,24 @@ export default {
 </script>
 
 <style scoped>
-.packages-container {
-  margin-top: 50px;
-  padding: 20px;
-  background-color: #f9f9f9;
+.wrapper {
+  padding: 50px;
 }
 
-.package-list {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
 }
 
-.package-item {
-  padding: 15px;
-  background-color: #fff;
+.table th,
+.table td {
   border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 8px;
 }
 
-.package-item h3 {
-  margin: 0 0 10px;
-  font-size: 18px;
+.table th {
+  background-color: #f4f4f4;
   font-weight: bold;
-}
-
-.package-item p {
-  margin: 0 0 10px;
-  font-size: 14px;
-}
-
-.package-item span {
-  font-size: 14px;
-  color: #666;
 }
 </style>

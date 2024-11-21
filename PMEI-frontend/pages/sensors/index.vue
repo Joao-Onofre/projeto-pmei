@@ -1,12 +1,21 @@
 <template>
-  <div class="sensors-container">
-    <div class="sensor-list">
-      <div class="sensor-item" v-for="sensor in sensors" :key="sensor.id">
-        <h3>{{ sensor.title }}</h3>
-        <p>{{ sensor.type }}</p>
-        <span>Status: {{ sensor.status }}</span>
-      </div>
-    </div>
+  <div class="wrapper">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Sensor ID</th>
+          <th>Type</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="sensor in sensors" :key="sensor.sensorId">
+          <td>{{ sensor.sensorId }}</td>
+          <td>{{ sensor.type }}</td>
+          <td>{{ sensor.status }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
@@ -14,12 +23,11 @@
 export default {
   data() {
     return {
-      // Hardcoded list of sensors
+      // Mock sensor data
       sensors: [
-        { id: 1, title: 'Sensor 1', type: 'Temperature', status: 'Active' },
-        { id: 2, title: 'Sensor 2', type: 'Pressure', status: 'Inactive' },
-        { id: 3, title: 'Sensor 3', type: 'Humidity', status: 'Active' },
-        { id: 4, title: 'Sensor 4', type: 'Motion', status: 'Pending' },
+        { sensorId: '123', type: 'temperature', status: 'active' },
+        { sensorId: '456', type: 'acceleration', status: 'inactive' },
+        { sensorId: '789', type: 'temperature', status: 'active' },
       ],
     }
   },
@@ -27,39 +35,24 @@ export default {
 </script>
 
 <style scoped>
-.sensors-container {
-  margin-top: 50px;
-  padding: 20px;
-  background-color: #f9f9f9;
+.wrapper {
+  padding: 50px;
 }
 
-.sensor-list {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
 }
 
-.sensor-item {
-  padding: 15px;
-  background-color: #fff;
+.table th,
+.table td {
   border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 8px;
 }
 
-.sensor-item h3 {
-  margin: 0 0 10px;
-  font-size: 18px;
+.table th {
+  background-color: #f4f4f4;
   font-weight: bold;
-}
-
-.sensor-item p {
-  margin: 0 0 10px;
-  font-size: 14px;
-}
-
-.sensor-item span {
-  font-size: 14px;
-  color: #666;
 }
 </style>

@@ -1,12 +1,25 @@
 <template>
-  <div class="alerts-container">
-    <div class="alert-list">
-      <div class="alert-item" v-for="alert in alerts" :key="alert.id">
-        <h3>{{ alert.title }}</h3>
-        <p>{{ alert.message }}</p>
-        <span>Status: {{ alert.status }}</span>
-      </div>
-    </div>
+  <div class="wrapper">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Package ID</th>
+          <th>Type</th>
+          <th>Value</th>
+          <th>Timestamp</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="alert in alerts" :key="alert.id">
+          <td>{{ alert.id }}</td>
+          <td>{{ alert.packageId }}</td>
+          <td>{{ alert.type }}</td>
+          <td>{{ alert.value }}</td>
+          <td>{{ new Date(alert.timestamp).toLocaleString() }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
@@ -14,31 +27,21 @@
 export default {
   data() {
     return {
-      // Hardcoded list of alerts
+      // Mock alert data
       alerts: [
         {
-          id: 1,
-          title: 'Alert 1',
-          message: 'This is the message for Alert 1',
-          status: 'Active',
+          id: '123',
+          packageId: '1123',
+          type: 'temperature',
+          value: 75,
+          timestamp: '2023-10-01T12:34:56Z',
         },
         {
-          id: 2,
-          title: 'Alert 2',
-          message: 'This is the message for Alert 2',
-          status: 'Resolved',
-        },
-        {
-          id: 3,
-          title: 'Alert 3',
-          message: 'This is the message for Alert 3',
-          status: 'Pending',
-        },
-        {
-          id: 4,
-          title: 'Alert 4',
-          message: 'This is the message for Alert 4',
-          status: 'Active',
+          id: '456',
+          packageId: '1456',
+          type: 'humidity',
+          value: 50,
+          timestamp: '2023-10-02T14:20:00Z',
         },
       ],
     }
@@ -47,39 +50,24 @@ export default {
 </script>
 
 <style scoped>
-.alerts-container {
-  margin-top: 50px;
-  padding: 20px;
-  background-color: #f9f9f9;
+.wrapper {
+  padding: 50px;
 }
 
-.alert-list {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
 }
 
-.alert-item {
-  padding: 15px;
-  background-color: #fff;
+.table th,
+.table td {
   border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 8px;
 }
 
-.alert-item h3 {
-  margin: 0 0 10px;
-  font-size: 18px;
+.table th {
+  background-color: #f4f4f4;
   font-weight: bold;
-}
-
-.alert-item p {
-  margin: 0 0 10px;
-  font-size: 14px;
-}
-
-.alert-item span {
-  font-size: 14px;
-  color: #666;
 }
 </style>

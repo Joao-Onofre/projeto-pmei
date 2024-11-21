@@ -45,9 +45,11 @@ export default {
   },
   methods: {
     handleLogin() {
-      // Mock login action for testing
       console.log('Logging in with:', this.form)
+
       alert('Logged in! (TEST)')
+
+      this.$router.push('/')
     },
   },
 }
