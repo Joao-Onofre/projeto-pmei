@@ -1,9 +1,19 @@
 <template>
   <div class="auth-container">
     <div class="auth-box">
-      <h2 class="auth-title">Welcome</h2>
-      <p class="auth-subtitle">Please log in to access your account</p>
-      <form @submit.prevent="handleLogin">
+      <h2 class="auth-title">Create Your Account</h2>
+      <p class="auth-subtitle">Sign up to get started</p>
+      <form @submit.prevent="handleSignup">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input
+            type="text"
+            id="name"
+            v-model="form.name"
+            placeholder="Enter your name"
+            required
+          />
+        </div>
         <div class="form-group">
           <label for="email">Email</label>
           <input
@@ -20,13 +30,23 @@
             type="password"
             id="password"
             v-model="form.password"
-            placeholder="Enter your password"
+            placeholder="Create a password"
             required
           />
         </div>
-        <button type="submit" class="auth-button">Log In</button>
+        <div class="form-group">
+          <label for="confirm-password">Confirm Password</label>
+          <input
+            type="password"
+            id="confirm-password"
+            v-model="form.confirmPassword"
+            placeholder="Confirm your password"
+            required
+          />
+        </div>
+        <button type="submit" class="auth-button">Sign Up</button>
         <p class="auth-footer">
-          Don’t have an account? <a href="/auth/signup">Sign up here</a>
+          Already have an account? <a href="/auth">Log in here</a>
         </p>
       </form>
     </div>
@@ -38,16 +58,22 @@ export default {
   data() {
     return {
       form: {
+        name: '',
         email: '',
         password: '',
+        confirmPassword: '',
       },
     }
   },
   methods: {
-    handleLogin() {
-      // Mock login action for testing
-      console.log('Logging in with:', this.form)
-      alert('Logged in! (TEST)')
+    handleSignup() {
+      // Mock signup action for testing
+      if (this.form.password !== this.form.confirmPassword) {
+        alert('Passwords do not match!')
+        return
+      }
+      console.log('Signing up with:', this.form)
+      alert('Signup successful! (Mock)')
     },
   },
 }
