@@ -47,7 +47,5 @@ export default {
 
 .main-content {
   flex: 1;
-  /* Adjust based on the height of your header */
-  /* Adjust based on the height of your footer */
 }
 </style>

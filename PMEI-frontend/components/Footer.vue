@@ -1,7 +1,7 @@
 <template>
   <footer class="bg-dark text-white text-center py-3">
     <div class="container">
-      <p>&copy; 2024 My Project</p>
+      <p>&copy; DAE Project - Student 1, Student 2, Student 3, Student 4</p>
     </div>
   </footer>
 </template>
