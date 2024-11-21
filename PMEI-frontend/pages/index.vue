@@ -1,14 +1,18 @@
 <template>
-  <div class="dashboard">
-    <div
-      class="box"
-      v-for="item in boxes"
-      :key="item.id"
-      :class="{ hoverable: true }"
-      @click="navigate(item.link)"
-    >
-      <img :src="`/images/${item.icon}`" alt="Icon" class="box-icon" />
-      <h3>{{ item.title }}</h3>
+  <div class="layout-wrapper">
+    <div class="main-content">
+      <div class="dashboard">
+        <div
+          class="box"
+          v-for="item in boxes"
+          :key="item.id"
+          :class="{ hoverable: true }"
+          @click="navigate(item.link)"
+        >
+          <img :src="`/images/${item.icon}`" alt="Icon" class="box-icon" />
+          <h3>{{ item.title }}</h3>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -39,14 +43,30 @@ export default {
 </script>
 
 <style scoped>
+.layout-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 95vh;
+}
+
+.main-content {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto; /* Allow scrolling within the main content */
+}
+
 /* Center the dashboard */
 .dashboard {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2x2 grid */
+  grid-template-columns: repeat(2, 150px); /* 2x2 grid with 150px per box */
   gap: 20px;
+  justify-content: center; /* Ensures the grid is centered horizontally */
   padding: 20px;
-  min-height: 100vh;
-  background-color: #f9f9f9;
+  width: 100%; /* Ensure the grid takes full width of the container */
+  max-width: 480px; /* Max width for the grid container */
+  margin: 0 auto; /* Center horizontally */
 }
 
 /* Style individual boxes */
@@ -63,7 +83,9 @@ export default {
   transition:
     background-color 0.3s ease,
     transform 0.2s ease;
-  padding: 20px;
+  width: 150px; /* Box width */
+  height: 150px; /* Box height */
+  padding: 10px; /* Padding inside each box */
 }
 
 /* Hover effect for boxes */
@@ -76,6 +98,14 @@ export default {
 .box-icon {
   width: 40px;
   height: 40px;
-  margin-bottom: 10px; /* Space between icon and text */
+  margin-bottom: 5px; /* Space between icon and text */
+}
+
+/* Style the titles */
+h3 {
+  font-size: 14px;
+  margin-top: 5px; /* Space between icon and title */
+  text-align: center;
+  font-weight: bold;
 }
 </style>
