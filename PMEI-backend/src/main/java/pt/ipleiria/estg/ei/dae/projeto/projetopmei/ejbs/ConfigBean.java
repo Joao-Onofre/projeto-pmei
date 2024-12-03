@@ -13,6 +13,9 @@ public class ConfigBean {
     @EJB
     private PackageTypeBean packageTypeBean;
 
+    @EJB
+    private AdministratorBean administratorBean;
+
     @PostConstruct
     public void populateDB() {
 
@@ -22,5 +25,11 @@ public class ConfigBean {
         packageTypeBean.create(4, "Carne Fresca");
         packageTypeBean.create(5, "Peixe Fresco");
         packageTypeBean.create(6, "Congelados");
+
+        try {
+            administratorBean.create("admin", "123", "Administrator", "admin@mail.pt");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
