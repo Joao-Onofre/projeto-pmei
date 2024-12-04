@@ -15,7 +15,7 @@ public class StatusType {
     @Id
     private long id;
     private String status;
-    @OneToMany(mappedBy = "status")
+    @OneToMany(mappedBy = "statusType")
     private List<Sensor> sensors;
 
     //-------------- Construtores ----------------
@@ -39,10 +39,10 @@ public class StatusType {
         this.id = id;
     }
 
-    public String getStatuType() {
+    public String getStatusType() {
         return status;
     }
-    public void setStatus(String status) {
+    public void setStatusType(String status) {
         this.status = status;
     }
 

@@ -1,6 +1,7 @@
 package pt.ipleiria.estg.ei.dae.projeto.projetopmei.ejbs;
 
 import jakarta.ejb.EJB;
+import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.Sensor;
@@ -11,6 +12,7 @@ import pt.ipleiria.estg.ei.dae.projeto.projetopmei.exceptions.MyEntityNotFoundEx
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Stateless
 public class SensorBean {
 
     @PersistenceContext
