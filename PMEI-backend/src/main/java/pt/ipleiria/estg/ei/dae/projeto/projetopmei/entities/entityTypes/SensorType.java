@@ -52,4 +52,8 @@ public class SensorType {
     public void setSensors(List<Sensor> sensors) {
         this.sensors = sensors;
     }
+
+    public String getName() {
+        return this.type;
+    }
 }

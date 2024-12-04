@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 public class SensorDTO implements Serializable {
     // Atributos
-    private String sensorId;
+    private long sensorId;
     private String sensorType;
     private String status;
     private LocalDateTime timestamp;
@@ -19,7 +19,7 @@ public class SensorDTO implements Serializable {
     // Construtores
     public SensorDTO() {}
 
-    public SensorDTO(String sensorId, String sensorType, String status, LocalDateTime timestamp, String currentValue) {
+    public SensorDTO(long sensorId, String sensorType, String status, LocalDateTime timestamp, String currentValue) {
         this.sensorId = sensorId;
         this.sensorType = sensorType;
         this.status = status;
@@ -28,27 +28,27 @@ public class SensorDTO implements Serializable {
     }
 
     // Metodos
-    public static SensorDTO from(Sensor Sensor) {
+    public static SensorDTO from(Sensor sensor) {
         return new SensorDTO(
                 sensor.getSensorId(),
-                sensor.getSensorType().name(),
-                sensor.getStatus().name(),
+                sensor.getSensorType().getName(),
+                sensor.getStatus().getName(),
                 sensor.getTimestamp(),
                 sensor.getCurrentValue()
         );
     }
 
     public static List<SensorDTO> from(List<Sensor> sensors) {
-        return sensors.stream().map(AdministratorDTO::from).collect(Collectors.toList());
+        return sensors.stream().map(SensorDTO::from).collect(Collectors.toList());
     }
 
     // Getters e Setters
 
-    public String getSensorId() {
+    public long getSensorId() {
         return sensorId;
     }
 
-    public void setSensorId(String sensorId) {
+    public void setSensorId(long sensorId) {
         this.sensorId = sensorId;
     }
 
