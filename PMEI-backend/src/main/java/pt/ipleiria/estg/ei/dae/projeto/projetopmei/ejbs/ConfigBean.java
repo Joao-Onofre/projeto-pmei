@@ -49,7 +49,7 @@ public class ConfigBean {
 
             if (sensorType != null && statusType != null) {
                 // Cria sensor
-                sensorBean.create(1L, sensorType, statusType, LocalDateTime.now(), "25.0°C");
+                sensorBean.create(1L, sensorType, statusType, LocalDateTime.now(), 25.0);
             }
         } catch (Exception e) {
             e.printStackTrace();

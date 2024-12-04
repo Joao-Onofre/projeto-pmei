@@ -17,19 +17,19 @@ public class Sensor {
     @ManyToOne
     private SensorType sensorType;
     @ManyToOne
-    private StatusType status;
+    private StatusType statusType;
     private LocalDateTime timestamp;
-    private String currentValue;
+    private Double currentValue;
     @ManyToOne
     private Package pack;
 
     //-------------- Construtores ----------------
     public Sensor() {
     }
-    public Sensor(long sensorId, SensorType sensorType, StatusType status, LocalDateTime timestamp, String currentValue) {
+    public Sensor(long sensorId, SensorType sensorType, StatusType statusType, LocalDateTime timestamp, Double currentValue) {
         this.sensorId = sensorId;
         this.sensorType = sensorType;
-        this.status = status;
+        this.statusType = statusType;
         this.timestamp = timestamp;
         this.currentValue = currentValue;
     }
@@ -51,11 +51,11 @@ public class Sensor {
         this.sensorType = sensorType;
     }
 
-    public StatusType getStatus() {
-        return status;
+    public StatusType getStatusType() {
+        return statusType;
     }
-    public void setStatus(StatusType status) {
-        this.status = status;
+    public void setStatusType(StatusType status) {
+        this.statusType = status;
     }
 
     public LocalDateTime getTimestamp() {
@@ -65,10 +65,10 @@ public class Sensor {
         this.timestamp = timestamp;
     }
 
-    public String getCurrentValue() {
+    public Double getCurrentValue() {
         return currentValue;
     }
-    public void setCurrentValue(String currentValue) {
+    public void setCurrentValue(Double currentValue) {
         this.currentValue = currentValue;
     }
 

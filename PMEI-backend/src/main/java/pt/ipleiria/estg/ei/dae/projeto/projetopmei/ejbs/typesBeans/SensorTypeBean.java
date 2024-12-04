@@ -21,7 +21,7 @@ public class SensorTypeBean {
                     .setParameter("name", name)
                     .getSingleResult();
         } catch (Exception e) {
-            return null; // Handle exception (e.g., type not found)
+            return null;
         }
     }
 }

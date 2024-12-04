@@ -12,17 +12,17 @@ public class SensorDTO implements Serializable {
     // Atributos
     private long sensorId;
     private String sensorType;
-    private String status;
+    private String statusType;
     private LocalDateTime timestamp;
-    private String currentValue;
+    private Double currentValue;
 
     // Construtores
     public SensorDTO() {}
 
-    public SensorDTO(long sensorId, String sensorType, String status, LocalDateTime timestamp, String currentValue) {
+    public SensorDTO(long sensorId, String sensorType, String statusType, LocalDateTime timestamp, Double currentValue) {
         this.sensorId = sensorId;
         this.sensorType = sensorType;
-        this.status = status;
+        this.statusType = statusType;
         this.timestamp = timestamp;
         this.currentValue = currentValue;
     }
@@ -32,7 +32,7 @@ public class SensorDTO implements Serializable {
         return new SensorDTO(
                 sensor.getSensorId(),
                 sensor.getSensorType().getName(),
-                sensor.getStatus().getName(),
+                sensor.getStatusType().getName(),
                 sensor.getTimestamp(),
                 sensor.getCurrentValue()
         );
@@ -60,12 +60,12 @@ public class SensorDTO implements Serializable {
         this.sensorType = sensorType;
     }
 
-    public String getStatus() {
-        return status;
+    public String getStatusType() {
+        return statusType;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setStatusType(String statusType) {
+        this.statusType = statusType;
     }
 
     public LocalDateTime getTimestamp() {
@@ -76,11 +76,11 @@ public class SensorDTO implements Serializable {
         this.timestamp = timestamp;
     }
 
-    public String getCurrentValue() {
+    public Double getCurrentValue() {
         return currentValue;
     }
 
-    public void setCurrentValue(String currentValue) {
+    public void setCurrentValue(Double currentValue) {
         this.currentValue = currentValue;
     }
 }

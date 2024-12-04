@@ -6,6 +6,7 @@ import jakarta.persistence.PersistenceContext;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.Sensor;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.entityTypes.SensorType;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.entityTypes.StatusType;
+import pt.ipleiria.estg.ei.dae.projeto.projetopmei.exceptions.MyEntityNotFoundException;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -19,21 +20,16 @@ public class SensorBean {
     private SensorBean sensorBean;
 
     // Cria um novo sensor
-    public void create(long sensorId, SensorType sensorType, StatusType statusType, LocalDateTime timestamp, String currentValue)
-        throws Exception {
-        try {
-            Sensor sensor = new Sensor(sensorId, sensorType, statusType, timestamp, currentValue);
-            entityManager.persist(sensor);
-        } catch (Exception e) {
-            throw new Exception(e);
-        }
+    public void create(Long sensorId, SensorType sensorType, StatusType statusType, LocalDateTime timestamp, Double currentValue) {
+        Sensor sensor = new Sensor(sensorId, sensorType, statusType, timestamp, currentValue);
+        entityManager.persist(sensor);
     }
 
     // Encontra por ID
     public Sensor find(long sensorId) throws Exception {
         Sensor sensor = entityManager.find(Sensor.class, sensorId);
         if (sensor == null) {
-            throw new Exception("Sensor with ID " + sensorId + " not found");
+            throw new MyEntityNotFoundException("Sensor with ID " + sensorId + " not found");
         }
         return sensor;
     }
@@ -44,21 +40,17 @@ public class SensorBean {
     }
 
     // Update de um sensor
-    public void update(long sensorId, SensorType sensorType, StatusType statusType, LocalDateTime timestamp, String currentValue)
-            throws Exception {
+    public void update(Long sensorId, SensorType sensorType, StatusType statusType, LocalDateTime timestamp, Double currentValue)
+            throws MyEntityNotFoundException, Exception {
         Sensor sensor = find(sensorId);
 
         sensor.setSensorType(sensorType);
-        sensor.setStatus(statusType);
+        sensor.setStatusType(statusType);
         sensor.setTimestamp(timestamp);
         sensor.setCurrentValue(currentValue);
-
-        try {
-            entityManager.merge(sensor);
-        } catch (Exception e) {
-            throw new Exception(e);
-        }
+        entityManager.merge(sensor);
     }
+
 
     // Delete sensor
     public void delete(long sensorId)

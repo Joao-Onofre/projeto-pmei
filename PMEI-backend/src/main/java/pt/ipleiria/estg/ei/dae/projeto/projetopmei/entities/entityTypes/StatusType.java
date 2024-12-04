@@ -39,7 +39,7 @@ public class StatusType {
         this.id = id;
     }
 
-    public String getStatus() {
+    public String getStatuType() {
         return status;
     }
     public void setStatus(String status) {
