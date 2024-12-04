@@ -7,6 +7,8 @@ import jakarta.ejb.Startup;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.ejbs.typesBeans.PackageTypeBean;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.ejbs.typesBeans.SensorTypeBean;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.ejbs.typesBeans.StatusTypeBean;
+import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.entityTypes.SensorType;
+import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.entityTypes.StatusType;
 
 import java.time.LocalDateTime;
 
@@ -26,7 +28,7 @@ public class ConfigBean {
     @EJB
     private SensorTypeBean sensorTypeBean;
     @EJB
-    private StatusTypeBean statusTypeBean
+    private StatusTypeBean statusTypeBean;
 
     @PostConstruct
     public void populateDB() {
@@ -40,7 +42,15 @@ public class ConfigBean {
 
         try {
             administratorBean.create("admin", "123", "Administrator", "admin@mail.pt");
-            sensorBean.create(1L,  SensorType, statusType, LocalDateTime.now(), "25.0°C");
+
+            // Vai buscar à BD
+            SensorType sensorType = sensorTypeBean.findById(1L); // Fetching SensorType by ID
+            StatusType statusType = statusTypeBean.findById(1L); // Fetching StatusType by ID
+
+            if (sensorType != null && statusType != null) {
+                // Cria sensor
+                sensorBean.create(1L, sensorType, statusType, LocalDateTime.now(), "25.0°C");
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
