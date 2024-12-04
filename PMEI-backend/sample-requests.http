@@ -31,4 +31,4 @@ Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczMzMxM
 ### GET CUSTOMER
 GET http://localhost:8080/academics/api/customer/tiago
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ0aWFnbyIsImlhdCI6MTczMjcxNDQzMCwiZXhwIjoxNzMyNzE4MDMwfQ.6C9-XZ4D--nwwrXNpoW4eEiVPT6-Tjnviqw22wTPfgmNjdWdwG0zVFQIhb1aSRdz
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczMzMxMjI4MSwiZXhwIjoxNzMzMzE1ODgxfQ.REaRGa0ZZpU6v9BENlE_zegrBcjkukRTLA4agNZ85sGTS2xcfqv4obcjFoVcvE3A
