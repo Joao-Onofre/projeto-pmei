@@ -13,7 +13,7 @@ public class Sensor {
     //-------------- Atributos ----------------
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private long sensorId;
     @ManyToOne
     private SensorType sensorType;
     @ManyToOne
@@ -26,8 +26,8 @@ public class Sensor {
     //-------------- Construtores ----------------
     public Sensor() {
     }
-    public Sensor(long id, SensorType sensorType, StatusType status, LocalDateTime timestamp, String currentValue) {
-        this.id = id;
+    public Sensor(long sensorId, SensorType sensorType, StatusType status, LocalDateTime timestamp, String currentValue) {
+        this.sensorId = sensorId;
         this.sensorType = sensorType;
         this.status = status;
         this.timestamp = timestamp;
@@ -37,11 +37,11 @@ public class Sensor {
     //-------------- Metodos ----------------
 
     //-------------- Getters / Setters ----------------
-    public long getId() {
-        return id;
+    public long getSensorId() {
+        return sensorId;
     }
-    public void setId(long id) {
-        this.id = id;
+    public void setSensorId(long sensorId) {
+        this.sensorId = sensorId;
     }
 
     public SensorType getSensorType() {
