@@ -27,7 +27,7 @@ public class Package {
     //-------------- Construtores ----------------
     public Package() {
     }
-    public Package(long id, String type, PackageType packageType, Order order) {
+    public Package(long id, PackageType packageType, Order order) {
         this.id = id;
         this.packageType = packageType;
         this.packageProducts = new ArrayList<PackageProduct>();

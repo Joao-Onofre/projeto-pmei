@@ -1,0 +1,34 @@
+### REQUEST JWT TOKEN
+POST http://localhost:8080/academics/api/auth/login
+Content-Type: application/json
+Accept: application/json
+
+{ "username": "tiago", "password": "123" }
+
+### GET ALL USERS
+GET http://localhost:8080/academics/api/user
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczMjcxMzI3NCwiZXhwIjoxNzMyNzE2ODc0fQ.TYSAFtknBGaIuBSqKJK3OvOJEJrqH_5y0tKJIb6OiIWDRFGrfeZEfRDtKuSfrhKo
+
+### GET ALL CUSTOMERS
+GET http://localhost:8080/academics/api/customer
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczMjcxMzI3NCwiZXhwIjoxNzMyNzE2ODc0fQ.TYSAFtknBGaIuBSqKJK3OvOJEJrqH_5y0tKJIb6OiIWDRFGrfeZEfRDtKuSfrhKo
+
+### CREATE CUSTOMER
+POST http://localhost:8080/academics/api/customer
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczMjcxMzI3NCwiZXhwIjoxNzMyNzE2ODc0fQ.TYSAFtknBGaIuBSqKJK3OvOJEJrqH_5y0tKJIb6OiIWDRFGrfeZEfRDtKuSfrhKo
+
+{
+  "username": "tiago",
+  "password": "123",
+  "name": "Tiago",
+  "email": "tiago@mail.pt"
+}
+
+### GET CUSTOMER
+GET http://localhost:8080/academics/api/customer/tiago
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ0aWFnbyIsImlhdCI6MTczMjcxNDQzMCwiZXhwIjoxNzMyNzE4MDMwfQ.6C9-XZ4D--nwwrXNpoW4eEiVPT6-Tjnviqw22wTPfgmNjdWdwG0zVFQIhb1aSRdz
