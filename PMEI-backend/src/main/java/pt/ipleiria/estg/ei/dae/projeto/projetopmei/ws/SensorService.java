@@ -22,7 +22,6 @@ import java.util.List;
 @Consumes({MediaType.APPLICATION_JSON})
 @Authenticated
 @RolesAllowed({"Administrator"})
-
 public class SensorService {
 
     @EJB
@@ -37,7 +36,7 @@ public class SensorService {
     // GET todos os sensores
     @GET
     @Path("/")
-    public List<SensorDTO> getAllSensors(){
+    public List<SensorDTO> getAllSensors() throws Exception {
         List<Sensor> sensors = sensorBean.findAll();
         return SensorDTO.from(sensors);
     }
@@ -46,7 +45,7 @@ public class SensorService {
     @POST
     @Path("/")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response createNewSensor(SensorDTO sensorDTO) throws MyEntityNotFoundException {
+    public Response createNewSensor(SensorDTO sensorDTO) throws MyEntityNotFoundException, Exception {
         SensorType sensorType = sensorTypeBean.findByName(sensorDTO.getSensorType());
         StatusType statusType = statusTypeBean.findByName(sensorDTO.getStatusType());
 
@@ -71,7 +70,7 @@ public class SensorService {
     // Sensor por ID
     @GET
     @Path("{id}")
-    public Response getSensor(@PathParam("id") Long id) throws MyEntityNotFoundException {
+    public Response getSensor(@PathParam("id") Long id) throws MyEntityNotFoundException, Exception {
         Sensor sensor = sensorBean.find(id);
         return Response.ok(SensorDTO.from(sensor))
                 .build();
@@ -81,7 +80,7 @@ public class SensorService {
     @PUT
     @Path("/")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response updateSensor(SensorDTO sensorDTO) throws MyEntityNotFoundException {
+    public Response updateSensor(SensorDTO sensorDTO) throws MyEntityNotFoundException, Exception {
         SensorType sensorType = sensorTypeBean.findByName(sensorDTO.getSensorType());
         StatusType statusType = statusTypeBean.findByName(sensorDTO.getStatusType());
 
@@ -102,7 +101,7 @@ public class SensorService {
     // Delete
     @DELETE
     @Path("{id}")
-    public Response deleteSensor(@PathParam("id") Long id) throws MyEntityNotFoundException {
+    public Response deleteSensor(@PathParam("id") Long id) throws MyEntityNotFoundException, Exception {
         sensorBean.delete(id);
         return Response.status(Response.Status.OK).build();
     }
