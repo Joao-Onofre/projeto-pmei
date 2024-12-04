@@ -5,6 +5,10 @@ import jakarta.ejb.EJB;
 import jakarta.ejb.Singleton;
 import jakarta.ejb.Startup;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.ejbs.typesBeans.PackageTypeBean;
+import pt.ipleiria.estg.ei.dae.projeto.projetopmei.ejbs.typesBeans.SensorTypeBean;
+import pt.ipleiria.estg.ei.dae.projeto.projetopmei.ejbs.typesBeans.StatusTypeBean;
+
+import java.time.LocalDateTime;
 
 @Singleton
 @Startup
@@ -15,6 +19,14 @@ public class ConfigBean {
 
     @EJB
     private AdministratorBean administratorBean;
+
+    @EJB
+    private SensorBean sensorBean;
+
+    @EJB
+    private SensorTypeBean sensorTypeBean;
+    @EJB
+    private StatusTypeBean statusTypeBean
 
     @PostConstruct
     public void populateDB() {
@@ -28,6 +40,7 @@ public class ConfigBean {
 
         try {
             administratorBean.create("admin", "123", "Administrator", "admin@mail.pt");
+            sensorBean.create(1L,  SensorType, statusType, LocalDateTime.now(), "25.0°C");
         } catch (Exception e) {
             e.printStackTrace();
         }
