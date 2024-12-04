@@ -1,18 +1,24 @@
 package pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.entityTypes;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.Product;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name = "producttypes")
+@NamedQueries({
+        @NamedQuery(
+                name = "getAllProductTypes",
+                query = "SELECT p FROM ProductType p ORDER BY p.type" // Use 'type' instead of 'name'
+        )
+})
 public class ProductType {
 
     //-------------- Atributos ----------------
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String type;
 
@@ -22,8 +28,7 @@ public class ProductType {
     //-------------- Construtores ----------------
     public ProductType() {
     }
-    public ProductType(long id, String type) {
-        this.id = id;
+    public ProductType(String type) {
         this.type = type;
         this.products = new ArrayList<Product>();
     }
@@ -34,9 +39,6 @@ public class ProductType {
 
     public long getId() {
         return id;
-    }
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getType() {
