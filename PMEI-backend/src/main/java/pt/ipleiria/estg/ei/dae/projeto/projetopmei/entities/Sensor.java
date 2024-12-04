@@ -5,6 +5,7 @@ import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.entityTypes.SensorTy
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.entityTypes.StatusType;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -17,7 +18,7 @@ public class Sensor {
     private SensorType sensorType;
     @ManyToOne
     private StatusType status;
-    private Date timestamp;
+    private LocalDateTime timestamp;
     private String currentValue;
     @ManyToOne
     private Package pack;
@@ -25,7 +26,7 @@ public class Sensor {
     //-------------- Construtores ----------------
     public Sensor() {
     }
-    public Sensor(long id, SensorType sensorType, StatusType status, Date timestamp, String currentValue) {
+    public Sensor(long id, SensorType sensorType, StatusType status, LocalDateTime timestamp, String currentValue) {
         this.id = id;
         this.sensorType = sensorType;
         this.status = status;
@@ -57,10 +58,10 @@ public class Sensor {
         this.status = status;
     }
 
-    public Date getTimestamp() {
+    public LocalDateTime getTimestamp() {
         return timestamp;
     }
-    public void setTimestamp(Date timestamp) {
+    public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
     }
 
