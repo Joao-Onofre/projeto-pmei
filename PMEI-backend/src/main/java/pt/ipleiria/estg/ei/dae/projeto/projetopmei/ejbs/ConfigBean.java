@@ -44,16 +44,29 @@ public class ConfigBean {
         try {
             administratorBean.create("admin", "123", "Administrator", "admin@mail.pt");
 
-            // Vai buscar à BD
-            SensorType sensorType = sensorTypeBean.findById(1L); // Fetching SensorType by ID
-            StatusType statusType = statusTypeBean.findById(1L); // Fetching StatusType by ID
+            if (sensorTypeBean.findByName("Temperature") == null) {
+                SensorType temperature = new SensorType();
+                temperature.setType("Temperature");
+                sensorTypeBean.create(temperature);  // Pass SensorType object
+            }
 
-            if (sensorType != null && statusType != null) {
-                // Use java.util.Date to represent the timestamp
-                Date date = new Date(); // Current date and time
+            if (sensorTypeBean.findByName("Humidity") == null) {
+                SensorType humidity = new SensorType();
+                humidity.setType("Humidity");
+                sensorTypeBean.create(humidity);  // Pass SensorType object
+            }
 
-                // Create sensor with Date object
-                sensorBean.create(1L, sensorType, statusType, date, 25.0);
+            // Create predefined Status Types if they don't exist
+            if (statusTypeBean.findByName("Active") == null) {
+                StatusType active = new StatusType();
+                active.setStatus("Active");
+                statusTypeBean.create(active);  // Pass StatusType object
+            }
+
+            if (statusTypeBean.findByName("Inactive") == null) {
+                StatusType inactive = new StatusType();
+                inactive.setStatus("Inactive");
+                statusTypeBean.create(inactive);  // Pass StatusType object
             }
         } catch (Exception e) {
             e.printStackTrace();

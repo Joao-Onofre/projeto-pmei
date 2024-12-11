@@ -5,6 +5,8 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.entityTypes.StatusType;
 
+import java.util.List;
+
 @Stateless
 public class StatusTypeBean {
 
@@ -16,13 +18,16 @@ public class StatusTypeBean {
     }
 
     public StatusType findByName(String name) {
-        try {
-            return entityManager.createQuery("SELECT s FROM StatusType s WHERE s.status = :name", StatusType.class)
-                    .setParameter("name", name)
-                    .getSingleResult();
-        } catch (Exception e) {
-            return null;
-        }
+        List<StatusType> result = entityManager.createQuery("SELECT s FROM StatusType s WHERE s.status = :name", StatusType.class)
+                .setParameter("name", name)
+                .getResultList();
+
+        return result.isEmpty() ? null : result.get(0);  // Return null if no result found
+    }
+
+    public void create(StatusType statusType) {
+        entityManager.persist(statusType);
     }
 }
+
 

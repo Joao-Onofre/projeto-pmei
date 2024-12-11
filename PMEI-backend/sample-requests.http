@@ -8,7 +8,7 @@ Accept: application/json
 ### GET ALL USERS
 GET http://localhost:8080/academics/api/user
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczMzkxNTU4NiwiZXhwIjoxNzMzOTE5MTg2fQ.mM3fHrDO4adVfKC_WkGSnGIXNpRd26bzQog0GX5PglRY37Z3cSX9HBf87BkOHjaN
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczMzkxOTk4MSwiZXhwIjoxNzMzOTIzNTgxfQ.hjlE-v2TUU0PHJlqN-kt02hOU4rtYEcDfYLx_62Xo6yGfo0LzzxTAV6TEQhMM9QN
 
 ### GET ALL CUSTOMERS
 GET http://localhost:8080/academics/api/customer
@@ -37,7 +37,7 @@ Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczMzMxM
 POST http://localhost:8080/academics/api/sensor
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczMzkxNTU4NiwiZXhwIjoxNzMzOTE5MTg2fQ.mM3fHrDO4adVfKC_WkGSnGIXNpRd26bzQog0GX5PglRY37Z3cSX9HBf87BkOHjaN
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczMzkxOTk4MSwiZXhwIjoxNzMzOTIzNTgxfQ.hjlE-v2TUU0PHJlqN-kt02hOU4rtYEcDfYLx_62Xo6yGfo0LzzxTAV6TEQhMM9QN
 
 {
   "sensorType": "Temperature",
@@ -45,4 +45,10 @@ Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczMzkxN
   "timestamp": "2023-12-11T12:00:00",
   "currentValue": 23.5
 }
+
+### GET SENSOR
+GET http://localhost:8080/academics/api/sensor
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczMzkxOTk4MSwiZXhwIjoxNzMzOTIzNTgxfQ.hjlE-v2TUU0PHJlqN-kt02hOU4rtYEcDfYLx_62Xo6yGfo0LzzxTAV6TEQhMM9QN
 
