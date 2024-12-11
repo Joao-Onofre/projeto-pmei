@@ -12,6 +12,7 @@ public class StatusType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     @Column(unique = true)
     private String status;
 
@@ -24,6 +25,12 @@ public class StatusType {
 
     public StatusType(long id, String status) {
         this.id = id;
+        this.status = status;
+        this.sensors = new ArrayList<>();
+    }
+
+    // Constructor with just status
+    public StatusType(String status) {
         this.status = status;
         this.sensors = new ArrayList<>();
     }

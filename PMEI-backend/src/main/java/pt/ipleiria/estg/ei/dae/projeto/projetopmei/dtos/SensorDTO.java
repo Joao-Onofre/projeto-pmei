@@ -1,11 +1,9 @@
 package pt.ipleiria.estg.ei.dae.projeto.projetopmei.dtos;
 
 import jakarta.persistence.*;
-import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.Administrator;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.Sensor;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,19 +17,16 @@ public class SensorDTO implements Serializable {
     private Long sensorTypeId;
     private String statusType;
     private Long statusTypeId;
-    @Temporal(TemporalType.TIMESTAMP)
     private Date timestamp;
     private Double currentValue;
 
     // Construtores
     public SensorDTO() {}
 
-    public SensorDTO(long sensorId, String sensorType, String statusType, Date timestamp, Double currentValue) {
+    public SensorDTO(long sensorId, String sensorType, String statusType) {
         this.sensorId = sensorId;
         this.sensorType = sensorType;
         this.statusType = statusType;
-        this.timestamp = timestamp;
-        this.currentValue = currentValue;
     }
 
     // Metodos
@@ -39,9 +34,7 @@ public class SensorDTO implements Serializable {
         return new SensorDTO(
                 sensor.getSensorId(),
                 sensor.getSensorType().getName(),
-                sensor.getStatusType().getName(),
-                sensor.getTimestamp(),
-                sensor.getCurrentValue()
+                sensor.getStatusType().getName()
         );
     }
 
@@ -49,7 +42,7 @@ public class SensorDTO implements Serializable {
         return sensors.stream().map(SensorDTO::from).collect(Collectors.toList());
     }
 
-    // Getters e Setters
+    // Getters and Setters
     public long getSensorId() {
         return sensorId;
     }
@@ -88,21 +81,5 @@ public class SensorDTO implements Serializable {
 
     public void setStatusTypeId(Long statusTypeId) {
         this.statusTypeId = statusTypeId;
-    }
-
-    public Date getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(Date timestamp) {
-        this.timestamp = timestamp;
-    }
-
-    public Double getCurrentValue() {
-        return currentValue;
-    }
-
-    public void setCurrentValue(Double currentValue) {
-        this.currentValue = currentValue;
     }
 }

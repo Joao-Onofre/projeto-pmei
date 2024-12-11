@@ -43,29 +43,28 @@ public class SensorService {
 
     // POST novo sensor
     @POST
-    @Path("/")
+    @Path("/sensor")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response createNewSensor(SensorDTO sensorDTO) throws MyEntityNotFoundException, Exception {
+        // Find the SensorType based on the name provided in the DTO
         SensorType sensorType = sensorTypeBean.findByName(sensorDTO.getSensorType());
-        StatusType statusType = statusTypeBean.findByName(sensorDTO.getStatusType());
 
-        if (sensorType == null || statusType == null) {
-            throw new MyEntityNotFoundException("Invalid SensorType or StatusType");
+        if (sensorType == null) {
+            throw new MyEntityNotFoundException("Invalid SensorType");
         }
 
-        sensorBean.create(
-                sensorDTO.getSensorId(),
-                sensorType,
-                statusType,
-                sensorDTO.getTimestamp(),
-                sensorDTO.getCurrentValue()
-        );
+        // Create a new Sensor using the custom constructor that sets default values
+        Sensor newSensor = new Sensor(sensorType);  // Only provide the sensorType
 
-        Sensor newSensor = sensorBean.find(sensorDTO.getSensorId());
+        // Save the new Sensor
+        sensorBean.create(newSensor);
+
+        // Return the created Sensor as a response
         return Response.status(Response.Status.CREATED)
                 .entity(SensorDTO.from(newSensor))
                 .build();
     }
+
 
     // Sensor por ID
     @GET
@@ -88,15 +87,25 @@ public class SensorService {
             throw new MyEntityNotFoundException("Invalid SensorType or StatusType");
         }
 
+        // Assuming sensorDTO no longer has timestamp and currentValue
+        // Fetch the current sensor to retain timestamp and currentValue
+        Sensor existingSensor = sensorBean.find(sensorDTO.getSensorId());
+        if (existingSensor == null) {
+            throw new MyEntityNotFoundException("Sensor not found with ID: " + sensorDTO.getSensorId());
+        }
+
+        // Update the sensor with the existing timestamp and current value
         sensorBean.update(
                 sensorDTO.getSensorId(),
                 sensorType,
                 statusType,
-                sensorDTO.getTimestamp(),
-                sensorDTO.getCurrentValue()
+                existingSensor.getTimestamp(),
+                existingSensor.getCurrentValue()
         );
+
         return Response.status(Response.Status.OK).build();
     }
+
 
     // Delete
     @DELETE

@@ -14,33 +14,40 @@ public class Sensor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long sensorId;
+
     @ManyToOne
+    @JoinColumn(name = "sensorType_id", referencedColumnName = "id")
     private SensorType sensorType;
+
     @ManyToOne
+    @JoinColumn(name = "statusType_id", referencedColumnName = "id")
     private StatusType statusType;
+
     @Temporal(TemporalType.TIMESTAMP)
     private Date timestamp;
+
     private Double currentValue;
+
     @ManyToOne
     private Package pack;
 
     //-------------- Construtores ----------------
     public Sensor() {
-    }
-    public Sensor(long sensorId, SensorType sensorType, StatusType statusType, Date timestamp, Double currentValue) {
-        this.sensorId = sensorId;
-        this.sensorType = sensorType;
-        this.statusType = statusType;
-        this.timestamp = timestamp;
-        this.currentValue = currentValue;
+        this.timestamp = new Date();  // Default timestamp to now
+        this.currentValue = 0.0;      // Default current value to 0
+        this.statusType = new StatusType("Inactive"); // Default statusType to "Inactive"
     }
 
-    //-------------- Metodos ----------------
+    public Sensor(SensorType sensorType) {
+        this();  // Default constructor to set timestamp and currentValue
+        this.sensorType = sensorType;
+    }
 
     //-------------- Getters / Setters ----------------
     public long getSensorId() {
         return sensorId;
     }
+
     public void setSensorId(long sensorId) {
         this.sensorId = sensorId;
     }
@@ -48,6 +55,7 @@ public class Sensor {
     public SensorType getSensorType() {
         return sensorType;
     }
+
     public void setSensorType(SensorType sensorType) {
         this.sensorType = sensorType;
     }
@@ -55,6 +63,7 @@ public class Sensor {
     public StatusType getStatusType() {
         return statusType;
     }
+
     public void setStatusType(StatusType status) {
         this.statusType = status;
     }
@@ -62,6 +71,7 @@ public class Sensor {
     public Date getTimestamp() {
         return timestamp;
     }
+
     public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
     }
@@ -69,6 +79,7 @@ public class Sensor {
     public Double getCurrentValue() {
         return currentValue;
     }
+
     public void setCurrentValue(Double currentValue) {
         this.currentValue = currentValue;
     }
@@ -76,7 +87,15 @@ public class Sensor {
     public Package getPack() {
         return pack;
     }
+
     public void setPack(Package pack) {
         this.pack = pack;
+    }
+
+    @PrePersist
+    public void prePersist() {
+        if (this.timestamp == null) {
+            this.timestamp = new Date();
+        }
     }
 }

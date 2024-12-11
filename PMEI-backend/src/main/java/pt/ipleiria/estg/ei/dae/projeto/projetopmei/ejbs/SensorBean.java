@@ -23,8 +23,7 @@ public class SensorBean {
     private SensorBean sensorBean;
 
     // Cria um novo sensor
-    public void create(Long sensorId, SensorType sensorType, StatusType statusType, Date timestamp, Double currentValue) {
-        Sensor sensor = new Sensor(sensorId, sensorType, statusType, timestamp, currentValue);
+    public void create(Sensor sensor) {
         entityManager.persist(sensor);
     }
 
@@ -47,12 +46,23 @@ public class SensorBean {
             throws MyEntityNotFoundException, Exception {
         Sensor sensor = find(sensorId);
 
-        sensor.setSensorType(sensorType);
-        sensor.setStatusType(statusType);
-        sensor.setTimestamp(timestamp);
-        sensor.setCurrentValue(currentValue);
-        entityManager.merge(sensor);
+        // Update the sensor attributes
+        if (sensorType != null) {
+            sensor.setSensorType(sensorType);
+        }
+        if (statusType != null) {
+            sensor.setStatusType(statusType);
+        }
+        if (timestamp != null) {
+            sensor.setTimestamp(timestamp);
+        }
+        if (currentValue != null) {
+            sensor.setCurrentValue(currentValue);
+        }
+
+        entityManager.merge(sensor);  // Save the updated sensor
     }
+
 
 
     // Delete sensor
