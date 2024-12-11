@@ -6,6 +6,7 @@ import jakarta.ejb.Singleton;
 import jakarta.ejb.Startup;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.ejbs.typesBeans.OrderStatusBean;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.ejbs.typesBeans.PackageTypeBean;
+import pt.ipleiria.estg.ei.dae.projeto.projetopmei.ejbs.typesBeans.ProductTypeBean;
 
 @Singleton
 @Startup
@@ -14,7 +15,12 @@ public class ConfigBean {
     @EJB
     private PackageTypeBean packageTypeBean;
     @EJB
+    private ProductTypeBean productTypeBean;
+
+    @EJB
     private AdministratorBean administratorBean;
+    @EJB
+    private ProductBean productBean;
     @EJB
     private PackageBean packageBean;
     @EJB
@@ -43,8 +49,11 @@ public class ConfigBean {
         //Orders
         orderBean.create(1,"1", "Default");
 
+        productTypeBean.create("jonk");
+
         try {
             administratorBean.create("admin", "123", "Administrator", "admin@mail.pt");
+            productBean.create("jonkler", "skibidi", 69, 1);
         } catch (Exception e) {
             e.printStackTrace();
         }
