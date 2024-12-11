@@ -4,6 +4,7 @@ import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import org.hibernate.Hibernate;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.ejbs.typesBeans.OrderStatusBean;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.ejbs.typesBeans.PackageTypeBean;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.Customer;
@@ -51,5 +52,19 @@ public class OrderBean {
         packageBean.create(packageType, newOrder);
 
     }
+
+    public Order find(long id){
+        var order = entityManager.find(Order.class, id);
+        return order;
+    }
+    public List<Order> findAll(){
+        return entityManager.createNamedQuery("getAllOrders", Order.class).getResultList();
+    }
+    public Order findWithPackages(long id){
+        var order = this.find(id);
+        Hibernate.initialize(order.getPackageList());
+        return order;
+    }
+
 
 }

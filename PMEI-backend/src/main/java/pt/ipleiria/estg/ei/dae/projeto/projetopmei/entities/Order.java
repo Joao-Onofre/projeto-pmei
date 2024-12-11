@@ -3,8 +3,9 @@ package pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities;
 import jakarta.persistence.*;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.entityTypes.OrderStatusType;
 
-import java.sql.Date;
+
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -21,6 +22,7 @@ public class Order {
     private long id;
     @ManyToOne
     private OrderStatusType status;
+    @ManyToOne
     private Customer customer;
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;

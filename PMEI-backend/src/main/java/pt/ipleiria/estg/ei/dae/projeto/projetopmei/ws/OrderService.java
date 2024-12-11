@@ -45,7 +45,6 @@ public class OrderService {
 
         // Create the order using the service layer
         Order order = orderBean.create(customerUsername, products);
-
     }
 
 }

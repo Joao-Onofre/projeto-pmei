@@ -7,6 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@NamedQueries({
+        @NamedQuery(
+                name = "getAllPackages",
+                query = "SELECT p FROM Package p" // JPQL
+        )
+})
 public class Package {
 
     //-------------- Atributos ----------------
