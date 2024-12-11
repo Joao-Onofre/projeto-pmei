@@ -13,9 +13,11 @@ public class PackageBean {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public void create(long id, PackageType packageType, Order order){
-        var newPackage = new Package(id, packageType, order);
-        entityManager.persist(packageType);
+    public void create(PackageType packageType, Order order){
+        var newPackage = new Package(packageType, order);
+        entityManager.persist(newPackage);
+
+        order.getPackageList().add(newPackage);
     }
 
 }

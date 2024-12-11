@@ -1,9 +1,6 @@
 package pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.entityTypes.PackageType;
 
 import java.util.ArrayList;
@@ -14,6 +11,7 @@ public class Package {
 
     //-------------- Atributos ----------------
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @ManyToOne
     private PackageType packageType;
@@ -27,8 +25,7 @@ public class Package {
     //-------------- Construtores ----------------
     public Package() {
     }
-    public Package(long id, PackageType packageType, Order order) {
-        this.id = id;
+    public Package(PackageType packageType, Order order) {
         this.packageType = packageType;
         this.packageProducts = new ArrayList<PackageProduct>();
         this.sensorList = new ArrayList<Sensor>();

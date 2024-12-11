@@ -1,18 +1,17 @@
 package pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.entityTypes;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.Sensor;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class StatusType {
+public class SensorStatusType {
 
     //-------------- Atributos ----------------
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String status;
     @OneToMany(mappedBy = "status")
@@ -20,10 +19,9 @@ public class StatusType {
 
     //-------------- Construtores ----------------
 
-    public StatusType() {
+    public SensorStatusType() {
     }
-    public StatusType(long id, String status) {
-        this.id = id;
+    public SensorStatusType(String status) {
         this.status = status;
         this.sensors = new ArrayList<Sensor>();
     }

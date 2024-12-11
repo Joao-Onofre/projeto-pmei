@@ -4,10 +4,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.entityTypes.SensorType;
-import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.entityTypes.StatusType;
+import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.entityTypes.SensorStatusType;
 
 import java.sql.Date;
-import java.util.List;
 
 @Entity
 public class Sensor {
@@ -17,7 +16,7 @@ public class Sensor {
     @ManyToOne
     private SensorType sensorType;
     @ManyToOne
-    private StatusType status;
+    private SensorStatusType status;
     private Date timestamp;
     private String currentValue;
     @ManyToOne
@@ -26,7 +25,7 @@ public class Sensor {
     //-------------- Construtores ----------------
     public Sensor() {
     }
-    public Sensor(long id, SensorType sensorType, StatusType status, Date timestamp, String currentValue) {
+    public Sensor(long id, SensorType sensorType, SensorStatusType status, Date timestamp, String currentValue) {
         this.id = id;
         this.sensorType = sensorType;
         this.status = status;
@@ -51,10 +50,10 @@ public class Sensor {
         this.sensorType = sensorType;
     }
 
-    public StatusType getStatus() {
+    public SensorStatusType getStatus() {
         return status;
     }
-    public void setStatus(StatusType status) {
+    public void setStatus(SensorStatusType status) {
         this.status = status;
     }
 

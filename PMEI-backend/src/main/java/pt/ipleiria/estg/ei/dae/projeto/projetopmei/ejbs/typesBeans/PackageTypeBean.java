@@ -11,9 +11,13 @@ public class PackageTypeBean {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public void create(long id, String type){
-        var packageType = new PackageType(id, type);
+    public void create(String type){
+        var packageType = new PackageType(type);
         entityManager.persist(packageType);
     }
 
+    public PackageType find(String typeName) {
+        PackageType packageType = entityManager.find(PackageType.class, typeName);
+        return packageType;
+    }
 }

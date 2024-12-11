@@ -16,7 +16,6 @@ public class PackageProduct {
     private Package pack;
     private int quantity;
 
-
     //------------------- Construtor --------------------
     public PackageProduct() {
     }

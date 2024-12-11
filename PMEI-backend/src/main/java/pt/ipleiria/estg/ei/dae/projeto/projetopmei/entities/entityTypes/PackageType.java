@@ -1,8 +1,6 @@
 package pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.entityTypes;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.Package;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.Product;
 
@@ -14,6 +12,7 @@ public class PackageType {
 
     //-------------- Atributos ----------------
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String type;
     @OneToMany(mappedBy = "packageType")
@@ -22,8 +21,7 @@ public class PackageType {
     //-------------- Construtores ----------------
     public PackageType() {
     }
-    public PackageType(long id, String type) {
-        this.id = id;
+    public PackageType(String type) {
         this.type = type;
         this.packages = new ArrayList<Package>();
     }
