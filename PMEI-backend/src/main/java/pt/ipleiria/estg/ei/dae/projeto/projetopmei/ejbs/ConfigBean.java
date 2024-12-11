@@ -4,6 +4,7 @@ import jakarta.annotation.PostConstruct;
 import jakarta.ejb.EJB;
 import jakarta.ejb.Singleton;
 import jakarta.ejb.Startup;
+import java.util.Date;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.ejbs.typesBeans.PackageTypeBean;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.ejbs.typesBeans.SensorTypeBean;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.ejbs.typesBeans.StatusTypeBean;
@@ -48,8 +49,11 @@ public class ConfigBean {
             StatusType statusType = statusTypeBean.findById(1L); // Fetching StatusType by ID
 
             if (sensorType != null && statusType != null) {
-                // Cria sensor
-                sensorBean.create(1L, sensorType, statusType, LocalDateTime.now(), 25.0);
+                // Use java.util.Date to represent the timestamp
+                Date date = new Date(); // Current date and time
+
+                // Create sensor with Date object
+                sensorBean.create(1L, sensorType, statusType, date, 25.0);
             }
         } catch (Exception e) {
             e.printStackTrace();

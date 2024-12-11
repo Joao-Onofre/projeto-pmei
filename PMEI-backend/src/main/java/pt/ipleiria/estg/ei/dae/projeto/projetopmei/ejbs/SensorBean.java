@@ -10,6 +10,7 @@ import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.entityTypes.StatusTy
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.exceptions.MyEntityNotFoundException;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Stateless
@@ -22,7 +23,7 @@ public class SensorBean {
     private SensorBean sensorBean;
 
     // Cria um novo sensor
-    public void create(Long sensorId, SensorType sensorType, StatusType statusType, LocalDateTime timestamp, Double currentValue) {
+    public void create(Long sensorId, SensorType sensorType, StatusType statusType, Date timestamp, Double currentValue) {
         Sensor sensor = new Sensor(sensorId, sensorType, statusType, timestamp, currentValue);
         entityManager.persist(sensor);
     }
@@ -42,7 +43,7 @@ public class SensorBean {
     }
 
     // Update de um sensor
-    public void update(Long sensorId, SensorType sensorType, StatusType statusType, LocalDateTime timestamp, Double currentValue)
+    public void update(Long sensorId, SensorType sensorType, StatusType statusType, Date timestamp, Double currentValue)
             throws MyEntityNotFoundException, Exception {
         Sensor sensor = find(sensorId);
 

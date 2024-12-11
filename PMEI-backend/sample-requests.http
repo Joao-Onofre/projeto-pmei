@@ -8,7 +8,7 @@ Accept: application/json
 ### GET ALL USERS
 GET http://localhost:8080/academics/api/user
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczMzMxMjI4MSwiZXhwIjoxNzMzMzE1ODgxfQ.REaRGa0ZZpU6v9BENlE_zegrBcjkukRTLA4agNZ85sGTS2xcfqv4obcjFoVcvE3A
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczMzkxNTU4NiwiZXhwIjoxNzMzOTE5MTg2fQ.mM3fHrDO4adVfKC_WkGSnGIXNpRd26bzQog0GX5PglRY37Z3cSX9HBf87BkOHjaN
 
 ### GET ALL CUSTOMERS
 GET http://localhost:8080/academics/api/customer
@@ -32,3 +32,17 @@ Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczMzMxM
 GET http://localhost:8080/academics/api/customer/tiago
 Accept: application/json
 Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczMzMxMjI4MSwiZXhwIjoxNzMzMzE1ODgxfQ.REaRGa0ZZpU6v9BENlE_zegrBcjkukRTLA4agNZ85sGTS2xcfqv4obcjFoVcvE3A
+
+### POST SENSOR
+POST http://localhost:8080/academics/api/sensor
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczMzkxNTU4NiwiZXhwIjoxNzMzOTE5MTg2fQ.mM3fHrDO4adVfKC_WkGSnGIXNpRd26bzQog0GX5PglRY37Z3cSX9HBf87BkOHjaN
+
+{
+  "sensorType": "Temperature",
+  "statusType": "Active",
+  "timestamp": "2023-12-11T12:00:00",
+  "currentValue": 23.5
+}
+

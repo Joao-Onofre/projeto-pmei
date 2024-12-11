@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.entityTypes.SensorType;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.entityTypes.StatusType;
 
-import java.sql.Date;
+import java.util.Date;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -18,7 +18,8 @@ public class Sensor {
     private SensorType sensorType;
     @ManyToOne
     private StatusType statusType;
-    private LocalDateTime timestamp;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date timestamp;
     private Double currentValue;
     @ManyToOne
     private Package pack;
@@ -26,7 +27,7 @@ public class Sensor {
     //-------------- Construtores ----------------
     public Sensor() {
     }
-    public Sensor(long sensorId, SensorType sensorType, StatusType statusType, LocalDateTime timestamp, Double currentValue) {
+    public Sensor(long sensorId, SensorType sensorType, StatusType statusType, Date timestamp, Double currentValue) {
         this.sensorId = sensorId;
         this.sensorType = sensorType;
         this.statusType = statusType;
@@ -58,10 +59,10 @@ public class Sensor {
         this.statusType = status;
     }
 
-    public LocalDateTime getTimestamp() {
+    public Date getTimestamp() {
         return timestamp;
     }
-    public void setTimestamp(LocalDateTime timestamp) {
+    public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
     }
 
