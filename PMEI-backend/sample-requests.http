@@ -33,18 +33,18 @@ GET http://localhost:8080/academics/api/customer/tiago
 Accept: application/json
 Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczMzMxMjI4MSwiZXhwIjoxNzMzMzE1ODgxfQ.REaRGa0ZZpU6v9BENlE_zegrBcjkukRTLA4agNZ85sGTS2xcfqv4obcjFoVcvE3A
 
-### POST SENSOR
+### CREATE SENSOR
 POST http://localhost:8080/academics/api/sensor
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczMzkyMzc1NiwiZXhwIjoxNzMzOTI3MzU2fQ.DMjSVLK_UXpBoPJOXE35z5Bfi4l_NEvSX7DR1Ss54cDIGRQwmVCfhpCtd_DfaXPC
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNTQzNTc4MSwiZXhwIjoxNzM1NDM5MzgxfQ.FCylDceI5fHlo6915ZYXiWxO71LW_zOB2pvMUZiDF07L3aguVvU3qRYVjWFhtsdX
 
 {
-  "sensorType": "Humidity"
+  "sensorType": "Temperature"
 }
 
 ### GET SENSOR
 GET http://localhost:8080/academics/api/sensor
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczMzkyMzc1NiwiZXhwIjoxNzMzOTI3MzU2fQ.DMjSVLK_UXpBoPJOXE35z5Bfi4l_NEvSX7DR1Ss54cDIGRQwmVCfhpCtd_DfaXPC
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNTQzNTc4MSwiZXhwIjoxNzM1NDM5MzgxfQ.FCylDceI5fHlo6915ZYXiWxO71LW_zOB2pvMUZiDF07L3aguVvU3qRYVjWFhtsdX

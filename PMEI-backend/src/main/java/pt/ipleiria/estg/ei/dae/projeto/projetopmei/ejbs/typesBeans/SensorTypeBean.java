@@ -14,7 +14,7 @@ public class SensorTypeBean {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public SensorType findById(long id) {
+    public SensorType findById(Long id) {
         return entityManager.find(SensorType.class, id);
     }
 

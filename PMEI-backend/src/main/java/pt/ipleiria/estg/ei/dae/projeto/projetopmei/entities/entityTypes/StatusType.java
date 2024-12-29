@@ -11,7 +11,7 @@ public class StatusType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(unique = true)
     private String status;
@@ -23,7 +23,7 @@ public class StatusType {
     public StatusType() {
     }
 
-    public StatusType(long id, String status) {
+    public StatusType(Long id, String status) {
         this.id = id;
         this.status = status;
         this.sensors = new ArrayList<>();
@@ -36,11 +36,11 @@ public class StatusType {
     }
 
     // Getters / Setters
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

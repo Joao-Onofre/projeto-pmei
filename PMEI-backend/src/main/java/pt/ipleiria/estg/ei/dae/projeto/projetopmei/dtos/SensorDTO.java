@@ -10,8 +10,6 @@ import java.util.stream.Collectors;
 
 public class SensorDTO implements Serializable {
     // Atributos
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long sensorId;
     private String sensorType;
     private Long sensorTypeId;
@@ -23,18 +21,27 @@ public class SensorDTO implements Serializable {
     // Construtores
     public SensorDTO() {}
 
-    public SensorDTO(long sensorId, String sensorType, String statusType) {
+    public SensorDTO(long sensorId, String sensorType, Long sensorTypeId, String statusType, Long statusTypeId, Date timestamp, Double currentValue) {
         this.sensorId = sensorId;
         this.sensorType = sensorType;
+        this.sensorTypeId = sensorTypeId;
         this.statusType = statusType;
+        this.statusTypeId = statusTypeId;
+        this.timestamp = timestamp;
+        this.currentValue = currentValue;
     }
+
 
     // Metodos
     public static SensorDTO from(Sensor sensor) {
         return new SensorDTO(
                 sensor.getSensorId(),
                 sensor.getSensorType().getName(),
-                sensor.getStatusType().getName()
+                sensor.getSensorType().getId(),
+                sensor.getStatusType().getName(),
+                sensor.getStatusType().getId(),
+                sensor.getTimestamp(),
+                sensor.getCurrentValue()
         );
     }
 

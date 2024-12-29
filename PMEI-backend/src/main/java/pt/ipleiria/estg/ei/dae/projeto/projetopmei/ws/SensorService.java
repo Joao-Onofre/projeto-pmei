@@ -43,7 +43,7 @@ public class SensorService {
 
     // POST novo sensor
     @POST
-    @Path("/sensor")
+    @Path("/")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response createNewSensor(SensorDTO sensorDTO) throws MyEntityNotFoundException, Exception {
         // Find the SensorType based on the name provided in the DTO

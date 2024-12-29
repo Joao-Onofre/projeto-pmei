@@ -13,7 +13,7 @@ public class StatusTypeBean {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public StatusType findById(long id) {
+    public StatusType findById(Long id) {
         return entityManager.find(StatusType.class, id);
     }
 
