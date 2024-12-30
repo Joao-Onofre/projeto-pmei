@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.Sensor;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,34 +13,31 @@ public class SensorDTO implements Serializable {
     // Atributos
     private long sensorId;
     private String sensorType;
-    private Long sensorTypeId;
     private String statusType;
-    private Long statusTypeId;
-    private Date timestamp;
+    private String formattedTimestamp; // Formato legível do timestamp
     private Double currentValue;
 
     // Construtores
     public SensorDTO() {}
 
-    public SensorDTO(long sensorId, String sensorType, Long sensorTypeId, String statusType, Long statusTypeId, Date timestamp, Double currentValue) {
+    public SensorDTO(long sensorId, String sensorType, String statusType, String formattedTimestamp, Double currentValue) {
         this.sensorId = sensorId;
         this.sensorType = sensorType;
-        this.sensorTypeId = sensorTypeId;
         this.statusType = statusType;
-        this.statusTypeId = statusTypeId;
-        this.timestamp = timestamp;
+        this.formattedTimestamp = formattedTimestamp;
         this.currentValue = currentValue;
     }
 
-    // Metodos
+    // Métodos
     public static SensorDTO from(Sensor sensor) {
+        // Define o formato desejado para o timestamp
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
         return new SensorDTO(
                 sensor.getSensorId(),
                 sensor.getSensorType().getName(),
-                sensor.getSensorType().getId(),
                 sensor.getStatusType().getName(),
-                sensor.getStatusType().getId(),
-                sensor.getTimestamp(),
+                sensor.getTimestamp() != null ? dateFormat.format(sensor.getTimestamp()) : null, // Formata o timestamp
                 sensor.getCurrentValue()
         );
     }
@@ -65,14 +63,6 @@ public class SensorDTO implements Serializable {
         this.sensorType = sensorType;
     }
 
-    public Long getSensorTypeId() {
-        return sensorTypeId;
-    }
-
-    public void setSensorTypeId(Long sensorTypeId) {
-        this.sensorTypeId = sensorTypeId;
-    }
-
     public String getStatusType() {
         return statusType;
     }
@@ -81,20 +71,12 @@ public class SensorDTO implements Serializable {
         this.statusType = statusType;
     }
 
-    public Long getStatusTypeId() {
-        return statusTypeId;
+    public String getFormattedTimestamp() {
+        return formattedTimestamp;
     }
 
-    public void setStatusTypeId(Long statusTypeId) {
-        this.statusTypeId = statusTypeId;
-    }
-
-    public Date getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(Date timestamp) {
-        this.timestamp = timestamp;
+    public void setFormattedTimestamp(String formattedTimestamp) {
+        this.formattedTimestamp = formattedTimestamp;
     }
 
     public Double getCurrentValue() {

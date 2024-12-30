@@ -98,17 +98,4 @@ public class Sensor {
             this.timestamp = new Date();
         }
     }
-
-    //-------------- Método toString ----------------
-    @Override
-    public String toString() {
-        return "Sensor{" +
-                "sensorId=" + sensorId +
-                ", sensorType=" + sensorType +
-                ", statusType=" + statusType +
-                ", timestamp=" + timestamp +
-                ", currentValue=" + currentValue +
-                ", pack=" + pack +
-                '}';
-    }
 }
