@@ -31,7 +31,6 @@ public class SensorDTO implements Serializable {
         this.currentValue = currentValue;
     }
 
-
     // Metodos
     public static SensorDTO from(Sensor sensor) {
         return new SensorDTO(
@@ -88,5 +87,21 @@ public class SensorDTO implements Serializable {
 
     public void setStatusTypeId(Long statusTypeId) {
         this.statusTypeId = statusTypeId;
+    }
+
+    public Date getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Date timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public Double getCurrentValue() {
+        return currentValue;
+    }
+
+    public void setCurrentValue(Double currentValue) {
+        this.currentValue = currentValue;
     }
 }

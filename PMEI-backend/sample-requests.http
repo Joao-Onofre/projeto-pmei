@@ -37,7 +37,7 @@ Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczMzMxM
 POST http://localhost:8080/academics/api/sensor
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNTQzNTc4MSwiZXhwIjoxNzM1NDM5MzgxfQ.FCylDceI5fHlo6915ZYXiWxO71LW_zOB2pvMUZiDF07L3aguVvU3qRYVjWFhtsdX
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNTU3NDgwMywiZXhwIjoxNzM1NTc4NDAzfQ.fRS7ZbhRHB7ojnlQIW9i0nu0f7WRA8SUcgjLLvXs_3XrdeYghccjkPvS6RR2IA-7
 
 {
   "sensorType": "Temperature"
@@ -47,4 +47,4 @@ Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNTQzN
 GET http://localhost:8080/academics/api/sensor
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNTQzNTc4MSwiZXhwIjoxNzM1NDM5MzgxfQ.FCylDceI5fHlo6915ZYXiWxO71LW_zOB2pvMUZiDF07L3aguVvU3qRYVjWFhtsdX
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNTU3NDgwMywiZXhwIjoxNzM1NTc4NDAzfQ.fRS7ZbhRHB7ojnlQIW9i0nu0f7WRA8SUcgjLLvXs_3XrdeYghccjkPvS6RR2IA-7
