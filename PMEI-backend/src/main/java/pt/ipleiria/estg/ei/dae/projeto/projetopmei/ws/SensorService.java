@@ -75,33 +75,36 @@ public class SensorService {
                 .build();
     }
 
-    // Update
+    // Atualiza
     @PUT
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response updateSensor(SensorDTO sensorDTO) throws MyEntityNotFoundException, Exception {
-        // Encontrar SensorType e StatusType pelo nome
-        SensorType sensorType = sensorTypeBean.findByName(sensorDTO.getSensorType());
-        StatusType statusType = statusTypeBean.findByName(sensorDTO.getStatusType());
-
-        if (sensorType == null || statusType == null) {
-            throw new MyEntityNotFoundException("Invalid SensorType or StatusType");
-        }
-
+    public Response updateSensor(@PathParam("id") Long sensorId, SensorDTO sensorDTO) throws MyEntityNotFoundException, Exception {
         // Encontrar o Sensor existente pelo ID
-        Sensor existingSensor = sensorBean.find(sensorDTO.getSensorId());
+        Sensor existingSensor = sensorBean.find(sensorId);  // O ID já está na URL
         if (existingSensor == null) {
-            throw new MyEntityNotFoundException("Sensor not found with ID: " + sensorDTO.getSensorId());
+            throw new MyEntityNotFoundException("Sensor not found with ID: " + sensorId);
         }
 
-        // Atualizar os atributos do Sensor
-        sensorBean.update(
-                sensorDTO.getSensorId(),
-                sensorType,
-                statusType,
-                existingSensor.getTimestamp(), // Preserva o timestamp atual
-                sensorDTO.getCurrentValue() // Atualiza o currentValue se presente no DTO
-        );
+        // Atualizar o statusType se presente no DTO
+        if (sensorDTO.getStatusType() != null) {
+            StatusType statusType = statusTypeBean.findByName(sensorDTO.getStatusType());
+            if (statusType == null) {
+                throw new MyEntityNotFoundException("StatusType not found with name: " + sensorDTO.getStatusType());
+            }
+            existingSensor.setStatusType(statusType); // Atualiza o StatusType
+        }
+
+        // Atualizar o currentValue se presente no DTO
+        if (sensorDTO.getCurrentValue() != null) {
+            existingSensor.setCurrentValue(sensorDTO.getCurrentValue()); // Atualiza o currentValue
+        }
+
+        // Atualizar o timestamp para o momento atual
+        existingSensor.setTimestamp(new java.util.Date()); // Atualiza o timestamp para o momento atual
+
+        // Persistir as alterações no banco de dados
+        sensorBean.update(existingSensor);
 
         return Response.status(Response.Status.OK).build();
     }
