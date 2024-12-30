@@ -47,16 +47,29 @@ Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNTU3N
 GET http://localhost:8080/academics/api/sensor
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNTU3NDgwMywiZXhwIjoxNzM1NTc4NDAzfQ.fRS7ZbhRHB7ojnlQIW9i0nu0f7WRA8SUcgjLLvXs_3XrdeYghccjkPvS6RR2IA-7
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNTU3ODYzMSwiZXhwIjoxNzM1NTgyMjMxfQ.gk-S7CAG3YuGGe7ndWRLvNHN7KnwuNGAq7GqxIHLJOekiD4lXzK-3qnP9-5rmAND
 
 ### GET SENSOR
 GET http://localhost:8080/academics/api/sensor/1
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNTU3NDgwMywiZXhwIjoxNzM1NTc4NDAzfQ.fRS7ZbhRHB7ojnlQIW9i0nu0f7WRA8SUcgjLLvXs_3XrdeYghccjkPvS6RR2IA-7
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNTU3ODYzMSwiZXhwIjoxNzM1NTgyMjMxfQ.gk-S7CAG3YuGGe7ndWRLvNHN7KnwuNGAq7GqxIHLJOekiD4lXzK-3qnP9-5rmAND
 
 ### DELETE SENSOR
 DELETE http://localhost:8080/academics/api/sensor/1
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNTU3NDgwMywiZXhwIjoxNzM1NTc4NDAzfQ.fRS7ZbhRHB7ojnlQIW9i0nu0f7WRA8SUcgjLLvXs_3XrdeYghccjkPvS6RR2IA-7
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNTU3ODYzMSwiZXhwIjoxNzM1NTgyMjMxfQ.gk-S7CAG3YuGGe7ndWRLvNHN7KnwuNGAq7GqxIHLJOekiD4lXzK-3qnP9-5rmAND
+
+### UPDATE SENSOR
+PUT http://localhost:8080/academics/api/sensor/1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNTU3ODYzMSwiZXhwIjoxNzM1NTgyMjMxfQ.gk-S7CAG3YuGGe7ndWRLvNHN7KnwuNGAq7GqxIHLJOekiD4lXzK-3qnP9-5rmAND
+
+{
+  "sensorId": 1,
+  "sensorType": "Temperature",
+  "statusType": "Active",
+  "currentValue": 27.5
+}

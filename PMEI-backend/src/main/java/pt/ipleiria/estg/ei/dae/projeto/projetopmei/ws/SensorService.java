@@ -77,9 +77,10 @@ public class SensorService {
 
     // Update
     @PUT
-    @Path("/")
+    @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response updateSensor(SensorDTO sensorDTO) throws MyEntityNotFoundException, Exception {
+        // Encontrar SensorType e StatusType pelo nome
         SensorType sensorType = sensorTypeBean.findByName(sensorDTO.getSensorType());
         StatusType statusType = statusTypeBean.findByName(sensorDTO.getStatusType());
 
@@ -87,25 +88,23 @@ public class SensorService {
             throw new MyEntityNotFoundException("Invalid SensorType or StatusType");
         }
 
-        // Assuming sensorDTO no longer has timestamp and currentValue
-        // Fetch the current sensor to retain timestamp and currentValue
+        // Encontrar o Sensor existente pelo ID
         Sensor existingSensor = sensorBean.find(sensorDTO.getSensorId());
         if (existingSensor == null) {
             throw new MyEntityNotFoundException("Sensor not found with ID: " + sensorDTO.getSensorId());
         }
 
-        // Update the sensor with the existing timestamp and current value
+        // Atualizar os atributos do Sensor
         sensorBean.update(
                 sensorDTO.getSensorId(),
                 sensorType,
                 statusType,
-                existingSensor.getTimestamp(),
-                existingSensor.getCurrentValue()
+                existingSensor.getTimestamp(), // Preserva o timestamp atual
+                sensorDTO.getCurrentValue() // Atualiza o currentValue se presente no DTO
         );
 
         return Response.status(Response.Status.OK).build();
     }
-
 
     // Delete
     @DELETE

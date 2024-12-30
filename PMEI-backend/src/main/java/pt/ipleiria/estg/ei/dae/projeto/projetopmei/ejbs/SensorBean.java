@@ -108,9 +108,9 @@ public class SensorBean {
     // Update de um sensor
     public void update(Long sensorId, SensorType sensorType, StatusType statusType, java.util.Date timestamp, Double currentValue)
             throws MyEntityNotFoundException, Exception {
-        Sensor sensor = find(sensorId);
+        Sensor sensor = find(sensorId); // Encontrar o sensor pelo ID
 
-        // Update the sensor attributes
+        // Atualizar os atributos do Sensor
         if (sensorType != null) {
             sensor.setSensorType(sensorType);
         }
@@ -118,13 +118,13 @@ public class SensorBean {
             sensor.setStatusType(statusType);
         }
         if (timestamp != null) {
-            sensor.setTimestamp(timestamp);
+            sensor.setTimestamp(timestamp); // Preservar ou atualizar o timestamp
         }
         if (currentValue != null) {
-            sensor.setCurrentValue(currentValue);
+            sensor.setCurrentValue(currentValue); // Atualizar o currentValue
         }
 
-        entityManager.merge(sensor);  // Save the updated sensor
+        entityManager.merge(sensor);  // Persistir as mudanças
     }
 
     // Delete sensor
