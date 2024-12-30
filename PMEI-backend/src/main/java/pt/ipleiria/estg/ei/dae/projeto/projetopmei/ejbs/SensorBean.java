@@ -84,11 +84,20 @@ public class SensorBean {
 
     // Encontra por ID
     public Sensor find(long sensorId) throws Exception {
-        Sensor sensor = entityManager.find(Sensor.class, sensorId);
-        if (sensor == null) {
+        try {
+            // Buscar o Sensor diretamente sem fazer join com outras tabelas
+            Sensor sensor = entityManager.createQuery(
+                            "SELECT s FROM Sensor s WHERE s.sensorId = :sensorId", Sensor.class)
+                    .setParameter("sensorId", sensorId)
+                    .getSingleResult();
+
+            if (sensor == null) {
+                throw new MyEntityNotFoundException("Sensor with ID " + sensorId + " not found");
+            }
+            return sensor;
+        } catch (NoResultException e) {
             throw new MyEntityNotFoundException("Sensor with ID " + sensorId + " not found");
         }
-        return sensor;
     }
 
     // Encontra TODOS os sensores

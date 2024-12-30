@@ -68,7 +68,7 @@ public class SensorService {
 
     // Sensor por ID
     @GET
-    @Path("{id}")
+    @Path("/{id}")
     public Response getSensor(@PathParam("id") Long id) throws MyEntityNotFoundException, Exception {
         Sensor sensor = sensorBean.find(id);
         return Response.ok(SensorDTO.from(sensor))
