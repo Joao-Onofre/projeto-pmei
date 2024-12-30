@@ -49,8 +49,14 @@ Content-Type: application/json
 Accept: application/json
 Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNTU3NDgwMywiZXhwIjoxNzM1NTc4NDAzfQ.fRS7ZbhRHB7ojnlQIW9i0nu0f7WRA8SUcgjLLvXs_3XrdeYghccjkPvS6RR2IA-7
 
-### GET ONE SENSOR
+### GET SENSOR
 GET http://localhost:8080/academics/api/sensor/1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNTU3NDgwMywiZXhwIjoxNzM1NTc4NDAzfQ.fRS7ZbhRHB7ojnlQIW9i0nu0f7WRA8SUcgjLLvXs_3XrdeYghccjkPvS6RR2IA-7
+
+### DELETE SENSOR
+DELETE http://localhost:8080/academics/api/sensor/1
 Content-Type: application/json
 Accept: application/json
 Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNTU3NDgwMywiZXhwIjoxNzM1NTc4NDAzfQ.fRS7ZbhRHB7ojnlQIW9i0nu0f7WRA8SUcgjLLvXs_3XrdeYghccjkPvS6RR2IA-7

@@ -109,7 +109,7 @@ public class SensorService {
 
     // Delete
     @DELETE
-    @Path("{id}")
+    @Path("/{id}")
     public Response deleteSensor(@PathParam("id") Long id) throws MyEntityNotFoundException, Exception {
         sensorBean.delete(id);
         return Response.status(Response.Status.OK).build();
