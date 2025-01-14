@@ -47,25 +47,25 @@ Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNTU3N
 GET http://localhost:8080/academics/api/sensor
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNTU4Mzk3MiwiZXhwIjoxNzM1NTg3NTcyfQ.RheexqvNZi1dFTaZVSz5ROwabfCX7kG9i0Kk8C61vBV14pLeAYSWkytP_qmnxN46
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNjg3MzIyNCwiZXhwIjoxNzM2ODc2ODI0fQ.Gt99ReZVIGbv4er8TDyCYdy0gGUs0pb3eeEkAv2Y1sTQ4KE53HX3iy0-D_TXoL9-
 
 ### GET SENSOR
 GET http://localhost:8080/academics/api/sensor/1
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNTU4Mzk3MiwiZXhwIjoxNzM1NTg3NTcyfQ.RheexqvNZi1dFTaZVSz5ROwabfCX7kG9i0Kk8C61vBV14pLeAYSWkytP_qmnxN46
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNjg3Njk0NywiZXhwIjoxNzM2ODgwNTQ3fQ.158D5OxOOXT8Eiaq0aWJ0rrAIXgadLaur8GqZ-NSr_zBiFCnDjApEylWZv4w1CMZ
 
 ### DELETE SENSOR
 DELETE http://localhost:8080/academics/api/sensor/1
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNTU3ODYzMSwiZXhwIjoxNzM1NTgyMjMxfQ.gk-S7CAG3YuGGe7ndWRLvNHN7KnwuNGAq7GqxIHLJOekiD4lXzK-3qnP9-5rmAND
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNjg3MzIyNCwiZXhwIjoxNzM2ODc2ODI0fQ.Gt99ReZVIGbv4er8TDyCYdy0gGUs0pb3eeEkAv2Y1sTQ4KE53HX3iy0-D_TXoL9-
 
 ### UPDATE SENSOR
 PUT http://localhost:8080/academics/api/sensor/1
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNTU4Mzk3MiwiZXhwIjoxNzM1NTg3NTcyfQ.RheexqvNZi1dFTaZVSz5ROwabfCX7kG9i0Kk8C61vBV14pLeAYSWkytP_qmnxN46
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNjg3Njk0NywiZXhwIjoxNzM2ODgwNTQ3fQ.158D5OxOOXT8Eiaq0aWJ0rrAIXgadLaur8GqZ-NSr_zBiFCnDjApEylWZv4w1CMZ
 
 {
   "currentValue": 25.6,

@@ -10,6 +10,7 @@ import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.entityTypes.SensorTy
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.entityTypes.StatusType;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.exceptions.MyEntityNotFoundException;
 
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -107,12 +108,14 @@ public class SensorBean {
 
     // Update de um sensor
     public void update(Sensor sensor) throws Exception {
-        // Atualiza o timestamp para o momento da alteração
-        sensor.setTimestamp(new java.util.Date());  // Atualiza o timestamp para o momento atual
-
-        // Faz a atualização no banco de dados
-        entityManager.merge(sensor);  // Salva as alterações no banco de dados
+        Sensor existingSensor = entityManager.find(Sensor.class, sensor.getSensorId());
+        if (existingSensor != null) {
+            existingSensor.setCurrentValue(sensor.getCurrentValue());
+            existingSensor.setStatusType(sensor.getStatusType());
+            existingSensor.setTimestamp(new Date());
+        }
     }
+
 
     // Delete sensor
     public void delete(long sensorId)

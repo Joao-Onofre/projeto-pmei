@@ -16,11 +16,11 @@ public class Sensor {
     private long sensorId;
 
     @ManyToOne
-    @JoinColumn(name = "sensorType_id", referencedColumnName = "id")
+    @JoinColumn(name = "sensortype_id", referencedColumnName = "id")
     private SensorType sensorType;
 
     @ManyToOne
-    @JoinColumn(name = "statusType_id", referencedColumnName = "id")
+    @JoinColumn(name = "statustype_id", referencedColumnName = "id")
     private StatusType statusType;
 
     @Temporal(TemporalType.TIMESTAMP)
