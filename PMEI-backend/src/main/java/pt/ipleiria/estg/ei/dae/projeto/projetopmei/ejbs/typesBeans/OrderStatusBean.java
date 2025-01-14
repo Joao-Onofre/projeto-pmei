@@ -22,4 +22,8 @@ public class OrderStatusBean {
         OrderStatusType orderStatus = entityManager.find(OrderStatusType.class, code);
         return orderStatus;
     }
+    public OrderStatusType findByName(String statusName) {
+        OrderStatusType orderStatus = entityManager.find(OrderStatusType.class, statusName);
+        return orderStatus;
+    }
 }

@@ -21,8 +21,8 @@ public class Package {
     private long id;
     @ManyToOne
     private PackageType packageType;
-    @OneToMany(mappedBy = "pack")
-    private List<PackageProduct> packageProducts;
+    @OneToMany(mappedBy = "pack",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<PackageProduct> packageProducts = new ArrayList<>();
     @OneToMany(mappedBy = "pack")
     private List<Sensor> sensorList;
     @ManyToOne
@@ -33,7 +33,6 @@ public class Package {
     }
     public Package(PackageType packageType, Order order) {
         this.packageType = packageType;
-        this.packageProducts = new ArrayList<PackageProduct>();
         this.sensorList = new ArrayList<Sensor>();
         this.order = order;
     }

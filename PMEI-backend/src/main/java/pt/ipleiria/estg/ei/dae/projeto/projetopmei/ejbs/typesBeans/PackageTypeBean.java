@@ -16,8 +16,12 @@ public class PackageTypeBean {
         entityManager.persist(packageType);
     }
 
-    public PackageType find(String typeName) {
+    public PackageType findByName(String typeName) {
         PackageType packageType = entityManager.find(PackageType.class, typeName);
+        return packageType;
+    }
+    public PackageType findById(long typeId) {
+        PackageType packageType = entityManager.find(PackageType.class, typeId);
         return packageType;
     }
 }

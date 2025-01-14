@@ -1,32 +1,44 @@
 package pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
+
+import java.util.Objects;
 
 @Entity
 public class PackageProduct {
 
     //------------------ Atributos ---------------------
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @ManyToOne
     private Product product;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Package pack;
-    private int quantity;
+    private long quantity;
 
     //------------------- Construtor --------------------
     public PackageProduct() {
     }
-    public PackageProduct(long id, Product product, Package pack, int quantity) {
-        this.id = id;
+    public PackageProduct(Product product, Package pack, long quantity) {
         this.product = product;
         this.pack = pack;
         this.quantity = quantity;
     }
 
     //------------------ Metodos -------------------
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PackageProduct that = (PackageProduct) o;
+        return Objects.equals(product, that.product) && Objects.equals(pack, that.pack);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(product, pack);
+    }
     //------------------ Getters / Setters --------------
     public long getId() {
         return id;
@@ -42,7 +54,7 @@ public class PackageProduct {
         this.product = product;
     }
 
-    public int getQuantity() {
+    public long getQuantity() {
         return quantity;
     }
     public void setQuantity(int quantity) {

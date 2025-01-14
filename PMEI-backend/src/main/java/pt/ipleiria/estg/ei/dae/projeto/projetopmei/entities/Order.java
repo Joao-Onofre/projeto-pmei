@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
+@Table(name = "orders")
 @NamedQueries({
         @NamedQuery(
                 name = "getAllOrders",
@@ -23,21 +24,30 @@ public class Order {
     @ManyToOne
     private OrderStatusType status;
     @ManyToOne
+    @JoinColumn(name = "customer_username", referencedColumnName = "username")
     private Customer customer;
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
     private Date deliveryDate;
-    @OneToMany(mappedBy = "order")
-    private List<Package> packageList;
+
+    private Date terminationDate;
+
+    private boolean terminated;
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Package> packageList = new ArrayList<Package>();
+
+    @Version
+    private int version;
 
     //-------------- Construtores ----------------
     public Order() {
 
     }
-    public Order(OrderStatusType status, Customer customer) {
+    public Order(OrderStatusType status, Customer customer, boolean terminated) {
         this.status = status;
         this.customer = customer;
         this.packageList = new ArrayList<Package>();
+        this.terminated = false;
     }
 
     //-------------- Metodos ----------------
@@ -76,6 +86,20 @@ public class Order {
     }
     public void setDeliveryDate(Date deliveryDate) {
         this.deliveryDate = deliveryDate;
+    }
+
+    public boolean isTerminated() {
+        return terminated;
+    }
+    public void setTerminated(boolean terminated) {
+        this.terminated = terminated;
+    }
+
+    public Date getTerminationDate() {
+        return terminationDate;
+    }
+    public void setTerminationDate(Date terminationDate) {
+        this.terminationDate = terminationDate;
     }
 
     public List<Package> getPackageList() {
