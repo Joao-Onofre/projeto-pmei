@@ -1,0 +1,363 @@
+Error on line 19 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\ws\AdministratorService.java:19: error: unmappable character (0x9D) for encoding windows-1252
+@Produces({MediaType.APPLICATION_JSON}) // injects header â€œContent-Type: application/jsonâ€?
+                                                                                             ^
+Error on line 20 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\ws\AdministratorService.java:20: error: unmappable character (0x9D) for encoding windows-1252
+@Consumes({MediaType.APPLICATION_JSON}) // injects header â€œAccept: application/jsonâ€?
+                                                                                       ^
+Error on line 21 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\ws\CustomerService.java:21: error: unmappable character (0x9D) for encoding windows-1252
+@Produces({MediaType.APPLICATION_JSON}) // injects header â€œContent-Type: application/jsonâ€?
+                                                                                             ^
+Error on line 22 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\ws\CustomerService.java:22: error: unmappable character (0x9D) for encoding windows-1252
+@Consumes({MediaType.APPLICATION_JSON}) // injects header â€œAccept: application/jsonâ€?
+                                                                                       ^
+Error on line 22 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\ws\ProductService.java:22: error: unmappable character (0x9D) for encoding windows-1252
+    @Path("/") // The relative URL path is â€œ/api/product/â€?
+                                                             ^
+Error on line 16 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\ws\UserService.java:16: error: unmappable character (0x9D) for encoding windows-1252
+@Produces({MediaType.APPLICATION_JSON}) // injects header â€œContent-Type: application/jsonâ€?
+                                                                                             ^
+Error on line 17 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\ws\UserService.java:17: error: unmappable character (0x9D) for encoding windows-1252
+@Consumes({MediaType.APPLICATION_JSON}) // injects header â€œAccept: application/jsonâ€?
+                                                                                       ^
+Error on line 3 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\entities\Administrator.java:3: error: package jakarta.persistence does not exist
+import jakarta.persistence.Entity;
+                          ^
+Error on line 4 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\entities\Administrator.java:4: error: package jakarta.persistence does not exist
+import jakarta.persistence.NamedQueries;
+                          ^
+Error on line 5 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\entities\Administrator.java:5: error: package jakarta.persistence does not exist
+import jakarta.persistence.NamedQuery;
+                          ^
+Error on line 4 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\entities\User.java:4: error: package jakarta.validation.constraints does not exist
+import jakarta.validation.constraints.Email;
+                                     ^
+Error on line 5 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\entities\User.java:5: error: package jakarta.validation.constraints does not exist
+import jakarta.validation.constraints.NotNull;
+                                     ^
+Error on line 7 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\entities\User.java:7: error: cannot find symbol
+@Entity
+ ^
+  symbol: class Entity
+Error on line 8 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\entities\User.java:8: error: cannot find symbol
+@Table(name = "users", uniqueConstraints = { @UniqueConstraint(columnNames = "email") })
+ ^
+  symbol: class Table
+Error on line 9 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\entities\User.java:9: error: cannot find symbol
+@NamedQueries({
+ ^
+  symbol: class NamedQueries
+Error on line 15 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\entities\User.java:15: error: cannot find symbol
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+ ^
+  symbol: class Inheritance
+Error on line 7 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\entities\Administrator.java:7: error: cannot find symbol
+@Entity
+ ^
+  symbol: class Entity
+Error on line 8 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\entities\Administrator.java:8: error: cannot find symbol
+@NamedQueries({
+ ^
+  symbol: class NamedQueries
+Error on line 3 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\entities\User.java:3: error: package jakarta.persistence does not exist
+import jakarta.persistence.*;
+^
+Error on line 3 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\dtos\AuthDTO.java:3: error: package jakarta.validation.constraints does not exist
+import jakarta.validation.constraints.NotBlank;
+                                     ^
+Error on line 3 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\entities\Customer.java:3: error: package jakarta.persistence does not exist
+import jakarta.persistence.Entity;
+                          ^
+Error on line 4 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\entities\Customer.java:4: error: package jakarta.persistence does not exist
+import jakarta.persistence.NamedQueries;
+                          ^
+Error on line 5 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\entities\Customer.java:5: error: package jakarta.persistence does not exist
+import jakarta.persistence.NamedQuery;
+                          ^
+Error on line 6 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\entities\Customer.java:6: error: package jakarta.persistence does not exist
+import jakarta.persistence.OneToMany;
+                          ^
+Error on line 10 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\entities\Customer.java:10: error: cannot find symbol
+@Entity
+ ^
+  symbol: class Entity
+Error on line 11 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\entities\Customer.java:11: error: cannot find symbol
+@NamedQueries({
+ ^
+  symbol: class NamedQueries
+Error on line 11 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\entities\Order.java:11: error: cannot find symbol
+@Entity
+ ^
+  symbol: class Entity
+Error on line 12 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\entities\Order.java:12: error: cannot find symbol
+@Table(name = "orders")
+ ^
+  symbol: class Table
+Error on line 13 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\entities\Order.java:13: error: cannot find symbol
+@NamedQueries({
+ ^
+  symbol: class NamedQueries
+Error on line 10 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\entities\entityTypes\OrderStatusType.java:10: error: cannot find symbol
+@Entity
+ ^
+  symbol: class Entity
+Error on line 9 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\entities\Package.java:9: error: cannot find symbol
+@Entity
+ ^
+  symbol: class Entity
+Error on line 10 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\entities\Package.java:10: error: cannot find symbol
+@NamedQueries({
+ ^
+  symbol: class NamedQueries
+Error on line 10 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\entities\entityTypes\PackageType.java:10: error: cannot find symbol
+@Entity
+ ^
+  symbol: class Entity
+Error on line 7 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\entities\PackageProduct.java:7: error: cannot find symbol
+@Entity
+ ^
+  symbol: class Entity
+Error on line 3 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\entities\Sensor.java:3: error: package jakarta.persistence does not exist
+import jakarta.persistence.Entity;
+                          ^
+Error on line 4 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\entities\Sensor.java:4: error: package jakarta.persistence does not exist
+import jakarta.persistence.Id;
+                          ^
+Error on line 5 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\entities\Sensor.java:5: error: package jakarta.persistence does not exist
+import jakarta.persistence.ManyToOne;
+                          ^
+Error on line 11 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\entities\Sensor.java:11: error: cannot find symbol
+@Entity
+ ^
+  symbol: class Entity
+Error on line 3 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\entities\entityTypes\SensorType.java:3: error: package jakarta.persistence does not exist
+import jakarta.persistence.Entity;
+                          ^
+Error on line 4 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\entities\entityTypes\SensorType.java:4: error: package jakarta.persistence does not exist
+import jakarta.persistence.Id;
+                          ^
+Error on line 5 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\entities\entityTypes\SensorType.java:5: error: package jakarta.persistence does not exist
+import jakarta.persistence.OneToMany;
+                          ^
+Error on line 11 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\entities\entityTypes\SensorType.java:11: error: cannot find symbol
+@Entity
+ ^
+  symbol: class Entity
+Error on line 9 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\entities\entityTypes\SensorStatusType.java:9: error: cannot find symbol
+@Entity
+ ^
+  symbol: class Entity
+Error on line 6 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\entities\Product.java:6: error: cannot find symbol
+@Entity
+ ^
+  symbol: class Entity
+Error on line 7 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\entities\Product.java:7: error: cannot find symbol
+@Table(name = "products")
+ ^
+  symbol: class Table
+Error on line 8 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\entities\Product.java:8: error: cannot find symbol
+@NamedQueries({
+ ^
+  symbol: class NamedQueries
+Error on line 9 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\entities\entityTypes\ProductType.java:9: error: cannot find symbol
+@Entity
+ ^
+  symbol: class Entity
+Error on line 10 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\entities\entityTypes\ProductType.java:10: error: cannot find symbol
+@Table(name = "producttypes")
+ ^
+  symbol: class Table
+Error on line 11 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\entities\entityTypes\ProductType.java:11: error: cannot find symbol
+@NamedQueries({
+ ^
+  symbol: class NamedQueries
+Error on line 3 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\entities\Order.java:3: error: package jakarta.persistence does not exist
+import jakarta.persistence.*;
+^
+Error on line 3 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\entities\Package.java:3: error: package jakarta.persistence does not exist
+import jakarta.persistence.*;
+^
+Error on line 3 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\entities\entityTypes\SensorStatusType.java:3: error: package jakarta.persistence does not exist
+import jakarta.persistence.*;
+^
+Error on line 3 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\entities\PackageProduct.java:3: error: package jakarta.persistence does not exist
+import jakarta.persistence.*;
+^
+Error on line 3 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\entities\Product.java:3: error: package jakarta.persistence does not exist
+import jakarta.persistence.*;
+^
+Error on line 3 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\entities\entityTypes\ProductType.java:3: error: package jakarta.persistence does not exist
+import jakarta.persistence.*;
+^
+Error on line 3 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\entities\entityTypes\PackageType.java:3: error: package jakarta.persistence does not exist
+import jakarta.persistence.*;
+^
+Error on line 3 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\entities\entityTypes\OrderStatusType.java:3: error: package jakarta.persistence does not exist
+import jakarta.persistence.*;
+^
+Error on line 3 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\ejbs\AdministratorBean.java:3: error: package jakarta.ejb does not exist
+import jakarta.ejb.EJB;
+                  ^
+Error on line 4 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\ejbs\AdministratorBean.java:4: error: package jakarta.ejb does not exist
+import jakarta.ejb.Stateless;
+                  ^
+Error on line 5 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\ejbs\AdministratorBean.java:5: error: package jakarta.inject does not exist
+import jakarta.inject.Inject;
+                     ^
+Error on line 6 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\ejbs\AdministratorBean.java:6: error: package jakarta.persistence does not exist
+import jakarta.persistence.EntityManager;
+                          ^
+Error on line 7 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\ejbs\AdministratorBean.java:7: error: package jakarta.persistence does not exist
+import jakarta.persistence.PersistenceContext;
+                          ^
+Error on line 8 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\ejbs\AdministratorBean.java:8: error: package jakarta.persistence does not exist
+import jakarta.persistence.Query;
+                          ^
+Error on line 9 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\ejbs\AdministratorBean.java:9: error: package jakarta.validation does not exist
+import jakarta.validation.ConstraintViolationException;
+                         ^
+Error on line 18 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\ejbs\AdministratorBean.java:18: error: cannot find symbol
+@Stateless
+ ^
+  symbol: class Stateless
+Error on line 21 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\ejbs\AdministratorBean.java:21: error: cannot find symbol
+	private EntityManager entityManager;
+	        ^
+  symbol:   class EntityManager
+  location: class pt.ipleiria.estg.ei.dae.projeto.projetopmei.ejbs.AdministratorBean
+Error on line 3 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\security\Hasher.java:3: error: package jakarta.enterprise.context does not exist
+import jakarta.enterprise.context.ApplicationScoped;
+                                 ^
+Error on line 14 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\security\Hasher.java:14: error: cannot find symbol
+@ApplicationScoped
+ ^
+  symbol: class ApplicationScoped
+Error on line 3 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\ejbs\UserBean.java:3: error: package jakarta.ejb does not exist
+import jakarta.ejb.Stateless;
+                  ^
+Error on line 4 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\ejbs\UserBean.java:4: error: package jakarta.inject does not exist
+import jakarta.inject.Inject;
+                     ^
+Error on line 5 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\ejbs\UserBean.java:5: error: package jakarta.persistence does not exist
+import jakarta.persistence.EntityManager;
+                          ^
+Error on line 6 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\ejbs\UserBean.java:6: error: package jakarta.persistence does not exist
+import jakarta.persistence.PersistenceContext;
+                          ^
+Error on line 7 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\ejbs\UserBean.java:7: error: package jakarta.persistence does not exist
+import jakarta.persistence.Query;
+                          ^
+Error on line 8 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\ejbs\UserBean.java:8: error: package org.hibernate does not exist
+import org.hibernate.Hibernate;
+                    ^
+Error on line 16 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\ejbs\UserBean.java:16: error: cannot find symbol
+@Stateless
+ ^
+  symbol: class Stateless
+Error on line 4 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\exceptions\MyConstraintViolationException.java:4: error: package jakarta.validation does not exist
+import jakarta.validation.ConstraintViolation;
+                         ^
+Error on line 5 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\exceptions\MyConstraintViolationException.java:5: error: package jakarta.validation does not exist
+import jakarta.validation.ConstraintViolationException;
+                         ^
+Error on line 8 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\exceptions\MyConstraintViolationException.java:8: error: cannot find symbol
+	public MyConstraintViolationException(ConstraintViolationException e) {
+	                                      ^
+  symbol:   class ConstraintViolationException
+  location: class pt.ipleiria.estg.ei.dae.projeto.projetopmei.exceptions.MyConstraintViolationException
+Error on line 13 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\exceptions\MyConstraintViolationException.java:13: error: cannot find symbol
+	getConstraintViolationMessages(ConstraintViolationException e) {
+	                               ^
+  symbol:   class ConstraintViolationException
+  location: class pt.ipleiria.estg.ei.dae.projeto.projetopmei.exceptions.MyConstraintViolationException
+Error on line 19 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\ejbs\UserBean.java:19: error: cannot find symbol
+	private EntityManager entityManager;
+	        ^
+  symbol:   class EntityManager
+  location: class pt.ipleiria.estg.ei.dae.projeto.projetopmei.ejbs.UserBean
+Error on line 3 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\ejbs\ConfigBean.java:3: error: package jakarta.annotation does not exist
+import jakarta.annotation.PostConstruct;
+                         ^
+Error on line 4 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\ejbs\ConfigBean.java:4: error: package jakarta.ejb does not exist
+import jakarta.ejb.EJB;
+                  ^
+Error on line 5 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\ejbs\ConfigBean.java:5: error: package jakarta.ejb does not exist
+import jakarta.ejb.Singleton;
+                  ^
+Error on line 6 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\ejbs\ConfigBean.java:6: error: package jakarta.ejb does not exist
+import jakarta.ejb.Startup;
+                  ^
+Error on line 16 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\ejbs\ConfigBean.java:16: error: cannot find symbol
+@Singleton
+ ^
+  symbol: class Singleton
+Error on line 17 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\ejbs\ConfigBean.java:17: error: cannot find symbol
+@Startup
+ ^
+  symbol: class Startup
+Error on line 3 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\ejbs\typesBeans\PackageTypeBean.java:3: error: package jakarta.ejb does not exist
+import jakarta.ejb.Stateless;
+                  ^
+Error on line 4 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\ejbs\typesBeans\PackageTypeBean.java:4: error: package jakarta.persistence does not exist
+import jakarta.persistence.EntityManager;
+                          ^
+Error on line 5 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\ejbs\typesBeans\PackageTypeBean.java:5: error: package jakarta.persistence does not exist
+import jakarta.persistence.PersistenceContext;
+                          ^
+Error on line 8 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\ejbs\typesBeans\PackageTypeBean.java:8: error: cannot find symbol
+@Stateless
+ ^
+  symbol: class Stateless
+Error on line 3 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\ejbs\typesBeans\ProductTypeBean.java:3: error: package jakarta.ejb does not exist
+import jakarta.ejb.Stateless;
+                  ^
+Error on line 4 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\ejbs\typesBeans\ProductTypeBean.java:4: error: package jakarta.persistence does not exist
+import jakarta.persistence.EntityManager;
+                          ^
+Error on line 5 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\ejbs\typesBeans\ProductTypeBean.java:5: error: package jakarta.persistence does not exist
+import jakarta.persistence.PersistenceContext;
+                          ^
+Error on line 11 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\ejbs\typesBeans\ProductTypeBean.java:11: error: cannot find symbol
+@Stateless
+ ^
+  symbol: class Stateless
+Error on line 3 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\ejbs\CustomerBean.java:3: error: package jakarta.ejb does not exist
+import jakarta.ejb.EJB;
+                  ^
+Error on line 4 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\ejbs\CustomerBean.java:4: error: package jakarta.ejb does not exist
+import jakarta.ejb.Stateless;
+                  ^
+Error on line 5 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\ejbs\CustomerBean.java:5: error: package jakarta.inject does not exist
+import jakarta.inject.Inject;
+                     ^
+Error on line 6 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\ejbs\CustomerBean.java:6: error: package jakarta.persistence does not exist
+import jakarta.persistence.EntityManager;
+                          ^
+Error on line 7 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\ejbs\CustomerBean.java:7: error: package jakarta.persistence does not exist
+import jakarta.persistence.PersistenceContext;
+                          ^
+Error on line 8 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\ejbs\CustomerBean.java:8: error: package jakarta.validation does not exist
+import jakarta.validation.ConstraintViolationException;
+                         ^
+Error on line 17 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\ejbs\CustomerBean.java:17: error: cannot find symbol
+@Stateless
+ ^
+  symbol: class Stateless
+Error on line 3 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\ejbs\ProductBean.java:3: error: package jakarta.ejb does not exist
+import jakarta.ejb.EJB;
+                  ^
+Error on line 4 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\ejbs\ProductBean.java:4: error: package jakarta.ejb does not exist
+import jakarta.ejb.Stateless;
+                  ^
+Error on line 5 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\ejbs\ProductBean.java:5: error: package jakarta.persistence does not exist
+import jakarta.persistence.EntityManager;
+                          ^
+Error on line 6 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\ejbs\ProductBean.java:6: error: package jakarta.persistence does not exist
+import jakarta.persistence.PersistenceContext;
+                          ^
+Error on line 13 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\ejbs\ProductBean.java:13: error: cannot find symbol
+@Stateless
+ ^
+  symbol: class Stateless
+Error on line 3 in D:\Escola\EI\4_Ano\DAE\Projeto\projeto-pmei\PMEI-backend\src\main\java\pt\ipleiria\estg\ei\dae\projeto\projetopmei\ejbs\PackageBean.java:3: error: package jakarta.ejb does not exist
+import jakarta.ejb.EJB;
+                  ^

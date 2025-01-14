@@ -1,14 +1,24 @@
 package pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.entityTypes.ProductType;
 
 @Entity
+@Table(name = "products")
+@NamedQueries({
+        @NamedQuery(
+                name = "getAllProducts",
+                query = "SELECT p FROM Product p ORDER BY p.name" // JPQL
+        ),
+        @NamedQuery(
+                name = "getProductByName",
+                query = "SELECT p FROM Product p WHERE LOWER(p.name) LIKE LOWER(:name)"
+        )
+})
 public class Product {
     //-------------- Atributos ----------------
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
     private String description;
@@ -20,8 +30,7 @@ public class Product {
     public Product() {
 
     }
-    public Product(long id, String name, String description, float price, ProductType productType) {
-        this.id = id;
+    public Product(String name, String description, float price, ProductType productType) {
         this.name = name;
         this.description = description;
         this.price = price;
@@ -34,13 +43,11 @@ public class Product {
     public long getId() {
         return id;
     }
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -48,6 +55,7 @@ public class Product {
     public String getDescription() {
         return description;
     }
+
     public void setDescription(String description) {
         this.description = description;
     }
@@ -55,6 +63,7 @@ public class Product {
     public float getPrice() {
         return price;
     }
+
     public void setPrice(float price) {
         this.price = price;
     }
@@ -62,6 +71,7 @@ public class Product {
     public ProductType getProductType() {
         return productType;
     }
+
     public void setProductType(ProductType productType) {
         this.productType = productType;
     }

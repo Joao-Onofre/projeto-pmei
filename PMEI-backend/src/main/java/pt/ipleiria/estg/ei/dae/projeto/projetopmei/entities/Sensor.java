@@ -2,7 +2,7 @@ package pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities;
 
 import jakarta.persistence.*;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.entityTypes.SensorType;
-import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.entityTypes.StatusType;
+import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.entityTypes.SensorStatusType;
 
 import java.util.Date;
 import java.time.LocalDateTime;

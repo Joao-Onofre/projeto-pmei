@@ -1,37 +1,53 @@
 package pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
+import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.entityTypes.OrderStatusType;
 
-import java.sql.Date;
+
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
+@Table(name = "orders")
+@NamedQueries({
+        @NamedQuery(
+                name = "getAllOrders",
+                query = "SELECT o FROM Order o" // JPQL
+        )
+})
 public class Order {
     //-------------- Atributos ----------------
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private String status;
-    private String customer;//está private string mas isto é para mudar para "private Customer" para cada order estar interligada com quem a encomendou
+    @ManyToOne
+    private OrderStatusType status;
+    @ManyToOne
+    @JoinColumn(name = "customer_username", referencedColumnName = "username")
+    private Customer customer;
+    @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
     private Date deliveryDate;
-    @OneToMany(mappedBy = "order")
-    private List<Package> packageList;
+
+    private Date terminationDate;
+
+    private boolean terminated;
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Package> packageList = new ArrayList<Package>();
+
+    @Version
+    private int version;
 
     //-------------- Construtores ----------------
     public Order() {
 
     }
-    public Order(long id, String status, String customer, Date creationDate, Date deliveryDate) {
-        this.id = id;
+    public Order(OrderStatusType status, Customer customer, boolean terminated) {
         this.status = status;
         this.customer = customer;
-        this.creationDate = creationDate;
-        this.deliveryDate = deliveryDate;
         this.packageList = new ArrayList<Package>();
+        this.terminated = false;
     }
 
     //-------------- Metodos ----------------
@@ -44,17 +60,17 @@ public class Order {
         this.id = id;
     }
 
-    public String getStatus() {
+    public OrderStatusType getStatus() {
         return status;
     }
-    public void setStatus(String status) {
+    public void setStatus(OrderStatusType status) {
         this.status = status;
     }
 
-    public String getCustomer() {
+    public Customer getCustomer() {
         return customer;
     }
-    public void setCustomer(String customer) {
+    public void setCustomer(Customer customer) {
         this.customer = customer;
     }
 
@@ -70,6 +86,20 @@ public class Order {
     }
     public void setDeliveryDate(Date deliveryDate) {
         this.deliveryDate = deliveryDate;
+    }
+
+    public boolean isTerminated() {
+        return terminated;
+    }
+    public void setTerminated(boolean terminated) {
+        this.terminated = terminated;
+    }
+
+    public Date getTerminationDate() {
+        return terminationDate;
+    }
+    public void setTerminationDate(Date terminationDate) {
+        this.terminationDate = terminationDate;
     }
 
     public List<Package> getPackageList() {

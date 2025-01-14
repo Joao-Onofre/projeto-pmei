@@ -71,3 +71,90 @@ Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNjg3N
   "currentValue": 25.6,
   "statusType": "Active"
 }
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ0aWFnbyIsImlhdCI6MTczMjcxNDQzMCwiZXhwIjoxNzMyNzE4MDMwfQ.6C9-XZ4D--nwwrXNpoW4eEiVPT6-Tjnviqw22wTPfgmNjdWdwG0zVFQIhb1aSRdz
+
+## PRODUCTS ###
+
+### GET PRODUCTS
+GET http://localhost:8080/academics/api/product
+Accept: application/json
+//Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ0aWFnbyIsImlhdCI6MTczMjcxNDQzMCwiZXhwIjoxNzMyNzE4MDMwfQ.6C9-XZ4D--nwwrXNpoW4eEiVPT6-Tjnviqw22wTPfgmNjdWdwG0zVFQIhb1aSRdz
+
+### GET PRODUCT
+GET http://localhost:8080/academics/api/product/1
+Accept: application/json
+
+### GET PRODUCT
+GET http://localhost:8080/academics/api/product/search/jonkler
+Accept: application/json
+
+### CREATE PRODUCT
+POST http://localhost:8080/academics/api/product
+Content-Type: application/json
+Accept: application/json
+
+{
+"name": "teste",
+"description": "teste jonkler",
+"price": 69,
+"productTypeId": 1
+}
+
+### UPDATE PRODUCT
+PUT http://localhost:8080/academics/api/product/1
+Content-Type: application/json
+Accept: application/json
+
+
+{
+  "name": "jonkler moment",
+  "description": "darkness batman",
+  "price": 420,
+  "productTypeId": 1
+}
+
+### DELETE PRODUCT
+DELETE http://localhost:8080/academics/api/product/1
+Content-Type: application/json
+Accept: application/json
+
+## PRODUCT TYPES ###
+
+### GET PRODUCT TYPES
+GET http://localhost:8080/academics/api/product-type
+Accept: application/json
+
+### GET PRODUCT
+GET http://localhost:8080/academics/api/product-type/1
+Accept: application/json
+
+### CREATE PRODUCT TYPE
+POST http://localhost:8080/academics/api/product-type
+Content-Type: application/json
+Accept: application/json
+
+{
+  "type": "mr jonk"
+}
+
+### UPDATE PRODUCT TYPE
+PUT http://localhost:8080/academics/api/product-type/1
+Content-Type: application/json
+Accept: application/json
+
+{
+  "type": "jonkler moment"
+}
+
+### DELETE PRODUCT TYPES
+DELETE http://localhost:8080/academics/api/product-type/2
+Content-Type: application/json
+Accept: application/json
+
+
+
+
+
+
+
+
