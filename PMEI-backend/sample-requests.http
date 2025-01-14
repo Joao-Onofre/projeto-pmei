@@ -37,7 +37,7 @@ Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczMzMxM
 POST http://localhost:8080/academics/api/sensor
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNTU3NDgwMywiZXhwIjoxNzM1NTc4NDAzfQ.fRS7ZbhRHB7ojnlQIW9i0nu0f7WRA8SUcgjLLvXs_3XrdeYghccjkPvS6RR2IA-7
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNjg4MDUwNywiZXhwIjoxNzM2ODg0MTA3fQ.Rh2tAMMC954I_bl586UX94XWpWIyTIYEOtdkr5RNxCSPGVaWAP6_NjWXFgwJM9WW
 
 {
   "sensorType": "Temperature"
@@ -47,7 +47,7 @@ Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNTU3N
 GET http://localhost:8080/academics/api/sensor
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNjg3MzIyNCwiZXhwIjoxNzM2ODc2ODI0fQ.Gt99ReZVIGbv4er8TDyCYdy0gGUs0pb3eeEkAv2Y1sTQ4KE53HX3iy0-D_TXoL9-
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNjg4MDUwNywiZXhwIjoxNzM2ODg0MTA3fQ.Rh2tAMMC954I_bl586UX94XWpWIyTIYEOtdkr5RNxCSPGVaWAP6_NjWXFgwJM9WW
 
 ### GET SENSOR
 GET http://localhost:8080/academics/api/sensor/1
@@ -65,15 +65,12 @@ Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNjg3M
 PUT http://localhost:8080/academics/api/sensor/1
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNjg3Njk0NywiZXhwIjoxNzM2ODgwNTQ3fQ.158D5OxOOXT8Eiaq0aWJ0rrAIXgadLaur8GqZ-NSr_zBiFCnDjApEylWZv4w1CMZ
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNjg4MDUwNywiZXhwIjoxNzM2ODg0MTA3fQ.Rh2tAMMC954I_bl586UX94XWpWIyTIYEOtdkr5RNxCSPGVaWAP6_NjWXFgwJM9WW
 
 {
   "currentValue": 25.6,
   "statusType": "Active"
 }
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ0aWFnbyIsImlhdCI6MTczMjcxNDQzMCwiZXhwIjoxNzMyNzE4MDMwfQ.6C9-XZ4D--nwwrXNpoW4eEiVPT6-Tjnviqw22wTPfgmNjdWdwG0zVFQIhb1aSRdz
-
-## PRODUCTS ###
 
 ### GET PRODUCTS
 GET http://localhost:8080/academics/api/product

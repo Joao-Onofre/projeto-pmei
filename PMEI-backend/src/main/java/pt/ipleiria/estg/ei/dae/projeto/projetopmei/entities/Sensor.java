@@ -1,8 +1,9 @@
 package pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities;
 
 import jakarta.persistence.*;
+import jakarta.ws.rs.core.Response;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.entityTypes.SensorType;
-import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.entityTypes.SensorStatusType;
+import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.entityTypes.StatusType;
 
 import java.util.Date;
 import java.time.LocalDateTime;

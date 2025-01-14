@@ -79,14 +79,6 @@ public class ConfigBean {
         productBean.create("Gelado Morango", "Gelado de Morango", 1.50f, 2);
         productBean.create("Salsichas Enlatadas", "Salsichas enlatadas 8 unidades", 2.50f, 4);
 
-        // Creating predefined Package Types
-        packageTypeBean.create(1, "Eletro-doméstivos");
-        packageTypeBean.create(2, "Frutas");
-        packageTypeBean.create(3, "Legumes");
-        packageTypeBean.create(4, "Carne Fresca");
-        packageTypeBean.create(5, "Peixe Fresco");
-        packageTypeBean.create(6, "Congelados");
-
         try {
             // Creating Administrator if not already exists
             administratorBean.create("admin", "123", "Administrator", "admin@mail.pt");

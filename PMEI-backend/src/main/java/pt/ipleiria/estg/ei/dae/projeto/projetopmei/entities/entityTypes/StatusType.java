@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class SensorStatusType {
+public class StatusType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
