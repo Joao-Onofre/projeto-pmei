@@ -1,12 +1,14 @@
 <template>
   <div class="wrapper">
+    <a href="/sensors/create" class="btn btn-primary">Create New Sensor</a>
+
     <!-- Search Bar -->
     <div class="search-container">
       <input
         type="text"
         v-model="searchQuery"
         class="search-bar"
-        placeholder="Search by Sensor ID, Type or Status"
+        placeholder="Search by Sensor ID, Current Value, Type or Status"
       />
     </div>
 
@@ -15,19 +17,27 @@
       <thead>
         <tr>
           <th>Sensor ID</th>
-          <th>Type</th>
+          <th>Current Value</th>
+          <th>Timestamp</th>
+          <th>Sensor Type</th>
           <th>Status</th>
         </tr>
       </thead>
       <tbody>
         <!-- Display filtered sensors -->
         <tr v-for="sensor in filteredSensors" :key="sensor.sensorId">
-          <td>{{ sensor.sensorId }}</td>
-          <td>{{ sensor.type }}</td>
-          <td>{{ sensor.status }}</td>
+          <td>{{ sensor.sensorId || 'N/A' }}</td>
+          <td>
+            {{ sensor.currentValue !== null ? sensor.currentValue : 'N/A' }}
+          </td>
+          <td>{{ sensor.formattedTimestamp || 'N/A' }}</td>
+          <td>{{ sensor.sensorType || 'N/A' }}</td>
+          <td>{{ sensor.statusType || 'N/A' }}</td>
         </tr>
       </tbody>
     </table>
+
+    <p v-if="filteredSensors.length === 0">No sensors found.</p>
   </div>
 </template>
 
@@ -36,27 +46,43 @@ export default {
   data() {
     return {
       searchQuery: '',
-      // Mock sensor data
-      sensors: [
-        { sensorId: '123', type: 'temperature', status: 'active' },
-        { sensorId: '456', type: 'acceleration', status: 'inactive' },
-        { sensorId: '789', type: 'temperature', status: 'active' },
-        { sensorId: '101', type: 'humidity', status: 'inactive' },
-      ],
+      sensors: [],
     }
   },
   computed: {
     filteredSensors() {
-      // Return filtered sensors based on the search query for Sensor ID, Type, and Status
+      if (!this.searchQuery) return this.sensors
+
+      const query = this.searchQuery.toLowerCase()
       return this.sensors.filter(
         (sensor) =>
-          sensor.sensorId
-            .toLowerCase()
-            .includes(this.searchQuery.toLowerCase()) ||
-          sensor.type.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
-          sensor.status.toLowerCase().includes(this.searchQuery.toLowerCase()),
+          sensor.sensorId?.toString().includes(query) ||
+          sensor.currentValue?.toString().includes(query) ||
+          sensor.sensorType?.toLowerCase().includes(query) ||
+          sensor.statusType?.toLowerCase().includes(query),
       )
     },
+  },
+  methods: {
+    async fetchSensors() {
+      try {
+        const config = useRuntimeConfig() // Access runtimeConfig
+        const response = await fetch(`${config.public.API_URL}/sensor`, {
+          headers: {
+            Accept: 'application/json',
+            Authorization:
+              'Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNjkwMjI4NywiZXhwIjoxNzM2OTA1ODg3fQ.lTnZgyy7V88p2q9EBtm6wKs_ItXVfl7zDelAkUIXTeif_Aji6RYKwsoIemCQOW3y',
+          },
+        })
+        const data = await response.json()
+        this.sensors = data
+      } catch (error) {
+        console.error('Error fetching sensors:', error)
+      }
+    },
+  },
+  mounted() {
+    this.fetchSensors()
   },
 }
 </script>
@@ -64,21 +90,7 @@ export default {
 <style scoped>
 .wrapper {
   padding: 50px;
-}
-
-.search-container {
-  margin-bottom: 20px;
-  display: flex;
-  justify-content: flex-start;
-}
-
-.search-bar {
   margin-top: 20px;
-  padding: 8px;
-  font-size: 16px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  width: 100%;
 }
 
 .table {
@@ -96,5 +108,21 @@ export default {
 .table th {
   background-color: #f4f4f4;
   font-weight: bold;
+}
+
+/* Styling for the search bar */
+.search-container {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.search-bar {
+  margin-top: 20px;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  width: 100%;
 }
 </style>
