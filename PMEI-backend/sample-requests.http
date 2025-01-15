@@ -102,7 +102,6 @@ PUT http://localhost:8080/academics/api/product/1
 Content-Type: application/json
 Accept: application/json
 
-
 {
   "name": "jonkler moment",
   "description": "darkness batman",
@@ -121,7 +120,7 @@ Accept: application/json
 GET http://localhost:8080/academics/api/product-type
 Accept: application/json
 
-### GET PRODUCT
+### GET PRODUCT TYPE
 GET http://localhost:8080/academics/api/product-type/1
 Accept: application/json
 

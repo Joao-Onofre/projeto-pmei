@@ -11,7 +11,7 @@ import java.util.List;
 @NamedQueries({
         @NamedQuery(
                 name = "getAllProductTypes",
-                query = "SELECT p FROM ProductType p ORDER BY p.type" // Use 'type' instead of 'name'
+                query = "SELECT p FROM ProductType p ORDER BY p.id" // Use 'type' instead of 'name'
         )
 })
 public class ProductType {

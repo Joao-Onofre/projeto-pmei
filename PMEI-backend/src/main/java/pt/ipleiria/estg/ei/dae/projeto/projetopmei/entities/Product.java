@@ -8,7 +8,7 @@ import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.entityTypes.ProductT
 @NamedQueries({
         @NamedQuery(
                 name = "getAllProducts",
-                query = "SELECT p FROM Product p ORDER BY p.name" // JPQL
+                query = "SELECT p FROM Product p ORDER BY p.id" // JPQL
         ),
         @NamedQuery(
                 name = "getProductByName",
