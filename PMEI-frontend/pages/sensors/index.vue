@@ -21,6 +21,8 @@
           <th>Timestamp</th>
           <th>Sensor Type</th>
           <th>Status</th>
+          <th>Actions</th>
+          <!-- Coluna de ações -->
         </tr>
       </thead>
       <tbody>
@@ -33,6 +35,20 @@
           <td>{{ sensor.formattedTimestamp || 'N/A' }}</td>
           <td>{{ sensor.sensorType || 'N/A' }}</td>
           <td>{{ sensor.statusType || 'N/A' }}</td>
+          <td>
+            <!-- Botões de editar e apagar -->
+            <a
+              :href="`/sensors/${sensor.sensorId}`"
+              class="btn btn-secondary btn-sm"
+              >Edit</a
+            >
+            <button
+              @click="deleteSensor(sensor.sensorId)"
+              class="btn btn-danger btn-sm"
+            >
+              Delete
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -51,10 +67,18 @@ export default {
   },
   computed: {
     filteredSensors() {
-      if (!this.searchQuery) return this.sensors
+      // Primeiro, ordena os sensores por timestamp (mais recentes primeiro)
+      const sortedSensors = [...this.sensors].sort((a, b) => {
+        const dateA = new Date(a.formattedTimestamp)
+        const dateB = new Date(b.formattedTimestamp)
+        return dateB - dateA // Ordenação decrescente
+      })
+
+      // Depois, aplica o filtro de pesquisa
+      if (!this.searchQuery) return sortedSensors
 
       const query = this.searchQuery.toLowerCase()
-      return this.sensors.filter(
+      return sortedSensors.filter(
         (sensor) =>
           sensor.sensorId?.toString().includes(query) ||
           sensor.currentValue?.toString().includes(query) ||
@@ -71,13 +95,42 @@ export default {
           headers: {
             Accept: 'application/json',
             Authorization:
-              'Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNjkwMjI4NywiZXhwIjoxNzM2OTA1ODg3fQ.lTnZgyy7V88p2q9EBtm6wKs_ItXVfl7zDelAkUIXTeif_Aji6RYKwsoIemCQOW3y',
+              'Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNjkwMzk5NCwiZXhwIjoxNzM2OTA3NTk0fQ.OjG5qmgFBaKFeCREtP0zwIGGLrmX7c-PyHYeQ4gRhscK98BKPRBroX3jXZIhoX_8',
           },
         })
         const data = await response.json()
         this.sensors = data
       } catch (error) {
         console.error('Error fetching sensors:', error)
+      }
+    },
+    async deleteSensor(sensorId) {
+      if (confirm('Are you sure you want to delete this sensor?')) {
+        try {
+          const config = useRuntimeConfig() // Access runtimeConfig
+          const response = await fetch(
+            `${config.public.API_URL}/sensor/${sensorId}`,
+            {
+              method: 'DELETE',
+              headers: {
+                Accept: 'application/json',
+                Authorization:
+                  'Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNjkwMjI4NywiZXhwIjoxNzM2OTA1ODg3fQ.lTnZgyy7V88p2q9EBtm6wKs_ItXVfl7zDelAkUIXTeif_Aji6RYKwsoIemCQOW3y',
+              },
+            },
+          )
+
+          if (response.ok) {
+            this.sensors = this.sensors.filter(
+              (sensor) => sensor.sensorId !== sensorId,
+            )
+            alert('Sensor deleted successfully!')
+          } else {
+            alert('Failed to delete sensor.')
+          }
+        } catch (error) {
+          console.error('Error deleting sensor:', error)
+        }
       }
     },
   },
@@ -124,5 +177,36 @@ export default {
   border: 1px solid #ddd;
   border-radius: 4px;
   width: 100%;
+}
+
+.btn {
+  display: inline-block;
+  width: auto;
+  padding: 6px 12px;
+  font-size: 14px;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-color: #007bff;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+}
+
+.btn-sm {
+  font-size: 12px;
+}
+
+.btn:hover {
+  background-color: #0056b3;
 }
 </style>
