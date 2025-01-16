@@ -8,10 +8,13 @@
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <input type="text" v-model="searchQuery" class="search-bar"
                     placeholder="Search by Product Name, Type, or Description" />
-
             </div>
-            <!-- New Button for Redirecting to Create Page -->
-            <button class="btn btn-create" @click="redirectToCreatePage">Create New Product</button>
+            <!-- Buttons for actions -->
+            <div class="action-buttons">
+                <button class="btn btn-create" @click="redirectToCreatePage">Create New Product</button>
+                <label for="file-upload" class="btn btn-import">Import Products</label>
+                <input id="file-upload" type="file" @change="importProducts" style="display: none" />
+            </div>
             <!-- Product Table -->
             <table class="table">
                 <thead>
@@ -95,6 +98,32 @@ function redirectToCreatePage() {
     router.push('/products/create')
 }
 
+// Import products from Excel file
+async function importProducts(event) {
+    const file = event.target.files[0]
+    if (!file) return
+
+    const formData = new FormData()
+    formData.append('file', file)
+
+    try {
+        const response = await fetch(`${api}/product/import`, {
+            method: 'POST',
+            body: formData,
+        })
+
+        if (!response.ok) {
+            const error = await response.json()
+            throw new Error(error.message || 'Failed to import products')
+        }
+
+        alert('Products imported successfully')
+        await refresh() // Refresh the product list after import
+    } catch (err) {
+        console.error('Error importing products:', err)
+        alert(`Error importing products: ${err.message}`)
+    }
+}
 </script>
 
 <style scoped>
@@ -160,6 +189,13 @@ function redirectToCreatePage() {
 
 .btn-create {
     background-color: #28a745;
+    color: white;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.btn-import {
+    background-color: #ffc107;
     color: white;
     border-radius: 4px;
     font-size: 14px;
