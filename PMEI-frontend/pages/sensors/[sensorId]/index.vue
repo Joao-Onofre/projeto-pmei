@@ -7,6 +7,7 @@
         <label for="currentValue">Current Value</label>
         <input
           type="number"
+          step="0.1"
           id="currentValue"
           v-model="sensor.currentValue"
           class="form-control"
@@ -22,8 +23,8 @@
           class="form-control"
           required
         >
-          <option :value="1">Active</option>
-          <option :value="2">Inactive</option>
+          <option value="Active">Active</option>
+          <option value="Inactive">Inactive</option>
         </select>
       </div>
 
@@ -46,10 +47,9 @@ export default {
     }
   },
   async mounted() {
-    // Obtenha o ID da URL usando this.$route.params.id
-    const sensorId = this.$route.params.id
+    const sensorId = this.$route.params.sensorId
     if (sensorId) {
-      await this.fetchSensor(sensorId) // Se o ID estiver presente, fazemos a requisição para buscar o sensor
+      await this.fetchSensor(sensorId)
     } else {
       console.error('Sensor ID is missing from URL')
       alert('Sensor ID is missing from URL')
@@ -58,21 +58,27 @@ export default {
   methods: {
     async fetchSensor(sensorId) {
       try {
-        const config = useRuntimeConfig() // Acesso ao runtimeConfig
+        const config = useRuntimeConfig()
         const response = await fetch(
           `${config.public.API_URL}/sensor/${sensorId}`,
           {
             headers: {
               Accept: 'application/json',
               Authorization:
-                'Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNjkwMzk5NCwiZXhwIjoxNzM2OTA3NTk0fQ.OjG5qmgFBaKFeCREtP0zwIGGLrmX7c-PyHYeQ4gRhscK98BKPRBroX3jXZIhoX_8',
+                'Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzA0ODI4MywiZXhwIjoxNzM3MDUxODgzfQ.6WV5OVM6s8vBz4ut88iJtdtbSpAA2o2ew8-eaF0rv7W4TC21QlzCAC86b3LmOCgI',
             },
           },
         )
 
         if (response.ok) {
           const data = await response.json()
-          this.sensor = data // Preenche o objeto sensor com os dados recebidos
+          this.sensor = data
+
+          // Convert numeric status to string if needed
+          if (typeof this.sensor.statusType === 'number') {
+            this.sensor.statusType =
+              this.sensor.statusType === 1 ? 'Active' : 'Inactive'
+          }
         } else {
           console.error('Error fetching sensor:', response.statusText)
           alert('Error fetching sensor')
@@ -84,29 +90,53 @@ export default {
     },
     async updateSensor() {
       try {
-        const config = useRuntimeConfig() // Acesso ao runtimeConfig
+        const config = useRuntimeConfig()
         const sensorId = this.sensor.sensorId
 
-        const response = await fetch(
-          `${config.public.API_URL}/sensor/${sensorId}`,
-          {
-            method: 'PUT',
-            headers: {
-              Accept: 'application/json',
-              'Content-Type': 'application/json',
-              Authorization: 'Bearer YOUR_TOKEN_HERE', // Coloque seu token aqui
-            },
-            body: JSON.stringify({
-              currentValue: this.sensor.currentValue,
-              statusType: this.sensor.statusType,
-            }),
+        const requestData = {
+          currentValue: parseFloat(this.sensor.currentValue),
+          statusType: this.sensor.statusType,
+        }
+
+        console.log('Updating sensor with values:', requestData)
+
+        const url = `${config.public.API_URL}/sensor/${sensorId}`
+        console.log('PUT request URL:', url)
+
+        const response = await fetch(url, {
+          method: 'PUT',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization:
+              'Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzA0ODI4MywiZXhwIjoxNzM3MDUxODgzfQ.6WV5OVM6s8vBz4ut88iJtdtbSpAA2o2ew8-eaF0rv7W4TC21QlzCAC86b3LmOCgI',
           },
-        )
+          body: JSON.stringify(requestData),
+        })
+
+        // Log the raw response for debugging
+        console.log('Response status:', response.status)
+        console.log('Response headers:', Object.fromEntries(response.headers))
+
+        const responseText = await response.text()
+        console.log('Raw response:', responseText)
 
         if (response.ok) {
+          // Only try to parse as JSON if there's actual content
+          let responseData = null
+          if (responseText) {
+            try {
+              responseData = JSON.parse(responseText)
+              console.log('Response data:', responseData)
+            } catch (e) {
+              console.log('Response was not JSON, but request was successful')
+            }
+          }
+
           alert('Sensor updated successfully!')
-          this.$router.push('/sensors') // Redireciona de volta para a lista de sensores
+          this.$router.push('/sensors')
         } else {
+          console.error('Failed to update sensor. Response:', responseText)
           alert('Failed to update sensor.')
         }
       } catch (error) {

@@ -95,7 +95,7 @@ export default {
           headers: {
             Accept: 'application/json',
             Authorization:
-              'Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNjkwMzk5NCwiZXhwIjoxNzM2OTA3NTk0fQ.OjG5qmgFBaKFeCREtP0zwIGGLrmX7c-PyHYeQ4gRhscK98BKPRBroX3jXZIhoX_8',
+              'Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzA0NTc5NCwiZXhwIjoxNzM3MDQ5Mzk0fQ.6LGjf1lybIApNV1GsxnIBWhWhAw-QDDjbzaW2ymk7QDsoK_2n_4Ekm1aVDMq-A7b',
           },
         })
         const data = await response.json()

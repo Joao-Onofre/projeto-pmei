@@ -62,13 +62,13 @@ Accept: application/json
 Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNjg3MzIyNCwiZXhwIjoxNzM2ODc2ODI0fQ.Gt99ReZVIGbv4er8TDyCYdy0gGUs0pb3eeEkAv2Y1sTQ4KE53HX3iy0-D_TXoL9-
 
 ### UPDATE SENSOR
-PUT http://localhost:8080/academics/api/sensor/1
+PUT http://localhost:8080/academics/api/sensor/2
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNjkwMTEzOSwiZXhwIjoxNzM2OTA0NzM5fQ.relc7juVNV81S06jAJ_qcdygdAvMJ35mdcRgeB8HeeaxV8k72lHbNzVsaUsoQjlz
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzA0NTc5NCwiZXhwIjoxNzM3MDQ5Mzk0fQ.6LGjf1lybIApNV1GsxnIBWhWhAw-QDDjbzaW2ymk7QDsoK_2n_4Ekm1aVDMq-A7b
 
 {
-  "currentValue": 25.6,
+  "currentValue": 10.6,
   "statusType": "Active"
 }
 
