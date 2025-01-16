@@ -9,10 +9,14 @@ import org.hibernate.Hibernate;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.dtos.PackageProductDTO;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.dtos.ProductDTO;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.ejbs.typesBeans.PackageTypeBean;
+import pt.ipleiria.estg.ei.dae.projeto.projetopmei.ejbs.typesBeans.SensorTypeBean;
+import pt.ipleiria.estg.ei.dae.projeto.projetopmei.ejbs.typesBeans.StatusTypeBean;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.*;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.Package;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.entityTypes.OrderStatusType;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.entityTypes.PackageType;
+import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.entityTypes.SensorType;
+import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.entityTypes.StatusType;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.exceptions.MyEntityNotFoundException;
 
 import java.util.Date;
@@ -30,10 +34,35 @@ public class PackageBean {
     @EJB
     private ProductBean productBean;
 
+    @EJB
+    private SensorBean sensorBean;
+
+    @EJB
+    private SensorTypeBean sensorTypeBean;
+
+    @EJB
+    private StatusTypeBean statusTypeBean;
+
     public Package create(Order order, PackageType packageType){
         Package newPackage = new Package(packageType, order);
         entityManager.persist(newPackage); // Save the new package
         order.getPackageList().add(newPackage); // Link the package to the order
+
+        if(packageType.getType().equals("Isometric")){
+            List<Sensor> sensors = sensorBean.findByTypeAndStatus(1, 2);
+            if(sensors == null || sensors.isEmpty()){
+                throw new RuntimeException("Não existem sensores dispiniveis");
+            }
+
+            //vai buscar o primeiro sensor da lista
+            Sensor sensor = sensors.get(0);
+
+            //relaciona o sensor com a package
+            newPackage.getSensorList().add(sensor);
+            sensor.setPack(newPackage);
+            sensor.setStatusType(statusTypeBean.findById((long)1));//sensor fica ativo
+
+        }
         return newPackage;
 
     }

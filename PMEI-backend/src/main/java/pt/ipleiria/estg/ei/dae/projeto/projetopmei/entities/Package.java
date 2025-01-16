@@ -23,7 +23,7 @@ public class Package {
     private PackageType packageType;
     @OneToMany(mappedBy = "pack",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<PackageProduct> packageProducts = new ArrayList<>();
-    @OneToMany(mappedBy = "pack")
+    @OneToMany(mappedBy = "pack", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Sensor> sensorList;
     @ManyToOne
     private Order order;
