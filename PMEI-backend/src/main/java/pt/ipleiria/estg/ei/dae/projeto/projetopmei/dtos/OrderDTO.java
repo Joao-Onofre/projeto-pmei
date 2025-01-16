@@ -12,6 +12,7 @@ public class OrderDTO implements Serializable {
     //---------------------- Attributes ----------------------
     private long id; // Entity's ID
     private long status;
+    private String statusName;
     private String customerUsername;
     private String creationDate;
     private String deliveryDate;
@@ -24,9 +25,10 @@ public class OrderDTO implements Serializable {
     public OrderDTO() {
     }
 
-    public OrderDTO(long id, long status, String customerUsername, String creationDate, String deliveryDate, String terminationDate, boolean terminated,List<PackageDTO> packageList) {
+    public OrderDTO(long id, long status, String statusName, String customerUsername, String creationDate, String deliveryDate, String terminationDate, boolean terminated,List<PackageDTO> packageList) {
         this.id = id;
         this.status = status;
+        this.statusName = statusName;
         this.customerUsername = customerUsername;
         this.creationDate = creationDate;
         this.deliveryDate = deliveryDate;
@@ -42,6 +44,7 @@ public class OrderDTO implements Serializable {
         return new OrderDTO(
                 order.getId(),
                 order.getStatus().getId(),
+                order.getStatus().getStatus(),
                 order.getCustomer().getUsername(),
                 order.getCreationDate() != null ? order.getCreationDate().toString() : null,
                 order.getDeliveryDate() != null ? order.getDeliveryDate().toString() : null,
@@ -69,6 +72,13 @@ public class OrderDTO implements Serializable {
     }
     public void setStatus(long status) {
         this.status = status;
+    }
+
+    public String getStatusName() {
+        return statusName;
+    }
+    public void setStatusName(String statusName) {
+        this.statusName = statusName;
     }
 
     public String getCustomerUsername() {

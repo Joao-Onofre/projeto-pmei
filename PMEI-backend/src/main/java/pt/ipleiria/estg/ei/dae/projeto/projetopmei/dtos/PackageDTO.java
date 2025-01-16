@@ -14,10 +14,10 @@ public class PackageDTO implements Serializable {
     //------------------- Atributos ---------------------
     private long id;
     private long packageType;
-    //private List<ProductDTO> products;
+    private String packageTypeName;
     private List<PackageProductDTO> packageProducts;
 
-    //private List<SensorDTO> sensorList;
+    private List<SensorDTO> sensorList;
     private long order;
 
     //------------------- Construtores ---------------------
@@ -25,13 +25,13 @@ public class PackageDTO implements Serializable {
 
     }
 
-    public PackageDTO(long id, long packageType, long order, List<PackageProductDTO> packageProducts) {
+    public PackageDTO(long id, long packageType, String packageTypeName, long order, List<PackageProductDTO> packageProducts, List<SensorDTO> sensorList) {
         this.id = id;
         this.packageType = packageType;
         this.order = order;
-        //this.products = new ArrayList<>();
+        this.packageTypeName = packageTypeName;
         this.packageProducts = packageProducts;
-        //this.sensorList = new ArrayList<>();
+        this.sensorList = sensorList;
     }
 
     //------------------- Metodos ---------------------
@@ -40,10 +40,12 @@ public class PackageDTO implements Serializable {
         return new PackageDTO(
                 pack.getId(),
                 pack.getPackageType().getId(),
+                pack.getPackageType().getType(),
                 pack.getOrder().getId(),
                 pack.getPackageProducts().stream()
                         .map(PackageProductDTO::from) // Map each PackageProduct to PackageProductDTO
-                        .collect(Collectors.toList()) // Collect into a list
+                        .collect(Collectors.toList()), // Collect into a list
+                pack.getSensorList().stream().map(SensorDTO::from).collect(Collectors.toList())
 
         );
     }
@@ -52,8 +54,6 @@ public class PackageDTO implements Serializable {
     public static List<PackageDTO> from(List<Package> packages) {
         return packages.stream().map(PackageDTO::from).collect(Collectors.toList());
     }
-
-
 
     //------------------- Atributos ---------------------
     public long getId() {
@@ -70,14 +70,12 @@ public class PackageDTO implements Serializable {
         this.packageType = packageType;
     }
 
-    /*
-    public List<ProductDTO> getProducts() {
-        return products;
+    public String getPackageTypeName() {
+        return packageTypeName;
     }
-    public void setProducts(List<ProductDTO> products) {
-        this.products = products;
+    public void setPackageTypeName(String packageTypeName) {
+        this.packageTypeName = packageTypeName;
     }
-    */
 
     public List<PackageProductDTO> getPackageProducts() {
         return packageProducts;
@@ -86,14 +84,12 @@ public class PackageDTO implements Serializable {
         this.packageProducts = packageProducts;
     }
 
-    /*
     public List<SensorDTO> getSensorList() {
         return sensorList;
     }
     public void setSensorList(List<SensorDTO> sensorList) {
         this.sensorList = sensorList;
     }
-    */
 
     public long getOrder() {
         return order;

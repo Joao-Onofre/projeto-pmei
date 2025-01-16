@@ -106,6 +106,16 @@ public class SensorBean {
         return entityManager.createQuery("select s from Sensor s").getResultList();
     }
 
+    public List<Sensor> findByTypeAndStatus(long sensortypeId, long statustypeId) {
+        return entityManager.createQuery(
+                        "SELECT s FROM Sensor s WHERE s.sensorType.id = :sensortypeId AND s.statusType.id = :statustypeId", Sensor.class)
+                .setParameter("sensortypeId", sensortypeId)
+                .setParameter("statustypeId", statustypeId)
+                .getResultList();
+    }
+
+
+
     // Update de um sensor
     public void update(Sensor sensor) throws Exception {
         Sensor existingSensor = entityManager.find(Sensor.class, sensor.getSensorId());
