@@ -11,9 +11,11 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.SecurityContext;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.dtos.AuthDTO;
+import pt.ipleiria.estg.ei.dae.projeto.projetopmei.dtos.CustomerDTO;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.dtos.auth.AuthSetPasswordDTO;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.ejbs.UserBean;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.exceptions.MyConstraintViolationException;
+import pt.ipleiria.estg.ei.dae.projeto.projetopmei.exceptions.MyEntityExistsException;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.exceptions.MyEntityNotFoundException;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.exceptions.MyUserSetPasswordException;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.security.Authenticated;
@@ -48,5 +50,18 @@ public class AuthService {
 		String username = securityContext.getUserPrincipal().getName();
 		userBean.setPassword(username, data.getOldPassword(), data.getNewPassword(), data.getConfirmPassword());
 		return Response.ok().build();
+	}
+
+	@POST
+	@Path("/register")
+	public Response register(@Valid CustomerDTO data) {
+		try {
+			userBean.register(data.getUsername(), data.getPassword(), data.getName(), data.getEmail());
+			return Response.status(Response.Status.CREATED).build();
+		} catch (MyEntityExistsException e) {
+			return Response.status(Response.Status.CONFLICT).entity("User already exists").build();
+		} catch (MyConstraintViolationException e) {
+			return Response.status(Response.Status.BAD_REQUEST).entity("Invalid data").build();
+		}
 	}
 }
