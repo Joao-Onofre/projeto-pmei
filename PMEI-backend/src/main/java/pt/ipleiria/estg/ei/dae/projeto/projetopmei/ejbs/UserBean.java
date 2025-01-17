@@ -5,10 +5,13 @@ import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
+import jakarta.validation.ConstraintViolationException;
 import org.hibernate.Hibernate;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.User;
+import pt.ipleiria.estg.ei.dae.projeto.projetopmei.exceptions.MyConstraintViolationException;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.exceptions.MyEntityExistsException;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.exceptions.MyEntityNotFoundException;
+import pt.ipleiria.estg.ei.dae.projeto.projetopmei.exceptions.MyUserSetPasswordException;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.security.Hasher;
 
 import java.util.List;
@@ -63,5 +66,25 @@ public class UserBean {
 
 	public List<User> findAll() {
 		return entityManager.createNamedQuery("getAllUsers", User.class).getResultList();
+	}
+
+	public void setPassword(String username, String oldPassword, String newPassword, String confirmPassword) throws MyEntityNotFoundException, MyUserSetPasswordException, MyConstraintViolationException {
+		var user = find(username);
+
+		if (!user.getPassword().equals(hasher.hash(oldPassword))) {
+			throw new MyUserSetPasswordException("The old password is not correct");
+		}
+
+		if (!newPassword.equals(confirmPassword)) {
+			throw new MyUserSetPasswordException("The password confirmation doesn't match the new password");
+		}
+
+		user.setPassword(hasher.hash(newPassword));
+
+		try {
+			entityManager.merge(user);
+		} catch (ConstraintViolationException e) {
+			throw new MyConstraintViolationException(e);
+		}
 	}
 }
