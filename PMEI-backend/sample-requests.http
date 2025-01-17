@@ -13,6 +13,13 @@ Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzEyO
 
 { "oldPassword": "123", "newPassword": "1234", "confirmPassword": "1234" }
 
+### REGISTER
+POST http://localhost:8080/academics/api/auth/register
+Content-Type: application/json
+Accept: application/json
+
+{ "username": "kintama", "password": "kingyo", "name": "Kin Tama", "email": "kintamasan@mail.jp" }
+
 ### GET ALL USERS
 GET http://localhost:8080/academics/api/user
 Accept: application/json
