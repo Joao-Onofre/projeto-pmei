@@ -110,27 +110,27 @@ public class ConfigBean {
                 statusTypeBean.create(inactive);
             }
 
-            // Create sensors with default values for SensorType and StatusType
-            SensorType sensorType = sensorTypeBean.findByName("Temperature");
-            StatusType statusType = statusTypeBean.findByName("Inactive");
+            // Get the required types
+            SensorType temperatureSensorType = sensorTypeBean.findByName("Temperature");
+            StatusType inactiveStatus = statusTypeBean.findByName("Inactive");
 
-            if (sensorType != null && statusType != null) {
-                // Create a Sensor object with the SensorType and StatusType
-                Sensor newSensor = new Sensor(sensorType);  // You may pass any additional fields you need (timestamp, currentValue, etc.)
-                newSensor.setStatusType(statusType);  // Set the status for the Sensor
-
-                // Save the sensor
-                sensorBean.create(newSensor); // This now uses the updated create method in SensorBean
+            if (temperatureSensorType != null && inactiveStatus != null) {
+                // Create 10 temperature sensors
+                for (int i = 0; i < 10; i++) {
+                    Sensor tempSensor = new Sensor(temperatureSensorType);
+                    tempSensor.setStatusType(inactiveStatus);
+                    tempSensor.setCurrentValue(0.0); // Set initial value to 0
+                    sensorBean.create(tempSensor);
+                }
             }
 
-            // Create more sensors if needed with different types or statuses
+            // Create a humidity sensor
             SensorType humiditySensorType = sensorTypeBean.findByName("Humidity");
             if (humiditySensorType != null) {
-                Sensor newHumiditySensor = new Sensor(humiditySensorType); // Create a new sensor for humidity
-                newHumiditySensor.setStatusType(statusType); // Set the status for the new sensor
-
-                // Save the new humidity sensor
-                sensorBean.create(newHumiditySensor); // This will persist the new sensor
+                Sensor humiditySensor = new Sensor(humiditySensorType);
+                humiditySensor.setStatusType(inactiveStatus);
+                humiditySensor.setCurrentValue(0.0);
+                sensorBean.create(humiditySensor);
             }
 
             customerBean.create("customer1", "1234", "Joner Boner", "boner@gmail.com");

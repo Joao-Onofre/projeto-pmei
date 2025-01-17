@@ -47,7 +47,7 @@ Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNjg4M
 GET http://localhost:8080/academics/api/sensor
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNjkwMTEzOSwiZXhwIjoxNzM2OTA0NzM5fQ.relc7juVNV81S06jAJ_qcdygdAvMJ35mdcRgeB8HeeaxV8k72lHbNzVsaUsoQjlz
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzEzNzcwMSwiZXhwIjoxNzM3MTQxMzAxfQ.a0ocz4FYJpfLtkm9Jcmuj3hzNfYzrsEuDUnKs-VeRDcUbB-KupMShkqA2pa0xO2S
 
 ### GET SENSOR
 GET http://localhost:8080/academics/api/sensor/1

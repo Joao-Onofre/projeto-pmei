@@ -24,6 +24,9 @@
       <button type="submit" class="btn btn-primary">Create Sensor</button>
     </form>
 
+    <!-- Back Button -->
+    <a href="/sensors" class="btn btn-secondary mt-3">Back to Sensor List</a>
+
     <!-- Success Message -->
     <p v-if="successMessage" class="success-message">{{ successMessage }}</p>
   </div>
@@ -47,7 +50,7 @@ export default {
             Accept: 'application/json',
             'Content-Type': 'application/json',
             Authorization:
-              'Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNjkwMjI4NywiZXhwIjoxNzM2OTA1ODg3fQ.lTnZgyy7V88p2q9EBtm6wKs_ItXVfl7zDelAkUIXTeif_Aji6RYKwsoIemCQOW3y',
+              'Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzEzNzc5MywiZXhwIjoxNzM3MTQxMzkzfQ.rVDV8NN1xjsNpdzRJwZT4xnlEvtWIe77h7bof-7Q9N5gXkbwxVTOsUbNDyAFNIza',
           },
           body: JSON.stringify({ sensorType: this.sensorType }),
         })
@@ -114,10 +117,21 @@ h2 {
   padding: 10px;
   font-size: 16px;
   color: #fff;
-  background-color: #007bff;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background-color: #007bff;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  max-width: 500px;
+  margin: 20px auto 0;
 }
 
 .btn:hover {
@@ -130,5 +144,9 @@ h2 {
   margin-top: 20px;
   color: #28a745;
   font-weight: bold;
+}
+
+.mt-3 {
+  margin-top: 20px;
 }
 </style>
