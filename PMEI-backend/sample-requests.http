@@ -23,23 +23,29 @@ GET http://localhost:8080/academics/api/customer
 Accept: application/json
 Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczMzMxMjI4MSwiZXhwIjoxNzMzMzE1ODgxfQ.REaRGa0ZZpU6v9BENlE_zegrBcjkukRTLA4agNZ85sGTS2xcfqv4obcjFoVcvE3A
 
+### GET USER
+GET http://localhost:8080/academics/api/user/customer1
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzEzOTUwOSwiZXhwIjoxNzM3MTQzMTA5fQ.dqzPYZkndBS29YakuD3nh1B_S_8AfC0IXVtibeD8UymRIVphCvl_lS2bMLW69obd
+
+
 ### CREATE CUSTOMER
 POST http://localhost:8080/academics/api/customer
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczMzMxMjI4MSwiZXhwIjoxNzMzMzE1ODgxfQ.REaRGa0ZZpU6v9BENlE_zegrBcjkukRTLA4agNZ85sGTS2xcfqv4obcjFoVcvE3A
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzEzNjg3MywiZXhwIjoxNzM3MTQwNDczfQ.zUkT7ksGBsJaba2tq2zf92xRewKSgC_qPYlrYXD8doC77PtOTr_HJPE879SAnIpq
 
 {
-  "username": "tiago",
-  "password": "123",
+  "username": "customer2",
+  "password": "1234",
   "name": "Tiago",
   "email": "tiago@mail.pt"
 }
 
 ### GET CUSTOMER
-GET http://localhost:8080/academics/api/customer/tiago
+GET http://localhost:8080/academics/api/customer/customer1
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczMzMxMjI4MSwiZXhwIjoxNzMzMzE1ODgxfQ.REaRGa0ZZpU6v9BENlE_zegrBcjkukRTLA4agNZ85sGTS2xcfqv4obcjFoVcvE3A
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzEzODA1NSwiZXhwIjoxNzM3MTQxNjU1fQ.PPW8HRh5GSWb6aXgcrugo6GusUGIXQeh9QO47SoSyUCRc_UT6uzjBJW1v11CPJG6
 
 ### CREATE SENSOR
 POST http://localhost:8080/academics/api/sensor
@@ -169,7 +175,7 @@ Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
 ------WebKitFormBoundary123456--
 
 ### ADD PRODUCT
-POST http://localhost:8080/academics/api/cart/customer/customer1/add?productId=2
+POST http://localhost:8080/academics/api/cart/customer/customer2/add?productId=2
 Content-Type: application/json
 
 ### GET PRODUCT FROM COSTUMER

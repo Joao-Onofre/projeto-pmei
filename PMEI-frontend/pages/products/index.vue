@@ -11,8 +11,10 @@
             </div>
             <!-- Buttons for actions -->
             <div class="action-buttons">
-                <button class="btn btn-create" @click="redirectToCreatePage">Create New Product</button>
-                <label for="file-upload" class="btn btn-import">Import Products</label>
+                <!-- Show create and import buttons only if user is not a Customer -->
+                <button v-if="userType !== 'Customer'" class="btn btn-create" @click="redirectToCreatePage">Create New
+                    Product</button>
+                <label v-if="userType !== 'Customer'" for="file-upload" class="btn btn-import">Import Products</label>
                 <input id="file-upload" type="file" @change="importProducts" style="display: none" />
                 <button class="btn btn-export" @click="exportToCSV">Export to CSV</button>
             </div>
@@ -36,9 +38,14 @@
                         <td>{{ product.productTypeName }}</td>
                         <td>{{ product.price.toFixed(2) }}€</td>
                         <td>
-                            <button class="btn btn-edit" @click="editProduct(product.id)">Edit</button>
-                            <button class="btn btn-delete" @click="deleteProduct(product.id)">Delete</button>
-                            <button class="btn btn-success" @click="addToCart(product.id)">Add to Cart</button>
+                            <!-- Show "Add to Cart" button for all users -->
+                            <button v-if="userType === 'Customer'" class="btn btn-success"
+                                @click="addToCart(product.id)">Add to Cart</button>
+                            <!-- Show "Edit" and "Delete" buttons only if user is not a Customer -->
+                            <button v-if="userType !== 'Customer'" class="btn btn-edit"
+                                @click="editProduct(product.id)">Edit</button>
+                            <button v-if="userType !== 'Customer'" class="btn btn-delete"
+                                @click="deleteProduct(product.id)">Delete</button>
                         </td>
                     </tr>
                     <tr v-if="filteredProducts.length === 0">
@@ -61,6 +68,17 @@ const searchQuery = ref('');
 const { data: products, error, refresh } = await useFetch(`${api}/product`);
 
 const router = useRouter();
+
+let username = null;
+let userType = null;
+if (typeof window !== 'undefined') {
+    username = localStorage.getItem('username');
+    userType = localStorage.getItem('user_type');
+    console.log(userType)
+    if (!username || !userType) {
+        error.value = 'No username or user type found. Please log in.';
+    }
+}
 
 const filteredProducts = computed(() => {
     return products.value.filter(
@@ -121,25 +139,20 @@ async function importProducts(event) {
 
 async function addToCart(productId) {
     try {
-        const response = await fetch(`${api}/cart/customer/customer1/add?productId=${productId}`, {
+        const response = await fetch(`${api}/cart/customer/${username}/add?productId=${productId}`, {
             method: 'POST',
         });
 
-        console.log(response)
-
         if (!response.ok) {
-            // Capture raw response text for debugging
             const errorText = await response.text();
             console.error('Backend Error:', errorText);
             throw new Error(errorText || 'Failed to add product to cart');
         }
-
     } catch (err) {
         console.error('Error adding product to cart:', err);
         alert(`Error adding product to cart: ${err.message}`);
     }
 }
-
 
 function exportToCSV() {
     if (!products.value || products.value.length === 0) {
@@ -171,7 +184,6 @@ function exportToCSV() {
     document.body.removeChild(link);
 }
 </script>
-
 
 <style scoped>
 .wrapper {
