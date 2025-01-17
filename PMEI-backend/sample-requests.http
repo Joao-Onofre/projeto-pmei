@@ -68,13 +68,13 @@ Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNjg4M
 GET http://localhost:8080/academics/api/sensor
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNjg4MDUwNywiZXhwIjoxNzM2ODg0MTA3fQ.Rh2tAMMC954I_bl586UX94XWpWIyTIYEOtdkr5RNxCSPGVaWAP6_NjWXFgwJM9WW
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzEzNzcwMSwiZXhwIjoxNzM3MTQxMzAxfQ.a0ocz4FYJpfLtkm9Jcmuj3hzNfYzrsEuDUnKs-VeRDcUbB-KupMShkqA2pa0xO2S
 
 ### GET SENSOR
 GET http://localhost:8080/academics/api/sensor/1
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNjg3Njk0NywiZXhwIjoxNzM2ODgwNTQ3fQ.158D5OxOOXT8Eiaq0aWJ0rrAIXgadLaur8GqZ-NSr_zBiFCnDjApEylWZv4w1CMZ
+//Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNjg3Njk0NywiZXhwIjoxNzM2ODgwNTQ3fQ.158D5OxOOXT8Eiaq0aWJ0rrAIXgadLaur8GqZ-NSr_zBiFCnDjApEylWZv4w1CMZ
 
 ### DELETE SENSOR
 DELETE http://localhost:8080/academics/api/sensor/1
@@ -83,13 +83,13 @@ Accept: application/json
 Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNjg3MzIyNCwiZXhwIjoxNzM2ODc2ODI0fQ.Gt99ReZVIGbv4er8TDyCYdy0gGUs0pb3eeEkAv2Y1sTQ4KE53HX3iy0-D_TXoL9-
 
 ### UPDATE SENSOR
-PUT http://localhost:8080/academics/api/sensor/1
+PUT http://localhost:8080/academics/api/sensor/2
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNjg4MDUwNywiZXhwIjoxNzM2ODg0MTA3fQ.Rh2tAMMC954I_bl586UX94XWpWIyTIYEOtdkr5RNxCSPGVaWAP6_NjWXFgwJM9WW
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzA0NTc5NCwiZXhwIjoxNzM3MDQ5Mzk0fQ.6LGjf1lybIApNV1GsxnIBWhWhAw-QDDjbzaW2ymk7QDsoK_2n_4Ekm1aVDMq-A7b
 
 {
-  "currentValue": 25.6,
+  "currentValue": 10.6,
   "statusType": "Active"
 }
 
@@ -167,6 +167,32 @@ Accept: application/json
 DELETE http://localhost:8080/academics/api/product-type/2
 Content-Type: application/json
 Accept: application/json
+
+### POST ALERT
+POST http://localhost:8080/academics/api/alert/
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzE0NzI5NywiZXhwIjoxNzM3MTUwODk3fQ.Sjb0wnpJGAiY9kayNWt3rG8-7w4qTBmrm85RYxxhwV42t9ZMR1EfcU9JM7vqBmTh
+
+{
+  "message": "Sensor value exceeded threshold",
+  "formattedTimestamp": "2025-01-17 10:00:00",
+  "sensorId": 1
+}
+
+### GET ALERT
+GET http://localhost:8080/academics/api/alert/1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzE0NzI5NywiZXhwIjoxNzM3MTUwODk3fQ.Sjb0wnpJGAiY9kayNWt3rG8-7w4qTBmrm85RYxxhwV42t9ZMR1EfcU9JM7vqBmTh
+
+### DELETE ALERT
+DELETE http://localhost:8080/academics/api/alert/2
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzE0OTc2NSwiZXhwIjoxNzM3MTUzMzY1fQ.eI6WZ3KgveBzYLTBW-ap3O63e64qTJ69DJ2YW1PK645yNr2LOGo-x2zFcorqgSqw
+
+
 
 
 ### IMPORT PRODUCTS
