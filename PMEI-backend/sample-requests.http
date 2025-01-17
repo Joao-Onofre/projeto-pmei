@@ -160,8 +160,17 @@ Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
 < /C:/test_products.xlsx
 ------WebKitFormBoundary123456--
 
+### ADD PRODUCT
+POST http://localhost:8080/academics/api/cart/customer/customer1/add?productId=2
+Content-Type: application/json
 
+### GET PRODUCT FROM COSTUMER
+GET http://localhost:8080/academics/api/cart/customer/customer1
+Accept: application/json
 
+### DELETE PRODUCT FROM COSTUMER
+DELETE http://localhost:8080/academics/api/cart/customer/customer1/remove/1
+Accept: application/json
 
 
 

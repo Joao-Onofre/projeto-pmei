@@ -32,6 +32,9 @@
 					<li class="nav-item">
 						<NuxtLink class="nav-link" to="/product_types">Product Types</NuxtLink>
 					</li>
+					<li class="nav-item">
+						<NuxtLink class="nav-link" to="/cart">Cart</NuxtLink>
+					</li>
 				</ul>
 				<!-- Login Link -->
 				<div class="navbar-nav ms-auto">

@@ -20,16 +20,15 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Type</th>
-                        <th>Price</th>
-                        <th>Actions</th>
+                        <th style="width: 5%;">ID</th>
+                        <th style="width: 15%;">Name</th>
+                        <th style="width: 20%;">Description</th>
+                        <th style="width: 15%;">Type</th>
+                        <th style="width: 10%;">Price</th>
+                        <th style="width: 18%;">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Display filtered products -->
                     <tr v-for="product in filteredProducts" :key="product.id">
                         <td>{{ product.id }}</td>
                         <td>{{ product.name }}</td>
@@ -39,102 +38,118 @@
                         <td>
                             <button class="btn btn-edit" @click="editProduct(product.id)">Edit</button>
                             <button class="btn btn-delete" @click="deleteProduct(product.id)">Delete</button>
+                            <button class="btn btn-success" @click="addToCart(product.id)">Add to Cart</button>
                         </td>
                     </tr>
-                    <!-- Placeholder row when no products match the search -->
                     <tr v-if="filteredProducts.length === 0">
                         <td colspan="6">No products match your search.</td>
                     </tr>
                 </tbody>
             </table>
+
         </div>
     </div>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
-import { useRouter } from 'vue-router'
+import { ref, computed } from 'vue';
+import { useRouter } from 'vue-router';
 
-const config = useRuntimeConfig()
-const api = config.public.API_URL
-const searchQuery = ref('') // For the search input
-const { data: products, error, refresh } = await useFetch(`${api}/product`) // Fetching products
+const config = useRuntimeConfig();
+const api = config.public.API_URL;
+const searchQuery = ref('');
+const { data: products, error, refresh } = await useFetch(`${api}/product`);
 
-const router = useRouter()
+const router = useRouter();
 
-// Computed property for filtered products
 const filteredProducts = computed(() => {
-    // Return filtered products based on the search query
     return products.value.filter(
         (product) =>
             product.name.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
             product.description.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
             product.productTypeName.toLowerCase().includes(searchQuery.value.toLowerCase())
-    )
-})
+    );
+});
 
-// Redirect to the Update Product page
 function editProduct(productId) {
-    router.push(`/products/update/${productId}`)
+    router.push(`/products/update/${productId}`);
 }
 
-// Delete a product and refresh the list
 async function deleteProduct(id) {
     try {
         const requestOptions = {
             method: 'DELETE',
-            headers: { "Content-Type": "application/json" },
-        }
-        const response = await $fetch(`${api}/product/${id}`, requestOptions)
+            headers: { 'Content-Type': 'application/json' },
+        };
+        const response = await $fetch(`${api}/product/${id}`, requestOptions);
         if (response) {
-            await refresh() // Refresh the product list after a successful delete
+            await refresh();
         }
     } catch (err) {
-        console.error('Error deleting product:', err)
+        console.error('Error deleting product:', err);
     }
 }
 
-// Redirect to the Create Product page
 function redirectToCreatePage() {
-    router.push('/products/create')
+    router.push('/products/create');
 }
 
-// Import products from Excel file
 async function importProducts(event) {
-    const file = event.target.files[0]
-    if (!file) return
+    const file = event.target.files[0];
+    if (!file) return;
 
-    const formData = new FormData()
-    formData.append('file', file)
+    const formData = new FormData();
+    formData.append('file', file);
 
     try {
         const response = await fetch(`${api}/product/import`, {
             method: 'POST',
             body: formData,
-        })
+        });
 
         if (!response.ok) {
-            const error = await response.json()
-            throw new Error(error.message || 'Failed to import products')
+            const error = await response.json();
+            throw new Error(error.message || 'Failed to import products');
         }
 
-        alert('Products imported successfully')
-        await refresh() // Refresh the product list after import
+        await refresh();
     } catch (err) {
-        console.error('Error importing products:', err)
-        alert(`Error importing products: ${err.message}`)
+        console.error('Error importing products:', err);
+        alert(`Error importing products: ${err.message}`);
     }
 }
 
+async function addToCart(productId) {
+    try {
+        const response = await fetch(`${api}/cart/customer/customer1/add?productId=${productId}`, {
+            method: 'POST',
+        });
+
+        console.log(response)
+
+        if (!response.ok) {
+            // Capture raw response text for debugging
+            const errorText = await response.text();
+            console.error('Backend Error:', errorText);
+            throw new Error(errorText || 'Failed to add product to cart');
+        }
+
+    } catch (err) {
+        console.error('Error adding product to cart:', err);
+        alert(`Error adding product to cart: ${err.message}`);
+    }
+}
+
+
 function exportToCSV() {
     if (!products.value || products.value.length === 0) {
-        alert("No products to export.");
+        alert('No products to export.');
         return;
     }
 
     const csvContent = [
-        ["ID", "Name", "Description", "Type", "Price"], // CSV header
-        ...products.value.map(product => [
+        ['ID', 'Name', 'Description', 'Type', 'Price'],
+        ...products.value.map((product) => [
             product.id,
             product.name,
             product.description,
@@ -142,21 +157,21 @@ function exportToCSV() {
             product.price.toFixed(2),
         ]),
     ]
-        .map(row => row.map(field => `"${field}"`).join(",")) // Format fields as CSV
-        .join("\n"); // Combine rows
+        .map((row) => row.map((field) => `"${field}"`).join(','))
+        .join('\n');
 
-    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
-    const link = document.createElement("a");
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
     const url = URL.createObjectURL(blob);
 
-    link.setAttribute("href", url);
-    link.setAttribute("download", "products.csv");
+    link.setAttribute('href', url);
+    link.setAttribute('download', 'products.csv');
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
 }
-
 </script>
+
 
 <style scoped>
 .wrapper {

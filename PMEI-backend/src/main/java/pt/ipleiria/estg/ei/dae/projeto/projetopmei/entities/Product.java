@@ -3,6 +3,11 @@ package pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities;
 import jakarta.persistence.*;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.entityTypes.ProductType;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+
 @Entity
 @Table(name = "products")
 @NamedQueries({
@@ -25,6 +30,8 @@ public class Product {
     private float price;
     @ManyToOne
     private ProductType productType;
+    @ManyToMany(mappedBy = "products")
+    private List<Cart> carts = new ArrayList<>();
 
     //-------------- Construtores ----------------
     public Product() {
@@ -74,5 +81,18 @@ public class Product {
 
     public void setProductType(ProductType productType) {
         this.productType = productType;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return id == product.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
