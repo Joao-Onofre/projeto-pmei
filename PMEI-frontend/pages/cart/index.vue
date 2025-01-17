@@ -49,26 +49,48 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
-import { useRouter } from 'vue-router';
 
-const config = useRuntimeConfig()
-const api = config.public.API_URL
-const username = 'customer1';
+const config = useRuntimeConfig();
+const api = config.public.API_URL;
 const error = ref(null);
 const cart = ref({ id: null, customerId: '', products: [] });
 
+let username = null;
+
+if (typeof window !== 'undefined') {
+	username = localStorage.getItem('username');
+	if (!username) {
+		error.value = 'No username found. Please log in.';
+	}
+}
+
 const fetchCart = async () => {
+	if (!username) {
+		error.value = 'No username found. Please log in.';
+		return;
+	}
+
 	try {
 		const response = await fetch(`${api}/cart/customer/${username}`);
-		if (!response.ok) throw new Error('Failed to fetch cart');
-		const data = await response.json();
-		cart.value = data;
+		if (response.ok) {
+			// If the cart exists, parse and set it
+			const data = await response.json();
+			cart.value = data;
+		} else if (response.status === 404) {
+			// If the cart does not exist, initialize an empty cart
+			cart.value = { id: null, customerId: username, products: [] };
+		} else {
+			// Handle other server errors
+			throw new Error('Failed to fetch cart');
+		}
 	} catch (err) {
 		error.value = err.message;
 	}
 };
 
+
 const incrementProduct = async (productId) => {
+	if (!username) return;
 	try {
 		const response = await fetch(`${api}/cart/customer/${username}/add?productId=${productId}`, {
 			method: 'POST',
@@ -81,6 +103,7 @@ const incrementProduct = async (productId) => {
 };
 
 const decrementProduct = async (productId) => {
+	if (!username) return;
 	try {
 		const response = await fetch(`${api}/cart/customer/${username}/remove/${productId}`, {
 			method: 'DELETE',
@@ -93,6 +116,7 @@ const decrementProduct = async (productId) => {
 };
 
 const deleteProduct = async (productId) => {
+	if (!username) return;
 	try {
 		while (true) {
 			const response = await fetch(`${api}/cart/customer/${username}/remove/${productId}`, {
@@ -126,7 +150,7 @@ const exportToCSV = () => {
 			product.quantity,
 		]),
 	]
-		.map((row) => row.map((field) => `"${field}"`).join(',')) // Format as CSV
+		.map((row) => row.map((field) => `"${field}"`).join(','))
 		.join('\n');
 
 	const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
@@ -141,8 +165,14 @@ const exportToCSV = () => {
 };
 
 // Fetch cart data on mount
-onMounted(fetchCart);
+onMounted(() => {
+	if (username) {
+		fetchCart();
+	}
+});
 </script>
+
+
 
 <style scoped>
 .wrapper {

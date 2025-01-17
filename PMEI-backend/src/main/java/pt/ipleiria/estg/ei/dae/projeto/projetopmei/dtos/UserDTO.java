@@ -12,26 +12,29 @@ public class UserDTO implements Serializable {
 	private String password;
 	private String name;
 	private String email;
+	private String userType;
 
 	//-------------- Construtores ----------------
 	public UserDTO() {
 
 	}
 
-	public UserDTO(String username, String password, String name, String email) {
+	public UserDTO(String username, String password, String name, String email, String userType) {
 		this.username = username;
 		this.password = password;
 		this.name = name;
 		this.email = email;
+		this.userType = userType;
 	}
 
 	//-------------- Metodos ----------------
 	public static UserDTO from(User user) {
 		return new UserDTO(
-			user.getUsername(),
-			user.getPassword(),
-			user.getName(),
-			user.getEmail()
+				user.getUsername(),
+				user.getPassword(),
+				user.getName(),
+				user.getEmail(),
+				user.getClass().getSimpleName()
 		);
 	}
 
@@ -66,5 +69,13 @@ public class UserDTO implements Serializable {
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getUserType() {
+		return userType;
+	}
+
+	public void setUserType(String userType) {
+		this.userType = userType;
 	}
 }
