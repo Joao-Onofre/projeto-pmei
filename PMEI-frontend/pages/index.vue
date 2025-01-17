@@ -26,7 +26,6 @@ export default {
 				{ id: 5, title: 'Products', link: '/products', icon: 'dairy-products.png' },
 				{ id: 6, title: 'Product Types', link: '/product_types', icon: 'products.png', restricted: true },
 				{ id: 7, title: 'Cart', link: '/cart', icon: 'trolley.png' },
-				{ id: 6, title: 'Product Types', link: '/product_types', icon: 'products.png' },
 				{ id: 7, title: 'Package Types', link: '/package_types', icon: 'products.png' }
 			],
 			userType: null,
