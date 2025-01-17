@@ -166,6 +166,13 @@ Content-Type: application/json
 Accept: application/json
 Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzE0NzI5NywiZXhwIjoxNzM3MTUwODk3fQ.Sjb0wnpJGAiY9kayNWt3rG8-7w4qTBmrm85RYxxhwV42t9ZMR1EfcU9JM7vqBmTh
 
+### DELETE ALERT
+DELETE http://localhost:8080/academics/api/alert/1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzE0NzI5NywiZXhwIjoxNzM3MTUwODk3fQ.Sjb0wnpJGAiY9kayNWt3rG8-7w4qTBmrm85RYxxhwV42t9ZMR1EfcU9JM7vqBmTh
+
+
 
 
 
