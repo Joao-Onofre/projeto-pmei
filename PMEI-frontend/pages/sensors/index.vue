@@ -91,6 +91,19 @@
 </template>
 
 <script>
+let username = null
+let userType = null
+let token = null
+if (typeof window !== 'undefined') {
+  username = localStorage.getItem('username')
+  userType = localStorage.getItem('user_type')
+  token = localStorage.getItem('jwt_token')
+  console.log(userType)
+  if (!username || !userType || !token) {
+    error.value = 'No username or user type found. Please log in.'
+  }
+}
+
 export default {
   data() {
     return {
@@ -149,8 +162,7 @@ export default {
         const response = await fetch(`${config.public.API_URL}/sensor`, {
           headers: {
             Accept: 'application/json',
-            Authorization:
-              'Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzEzNzc5MywiZXhwIjoxNzM3MTQxMzkzfQ.rVDV8NN1xjsNpdzRJwZT4xnlEvtWIe77h7bof-7Q9N5gXkbwxVTOsUbNDyAFNIza',
+            Authorization: 'Bearer ' + token,
           },
         })
         const data = await response.json()
@@ -169,8 +181,7 @@ export default {
               method: 'DELETE',
               headers: {
                 Accept: 'application/json',
-                Authorization:
-                  'Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzEzNzc5MywiZXhwIjoxNzM3MTQxMzkzfQ.rVDV8NN1xjsNpdzRJwZT4xnlEvtWIe77h7bof-7Q9N5gXkbwxVTOsUbNDyAFNIza',
+                Authorization: 'Bearer ' + token,
               },
             },
           )
