@@ -27,21 +27,20 @@ public class PackageBean {
 
     @PersistenceContext
     private EntityManager entityManager;
-
     @EJB
     private PackageTypeBean packageTypeBean;
-
     @EJB
     private ProductBean productBean;
-
     @EJB
     private SensorBean sensorBean;
-
     @EJB
     private SensorTypeBean sensorTypeBean;
-
     @EJB
     private StatusTypeBean statusTypeBean;
+    @EJB
+    private CustomerBean customerBean;
+    @EJB
+    private PackageBean packageBean;
 
     public Package create(Order order, PackageType packageType){
         Package newPackage = new Package(packageType, order);
@@ -67,57 +66,92 @@ public class PackageBean {
 
     }
 
-    /*
-    public Package update(long packageId, List<PackageProductDTO> packageProduct, long newPckgTypeId){
+
+    public Package update(long packageId, List<PackageProductDTO> products, long newPckgTypeId) {
         Package pckg = find(packageId);
-        if(pckg == null) {
-            throw new RuntimeException("Package doesnt exist");
+        if (pckg == null) {
+            throw new RuntimeException("Package doesn't exist");
         }
 
         PackageType newPckgType = packageTypeBean.findById(newPckgTypeId);
-        if(newPckgType == null){
-            throw new RuntimeException("Package Type doesnt exist");
+        if (newPckgType == null) {
+            throw new RuntimeException("Package Type doesn't exist");
         }
+
+        Order order = pckg.getOrder();
 
         // Check if the product list is empty
         if (products == null || products.isEmpty()) {
             pckg.setPackageType(newPckgType);
-            if(newPckgType.getId() == 2){
-                //TODO meter aqui o codigo para adicionar sensor
+            if (newPckgType.getId() == 2) {
+                // TODO: Add sensor logic for this package type
             }
-        }else{
-            for (ProductDTO productDTO : products) {
-                Product product = productBean.find(productDTO.getId());
+        } else {
+            for (PackageProductDTO productDTO : products) {
+                Product product = productBean.find(productDTO.getProduct());
                 if (product == null) {
                     throw new RuntimeException("Invalid Product ID: " + productDTO.getId());
                 }
 
-                if (product.getProductType().getId() == 1 || product.getProductType().getId() == 2){
-                    if(pckg.getPackageType().getId() != 2){
-                        throw new RuntimeException("To add Fresh/Frozen Food products, the Package must be type 'Isometric'");
-                    }
-                    // Create a PackageProduct object with the quantity from ProductDTO
+                String productType = product.getProductType().getType();
+                Package newPckg = null;
+                PackageType pckgType = null;
+
+                switch (productType) {
+                    case "Fresh Food":
+                    case "Frozen Food":
+                        pckgType = packageTypeBean.findById(2); // Refrigerated Package Type
+                        newPckg = packageBean.findWithOrder(order, pckgType);
+                        if (newPckg == null && pckgType != null) {
+                            newPckg = packageBean.create(order, pckgType);
+                        }
+                        break;
+
+                    case "Appliances":
+                        pckgType = packageTypeBean.findById(4); // Appliances Package Type
+                        newPckg = packageBean.findWithOrder(order, pckgType);
+                        if (newPckg == null && pckgType != null) {
+                            newPckg = packageBean.create(order, pckgType);
+                        }
+                        break;
+
+                    case "Canned Food":
+                    case "Clothes":
+                        pckgType = packageTypeBean.findById(5); // Standard Package Type
+                        newPckg = packageBean.findWithOrder(order, pckgType);
+                        if (newPckg == null && pckgType != null) {
+                            newPckg = packageBean.create(order, pckgType);
+                        }
+                        break;
+
+                    default:
+                        throw new RuntimeException("Unknown product type: " + productType);
+                }
+
+                if (pckgType != null) {
+
                     PackageProduct packageProduct = new PackageProduct();
                     packageProduct.setProduct(product);
-                    packageProduct.setPack(pckg);
-                    packageProduct.setQuantity((int) productDTO.getQuantity()); // Get the quantity from ProductDTO
+                    packageProduct.setPack(newPckg);
+                    packageProduct.setQuantity((int) productDTO.getQuantity());
 
-                    // Add the PackageProduct to the Package
-                    pckg.getPackageProducts().add(packageProduct);
+                    newPckg.getPackageProducts().add(packageProduct);
 
-                    // Persist the PackageProduct
+
                     entityManager.persist(packageProduct);
-
                 }
             }
-            // Persist the updated Package
-            entityManager.merge(pckg);
-            entityManager.persist(pckg);
-            entityManager.flush();
         }
+
+        // Persist the updated Package (for the original package's type update)
+        pckg.setPackageType(newPckgType);
+        entityManager.merge(pckg);
+        entityManager.flush();
+
         return pckg;
     }
-    */
+
+
 
     public void delete(long id) throws MyEntityNotFoundException{
         Package pckg = find(id);
@@ -171,5 +205,16 @@ public class PackageBean {
             }
         }
         return null;
+    }
+
+    public List<Package> findCustomerPackages(String username) throws MyEntityNotFoundException {
+        Customer customer = customerBean.find(username);
+        if(customer == null) {
+            throw new RuntimeException("O Customer não existe");
+        }
+
+        return entityManager.createNamedQuery("getAllCustomerPackages", Package.class)
+                .setParameter("username", username)
+                .getResultList();
     }
 }

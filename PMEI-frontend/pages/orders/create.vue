@@ -24,7 +24,7 @@
 				<button class="btn btn-primary ml-2" @click="addProductToOrder">Add</button>
 			</div>
 		</div>
-		<nuxt-link to="/orders" class="btn btn-outline-dark mt-4">Return</nuxt-link>
+		<nuxt-link to="/orders" class="btn btn-link">Return</nuxt-link>
 
 		<!-- Selected Products Table -->
 		<div class="mt-4">
@@ -44,7 +44,7 @@
 						<td>{{ product.name }}</td>
 						<td>{{ product.quantity }}</td>
 						<td>
-							<button class="btn btn-danger" @click="removeProduct(index)">Remove</button>
+							<button class="btn btn-delete" @click="removeProduct(index)">Remove</button>
 						</td>
 					</tr>
 				</tbody>

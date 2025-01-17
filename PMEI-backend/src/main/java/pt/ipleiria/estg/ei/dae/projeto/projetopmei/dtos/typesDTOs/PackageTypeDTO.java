@@ -11,6 +11,9 @@ public class PackageTypeDTO implements Serializable {
     private long id;
     private String type;
 
+    public PackageTypeDTO() {
+    }
+
     public PackageTypeDTO(long id, String type) {
         this.id = id;
         this.type = type;
@@ -20,6 +23,10 @@ public class PackageTypeDTO implements Serializable {
         return types.stream()
                 .map(type -> new PackageTypeDTO(type.getId(), type.getType()))
                 .collect(Collectors.toList());
+
+    }
+    public static PackageTypeDTO from(PackageType type) {
+        return new PackageTypeDTO(type.getId(), type.getType());
     }
 
     public long getId() {

@@ -69,7 +69,7 @@ public class PackageService {
         return Response.ok(packageDTO).build();
     }
 
-    /*
+
     @PUT
     @Path("/{id}")
     public Response updatePackage(@PathParam("id") long id, PackageDTO packageDTO) {
@@ -85,7 +85,7 @@ public class PackageService {
             return Response.status(Response.Status.BAD_REQUEST).entity("Error updating Order: " + e.getMessage()).build();
         }
     }
-    */
+
 
     @DELETE
     @Path("/{id}") // endpoint for creating a new course

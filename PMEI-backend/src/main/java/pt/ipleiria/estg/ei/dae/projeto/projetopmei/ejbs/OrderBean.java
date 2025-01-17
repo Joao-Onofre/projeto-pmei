@@ -27,7 +27,7 @@ public class OrderBean {
     @EJB
     private OrderStatusBean orderStatusBean;
     @EJB
-    private CustomerBean userBean;
+    private CustomerBean customerBean;
     @EJB
     private PackageBean packageBean;
     @EJB
@@ -36,7 +36,7 @@ public class OrderBean {
     private ProductBean productBean;
 
     public Order create(String customerUsername, List<ProductDTO> products) throws MyEntityNotFoundException {
-        Customer customer = userBean.find(customerUsername);
+        Customer customer = customerBean.find(customerUsername);
         if(customer == null) {
             throw new RuntimeException("O Customer não existe");
         }
@@ -170,5 +170,15 @@ public class OrderBean {
         var order = this.find(id);
         Hibernate.initialize(order.getPackageList());
         return order;
+    }
+    public List<Order> findCustomerOrders(String username) throws MyEntityNotFoundException {
+        Customer customer = customerBean.find(username);
+        if(customer == null) {
+            throw new RuntimeException("O Customer não existe");
+        }
+
+        return entityManager.createNamedQuery("getAllCustomerOrders", Order.class)
+                .setParameter("username", username)
+                .getResultList();
     }
 }

@@ -8,11 +8,11 @@
 			<p><strong>Creation Date:</strong>
 				{{ new Date(order.creationDate).toLocaleString() }}
 			</p>
-			<p><strong>Creation Date:</strong>
+			<p><strong>Delivery Date:</strong>
 				{{ new Date(order.deliveryDate).toLocaleString() }}
 			</p>
 			<p><strong>Active:</strong> {{ order.terminated }}</p>
-			<p><strong>Creation Date:</strong>
+			<p><strong>Termination Date:</strong>
 				{{ new Date(order.terminationDate).toLocaleString() }}
 			</p>
 		</div>

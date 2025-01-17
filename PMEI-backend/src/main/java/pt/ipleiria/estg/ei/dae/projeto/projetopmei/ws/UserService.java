@@ -16,7 +16,7 @@ import java.util.List;
 @Produces({MediaType.APPLICATION_JSON}) // injects header “Content-Type: application/json”
 @Consumes({MediaType.APPLICATION_JSON}) // injects header “Accept: application/json”
 @Authenticated
-@RolesAllowed({"Administrator"})
+//@RolesAllowed({"Administrator"})
 public class UserService {
 	@EJB
 	private UserBean userBean;

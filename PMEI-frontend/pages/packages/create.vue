@@ -1,8 +1,8 @@
 <template>
-	<div class="container mt-5">
-		<h1>Create Order</h1>
+	<div class="wrapper">
+		<h2 class="mb-3">Create Product</h2>
 
-		<div class="form-group mt-3">
+		<div class="form-group mb-3">
 			<label for="orderSelection">Select Order:</label>
 			<div class="input-group">
 				<select id="orderSelection" v-model="selectedOrder" class="form-control">
@@ -21,10 +21,12 @@
 				</select>
 			</div>
 		</div>
-		<nuxt-link to="/packages" class="btn btn-outline-dark mt-4">Return</nuxt-link>
 
-		<!-- Submit Button -->
-		<button class="btn btn-success mt-4" @click="submitPack">Create Package</button>
+		<div class="d-flex justify-content-between">
+			<button type="reset" class="btn btn-secondary">RESET</button>
+			<button class="btn btn-primary" @click="submitPack">CREATE</button>
+			<nuxt-link to="/packages" class="btn btn-link">Return</nuxt-link>
+		</div>
 	</div>
 </template>
 

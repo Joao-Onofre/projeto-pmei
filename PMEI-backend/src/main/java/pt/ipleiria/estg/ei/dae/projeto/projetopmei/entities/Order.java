@@ -14,6 +14,10 @@ import java.util.List;
         @NamedQuery(
                 name = "getAllOrders",
                 query = "SELECT o FROM Order o" // JPQL
+        ),
+        @NamedQuery(
+                name = "getAllCustomerOrders",
+                query = "SELECT o FROM Order o WHERE o.customer.username = :username" // JPQL
         )
 })
 public class Order {

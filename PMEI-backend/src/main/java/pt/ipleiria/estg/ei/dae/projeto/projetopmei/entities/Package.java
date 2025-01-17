@@ -11,6 +11,10 @@ import java.util.List;
         @NamedQuery(
                 name = "getAllPackages",
                 query = "SELECT p FROM Package p" // JPQL
+        ),
+        @NamedQuery(
+                name = "getAllCustomerPackages",
+                query = "SELECT p FROM Package p WHERE p.order.customer.username = :username" // JPQL
         )
 })
 public class Package {

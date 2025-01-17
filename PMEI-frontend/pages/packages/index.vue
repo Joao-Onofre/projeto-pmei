@@ -1,36 +1,48 @@
 <template>
-	<div class="container mt-5">
-		<div class="d-flex justify-content-between align-items-center mb-4">
-			<h2>Packages</h2>
-			<nuxt-link to="/packages/create" class="btn btn-light btn-lg">Create a New Package</nuxt-link>
+	<div class="container">
+		<div class="wrapper">
+			<!-- Error Display -->
+			<div v-if="error" class="alert alert-danger">Error: {{ error.message }}</div>
+
+			<!-- Search Bar and Create Button -->
+			<div class="d-flex justify-content-between align-items-center mb-3">
+				<input type="text" v-model="searchQuery" class="search-bar"
+					placeholder="Search by Product Name, Type, or Description" />
+			</div>
+			<div class="action-buttons">
+				<nuxt-link to="/packages/create" class="btn btn-create">Create New Package</nuxt-link>
+			</div>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Package Type</th>
+						<th>Total Sensors</th>
+						<th>Total Products</th>
+						<th>Order ID</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					<!-- Display filtered orders -->
+					<tr v-for="pack in packages" :key="pack.id">
+						<td>{{ pack.id }}</td>
+						<td>{{ pack.packageTypeName }}</td>
+						<td>{{ totalSensors(pack) }}</td>
+						<td>{{ totalProducts(pack) }}</td>
+						<td>{{ pack.order }}</td>
+						<td>
+							<nuxt-link :to="`/packages/${pack.id}`" class="btn btn-dark">Details</nuxt-link>
+							<button @click.prevent="deletePackage(pack.id)" class="btn btn-delete">Delete</button>
+							<nuxt-link :to="`/packages/update/${pack.id}`" class="btn btn-edit">Update</nuxt-link>
+						</td>
+					</tr>
+					<tr v-if="packages.length === 0">
+						<td colspan="6">No products match your search.</td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
-		<table class="order-table">
-			<thead class="thead-dark text-center">
-				<tr>
-					<th>ID</th>
-					<th>Package Type</th>
-					<th>Total Sensors</th>
-					<th>Total Products</th>
-					<th>Order ID</th>
-					<th>Actions</th>
-				</tr>
-			</thead>
-			<tbody class="text-center">
-				<!-- Display filtered orders -->
-				<tr v-for="pack in packages" :key="pack.id">
-					<td>{{ pack.id }}</td>
-					<td>{{ pack.packageTypeName }}</td>
-					<td>{{ totalSensors(pack) }}</td>
-					<td>{{ totalProducts(pack) }}</td>
-					<td>{{ pack.order }}</td>
-					<td class="d-flex gap-2 justify-content-center">
-						<button @click.prevent="deletePackage(pack.id)" class="btn btn-outline-danger btn-sm">Delete</button>
-						<nuxt-link :to="`/packages/${pack.id}`" class="btn btn-outline-dark btn-sm">Details</nuxt-link>
-						<!--<nuxt-link :to="`/packages/update/${pack.id}`" class="btn btn-outline-info btn-sm">Update</nuxt-link>-->
-					</td>
-				</tr>
-			</tbody>
-		</table>
 	</div>
 </template>
 

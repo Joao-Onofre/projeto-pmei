@@ -123,13 +123,3 @@ async function create() {
     }
 }
 </script>
-
-<style scoped>
-.text-danger {
-    color: red;
-}
-
-.yo {
-    margin-top: 50px !important;
-}
-</style>

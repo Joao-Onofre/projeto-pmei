@@ -8,7 +8,12 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.SecurityContext;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.dtos.CustomerDTO;
+import pt.ipleiria.estg.ei.dae.projeto.projetopmei.dtos.OrderDTO;
+import pt.ipleiria.estg.ei.dae.projeto.projetopmei.dtos.PackageDTO;
+import pt.ipleiria.estg.ei.dae.projeto.projetopmei.dtos.PackageProductDTO;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.ejbs.CustomerBean;
+import pt.ipleiria.estg.ei.dae.projeto.projetopmei.ejbs.OrderBean;
+import pt.ipleiria.estg.ei.dae.projeto.projetopmei.ejbs.PackageBean;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.Customer;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.exceptions.MyConstraintViolationException;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.exceptions.MyEntityExistsException;
@@ -24,6 +29,10 @@ import java.util.List;
 public class CustomerService {
 	@EJB
 	private CustomerBean customerBean;
+	@EJB
+	private PackageBean packageBean;
+	@EJB
+	private OrderBean orderBean;
 	@Context
 	private SecurityContext securityContext;
 
@@ -85,5 +94,31 @@ public class CustomerService {
 	public Response deleteCustomer(@PathParam("username") String username) throws MyEntityNotFoundException {
 		customerBean.delete(username);
 		return Response.status(Response.Status.OK).build();
+	}
+
+	@GET
+	@Path("{username}/packages")
+	@RolesAllowed({"Customer", "Administrator"})
+	public Response getCustomerPackages(@PathParam("username") String username) throws MyEntityNotFoundException {
+		var principal = securityContext.getUserPrincipal();
+
+		if (!principal.getName().equals(username) && !securityContext.isUserInRole("Administrator")) {
+			return Response.status(Response.Status.FORBIDDEN).build();
+		}
+
+		return Response.ok(PackageDTO.from(packageBean.findCustomerPackages(username))).build();
+	}
+
+	@GET
+	@Path("{username}/orders")
+	@RolesAllowed({"Customer", "Administrator"})
+	public Response getCustomerOrders(@PathParam("username") String username) throws MyEntityNotFoundException {
+		var principal = securityContext.getUserPrincipal();
+
+		if (!principal.getName().equals(username) && !securityContext.isUserInRole("Administrator")) {
+			return Response.status(Response.Status.FORBIDDEN).build();
+		}
+
+		return Response.ok(OrderDTO.from(orderBean.findCustomerOrders(username))).build();
 	}
 }
