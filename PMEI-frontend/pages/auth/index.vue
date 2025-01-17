@@ -5,12 +5,12 @@
       <p class="auth-subtitle">Please log in to access your account</p>
       <form @submit.prevent="handleLogin">
         <div class="form-group">
-          <label for="email">Email</label>
+          <label for="username">Username</label>
           <input
-            type="email"
-            id="email"
-            v-model="form.email"
-            placeholder="Enter your email"
+            type="username"
+            id="username"
+            v-model="form.username"
+            placeholder="Enter your username"
             required
           />
         </div>
@@ -23,6 +23,9 @@
             placeholder="Enter your password"
             required
           />
+        </div>
+        <div v-if="error" class="error-message">
+          {{ error }}
         </div>
         <button type="submit" class="auth-button">Log In</button>
         <p class="auth-footer">
@@ -38,18 +41,49 @@ export default {
   data() {
     return {
       form: {
-        email: '',
+        username: '',
         password: '',
       },
+      error: null
     }
   },
+  setup() {
+
+  },
   methods: {
-    handleLogin() {
-      console.log('Logging in with:', this.form)
+    async handleLogin() {
 
-      alert('Logged in! (TEST)')
+      try {
+        const config = useRuntimeConfig()
+        const api = config.public.API_URL
 
-      this.$router.push('/')
+        // Send POST request to the API
+        const response = await fetch(`${api}/auth/login`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(this.form),
+        });
+
+        // Parse the response
+        if (!response.ok) {
+          throw new Error('Failed to log in. Please check your credentials.');
+        }
+
+        const token = await response.text();
+        console.log('Login successful:', token);
+
+        // Save the JWT token in localStorage
+        localStorage.setItem('jwt_token', token);
+
+        // Redirect to the homepage
+        this.$router.push('/');
+      } catch (error) {
+        console.error('Login error:', error);
+        this.error = error.message;
+        //alert(`Error: ${this.error}`);
+      }
     },
   },
 }
@@ -136,5 +170,11 @@ export default {
 
 .auth-footer a:hover {
   text-decoration: underline;
+}
+
+.error-message {
+  color: red;
+  margin-top: 10px;
+  font-size: 0.9rem;
 }
 </style>

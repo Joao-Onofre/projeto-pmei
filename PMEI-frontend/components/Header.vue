@@ -36,7 +36,8 @@
 				<!-- Login Link -->
 				<div class="navbar-nav ms-auto">
 					<!-- Align to the right -->
-					<NuxtLink class="nav-link login-link" to="/auth">Login</NuxtLink>
+					<NuxtLink v-show="!isLoggedIn()" class="nav-link login-link" to="/auth">Login</NuxtLink>
+					<div v-show="isLoggedIn()" class="nav-link login-link" @click="logout">Logout</div>
 				</div>
 			</div>
 		</div>
@@ -46,6 +47,16 @@
 <script>
 export default {
 	name: 'Header',
+	methods: {
+		isLoggedIn() {
+			if (!import.meta.browser) return false;
+			return !!localStorage.getItem('jwt_token');
+		},
+		logout() {
+			localStorage.removeItem('jwt_token');
+			this.$router.go();
+		}
+	}
 }
 </script>
 

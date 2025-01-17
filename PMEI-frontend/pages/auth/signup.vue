@@ -5,6 +5,16 @@
       <p class="auth-subtitle">Sign up to get started</p>
       <form @submit.prevent="handleSignup">
         <div class="form-group">
+          <label for="username">Username</label>
+          <input
+            type="text"
+            id="username"
+            v-model="form.username"
+            placeholder="Enter your username"
+            required
+          />
+        </div>
+        <div class="form-group">
           <label for="name">Name</label>
           <input
             type="text"
@@ -58,6 +68,7 @@ export default {
   data() {
     return {
       form: {
+        username: '',
         name: '',
         email: '',
         password: '',
