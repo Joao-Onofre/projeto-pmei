@@ -14,6 +14,7 @@
                 <button class="btn btn-create" @click="redirectToCreatePage">Create New Product</button>
                 <label for="file-upload" class="btn btn-import">Import Products</label>
                 <input id="file-upload" type="file" @change="importProducts" style="display: none" />
+                <button class="btn btn-export" @click="exportToCSV">Export to CSV</button>
             </div>
             <!-- Product Table -->
             <table class="table">
@@ -124,6 +125,37 @@ async function importProducts(event) {
         alert(`Error importing products: ${err.message}`)
     }
 }
+
+function exportToCSV() {
+    if (!products.value || products.value.length === 0) {
+        alert("No products to export.");
+        return;
+    }
+
+    const csvContent = [
+        ["ID", "Name", "Description", "Type", "Price"], // CSV header
+        ...products.value.map(product => [
+            product.id,
+            product.name,
+            product.description,
+            product.productTypeName,
+            product.price.toFixed(2),
+        ]),
+    ]
+        .map(row => row.map(field => `"${field}"`).join(",")) // Format fields as CSV
+        .join("\n"); // Combine rows
+
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const link = document.createElement("a");
+    const url = URL.createObjectURL(blob);
+
+    link.setAttribute("href", url);
+    link.setAttribute("download", "products.csv");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
 </script>
 
 <style scoped>
@@ -202,6 +234,17 @@ async function importProducts(event) {
 }
 
 .btn:hover {
+    opacity: 0.9;
+}
+
+.btn-export {
+    background-color: #17a2b8;
+    color: white;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.btn-export:hover {
     opacity: 0.9;
 }
 </style>
