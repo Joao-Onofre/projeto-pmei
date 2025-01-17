@@ -7,6 +7,7 @@
 			<!-- Buttons for actions -->
 			<div class="action-buttons mb-3">
 				<button class="btn btn-export" @click="exportToCSV">Export to CSV</button>
+				<button class="btn btn-create" @click="submitOrder">Create Order</button>
 			</div>
 
 			<!-- Cart Table -->
@@ -49,7 +50,9 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const config = useRuntimeConfig();
 const api = config.public.API_URL;
 const error = ref(null);
@@ -63,6 +66,11 @@ if (typeof window !== 'undefined') {
 		error.value = 'No username found. Please log in.';
 	}
 }
+
+const order = ref({
+	customerUsername: username, // Textbox for customer username
+	productList: [],
+});
 
 const fetchCart = async () => {
 	if (!username) {
@@ -87,7 +95,6 @@ const fetchCart = async () => {
 		error.value = err.message;
 	}
 };
-
 
 const incrementProduct = async (productId) => {
 	if (!username) return;
@@ -131,6 +138,48 @@ const deleteProduct = async (productId) => {
 		error.value = err.message;
 	}
 };
+console.log(cart)
+const submitOrder = async () => {
+	try {
+		// Populate the order productList from the cart
+		order.value.productList = cart.value.products.map((products) => ({
+			id: products.id, // Use 'product' key for the product ID
+			quantity: products.quantity, // Map quantity from the cart
+		}));
+
+		// Validate if the productList is not empty
+		if (!order.value.productList.length) {
+			alert("Your cart is empty. Add products to the cart before placing an order.");
+			return;
+		}
+
+		// Make the POST request
+		let response = await fetch(`${api}/order`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(order.value),
+		});
+
+		if (!response.ok) {
+			throw new Error("Failed to create order");
+		}
+
+		response = await fetch(`${api}/cart/customer/${username}/clear`, {
+			method: "DELETE",
+		});
+
+
+		alert("Order created successfully!");
+		order.value = { customerUsername: username, productList: [] }; // Reset the order
+		router.push('/auth')
+	} catch (error) {
+		console.error("Error creating order:", error);
+		alert("Error creating order: " + error.message);
+	}
+};
+
 
 // Export cart data to CSV
 const exportToCSV = () => {
@@ -150,7 +199,7 @@ const exportToCSV = () => {
 			product.quantity,
 		]),
 	]
-		.map((row) => row.map((field) => `"${field}"`).join(','))
+		.map((row) => row.map((field) => "${field}").join(',')) // Format as CSV
 		.join('\n');
 
 	const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
@@ -165,14 +214,8 @@ const exportToCSV = () => {
 };
 
 // Fetch cart data on mount
-onMounted(() => {
-	if (username) {
-		fetchCart();
-	}
-});
+onMounted(fetchCart);
 </script>
-
-
 
 <style scoped>
 .wrapper {

@@ -6,14 +6,23 @@
 			<p><strong>Status:</strong> {{ order.statusName }}</p>
 			<p><strong>Customer:</strong> {{ order.customerUsername }}</p>
 			<p><strong>Creation Date:</strong>
-				{{ new Date(order.creationDate).toLocaleString() }}
+				<span v-if="order.creationDate">
+					{{ new Date(order.creationDate).toLocaleString() }}
+				</span>
+				<span v-else>--</span>
 			</p>
 			<p><strong>Delivery Date:</strong>
-				{{ new Date(order.deliveryDate).toLocaleString() }}
+				<span v-if="order.deliveryDate">
+					{{ new Date(order.deliveryDate).toLocaleString() }}
+				</span>
+				<span v-else>--</span>
 			</p>
 			<p><strong>Active:</strong> {{ order.terminated }}</p>
 			<p><strong>Termination Date:</strong>
-				{{ new Date(order.terminationDate).toLocaleString() }}
+				<span v-if="order.terminationDate">
+					{{ new Date(order.terminationDate).toLocaleString() }}
+				</span>
+				<span v-else>--</span>
 			</p>
 		</div>
 		<nuxt-link to="/orders" class="btn btn-outline-dark mt-4">Return</nuxt-link>

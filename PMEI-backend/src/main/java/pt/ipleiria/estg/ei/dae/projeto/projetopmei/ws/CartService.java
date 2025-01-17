@@ -82,4 +82,24 @@ public class CartService {
         return Response.ok(CartDTO.from(cart)).build();
     }
 
+    @DELETE
+    @Path("/customer/{username}/clear")
+    public Response clearCart(@PathParam("username") String username) throws MyEntityNotFoundException {
+        Customer customer = customerBean.find(username);
+        if (customer == null) {
+            return Response.status(Response.Status.NOT_FOUND).entity("Customer not found").build();
+        }
+
+        Cart cart = cartBean.findByCustomer(customer);
+        if (cart == null) {
+            return Response.status(Response.Status.NOT_FOUND).entity("Cart not found").build();
+        }
+
+        // Clear the cart
+        cart.getProducts().clear();
+        cartBean.updateCart(cart); // Assuming `updateCart` persists changes in CartBean
+
+        return Response.ok(CartDTO.from(cart)).build(); // Return the updated, empty cart
+    }
+
 }

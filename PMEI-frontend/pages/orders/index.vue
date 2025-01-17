@@ -9,7 +9,7 @@
 					placeholder="Search by Product Name, Type, or Description" />
 			</div>
 
-			<div class="action-buttons">
+			<div v-if="userType !== 'Customer'" class="action-buttons">
 				<nuxt-link to="/orders/create" class="btn btn-create">Create New Order</nuxt-link>
 			</div>
 			<table class="table">
@@ -55,16 +55,36 @@ import { ref, computed } from "vue"
 const config = useRuntimeConfig()
 const api = config.public.API_URL
 
+let username = null;
+let userType = null;
+if (typeof window !== 'undefined') {
+	username = localStorage.getItem('username');
+	userType = localStorage.getItem('user_type');
+	console.log(userType)
+	if (!username || !userType) {
+		error.value = 'No username or user type found. Please log in.';
+	}
+}
+
+
 // Reactive state for orders
 const orders = ref([]);
 const getOrders = async () => {
 	try {
-		const response = await fetch(`${api}/order`);
+		// Determine the endpoint based on user type
+		const endpoint = userType === 'customer' ? `${api}/${username}/orders` : `${api}/order`;
+
+		// Fetch data from the appropriate endpoint
+		const response = await fetch(endpoint);
+		if (!response.ok) {
+			throw new Error('Failed to fetch orders');
+		}
+
 		orders.value = await response.json();
 	} catch (error) {
-		console.error("Error fetching orders:", error);
+		console.error('Error fetching orders:', error);
 	}
-}
+};
 
 // Helper function to calculate total packages
 const totalPackages = (order) => {

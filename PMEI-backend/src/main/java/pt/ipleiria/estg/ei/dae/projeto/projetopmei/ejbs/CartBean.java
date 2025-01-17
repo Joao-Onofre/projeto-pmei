@@ -22,6 +22,10 @@ public class CartBean {
                 .orElse(null);
     }
 
+    public void updateCart(Cart cart) {
+        entityManager.merge(cart);
+    }
+
     public Cart findOrCreateCartForCustomer(Customer customer) {
         Cart cart = findByCustomer(customer);
         if (cart == null) {

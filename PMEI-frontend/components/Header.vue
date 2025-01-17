@@ -50,6 +50,9 @@
 
 <script setup>
 import { ref, onMounted, watch } from 'vue';
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const isLoggedIn = ref(false);
 
@@ -95,6 +98,7 @@ const logout = () => {
 		localStorage.removeItem('username');
 		localStorage.removeItem('user_type');
 		checkLoginStatus();
+		router.push('/auth')
 	}
 };
 </script>
