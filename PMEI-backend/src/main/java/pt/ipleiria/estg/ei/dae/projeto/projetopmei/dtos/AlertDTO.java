@@ -4,8 +4,7 @@ import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.Alert;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.Sensor;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,13 +27,14 @@ public class AlertDTO implements Serializable {
 
     // Métodos de conversão
     public static AlertDTO from(Alert alert) {
-        // Define o formato desejado para o timestamp
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        // Define o formato desejado para o timestamp usando DateTimeFormatter
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
+        // Cria o DTO a partir do alerta
         return new AlertDTO(
                 alert.getAlertId(),
                 alert.getMessage(),
-                alert.getTimestamp() != null ? dateFormat.format(alert.getTimestamp()) : null, // Formata o timestamp
+                alert.getTimestamp() != null ? alert.getTimestamp().format(formatter) : null, // Formata o LocalDateTime
                 alert.getSensor() != null ? alert.getSensor().getSensorId() : null // Pega o ID do sensor associado
         );
     }

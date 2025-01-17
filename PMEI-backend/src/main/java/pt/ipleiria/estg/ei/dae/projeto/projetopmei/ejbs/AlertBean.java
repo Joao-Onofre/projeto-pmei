@@ -9,7 +9,6 @@ import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.Sensor;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.exceptions.MyEntityNotFoundException;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,7 +28,7 @@ public class AlertBean {
 
             // Definir timestamp atual caso não esteja definido
             if (alert.getTimestamp() == null) {
-                alert.setTimestamp(LocalDateTime.now());
+                alert.setTimestamp(LocalDateTime.now());  // Atribuindo o timestamp no momento da criação
             }
 
             // Persistir o alerta
@@ -72,7 +71,7 @@ public class AlertBean {
         Alert existingAlert = find(alert.getAlertId());
         if (existingAlert != null) {
             existingAlert.setMessage(alert.getMessage());
-            existingAlert.setTimestamp(LocalDateTime.now());
+            existingAlert.setTimestamp(LocalDateTime.now());  // Atualiza o timestamp
             entityManager.merge(existingAlert);
         }
     }
@@ -89,10 +88,14 @@ public class AlertBean {
     public void checkAndCreateAlert(Sensor sensor, double threshold) {
         if (sensor.getCurrentValue() > threshold) {
             LOGGER.info("Threshold excedido para o sensor ID: " + sensor.getSensorId());
+
+            // Cria o alerta
             Alert alert = new Alert();
-            alert.setSensor(sensor);
-            alert.setTimestamp(LocalDateTime.now());
-            alert.setMessage("Sensor value exceeded threshold: " + sensor.getCurrentValue());
+            alert.setSensor(sensor);  // Associar o sensor ao alerta
+            alert.setTimestamp(LocalDateTime.now());  // Definir timestamp atual
+            alert.setMessage("Sensor value exceeded threshold: " + sensor.getCurrentValue());  // Mensagem
+
+            // Persistir o alerta
             create(alert);
         }
     }
