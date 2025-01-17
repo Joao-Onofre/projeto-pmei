@@ -173,7 +173,7 @@ const submitOrder = async () => {
 
 		alert("Order created successfully!");
 		order.value = { customerUsername: username, productList: [] }; // Reset the order
-		router.push('/auth')
+		router.push('/orders')
 	} catch (error) {
 		console.error("Error creating order:", error);
 		alert("Error creating order: " + error.message);
@@ -213,14 +213,24 @@ const exportToCSV = () => {
 	document.body.removeChild(link);
 };
 
-// Fetch cart data on mount
-onMounted(fetchCart);
+
+onMounted(async () => {
+	if (typeof window !== 'undefined') {
+		const token = localStorage.getItem('jwt_token');
+		if (!token) {
+			// Redirect to auth page if not authenticated
+			router.push('/auth');
+		} else {
+			// Proceed with fetching the cart
+			await fetchCart();
+		}
+	}
+});
 </script>
 
 <style scoped>
 .wrapper {
-	padding: 50px;
-	margin-top: 40px;
+	margin-top: 15px;
 }
 
 .action-buttons {

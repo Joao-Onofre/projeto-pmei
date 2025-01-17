@@ -13,31 +13,35 @@
 			<!-- Navigation Links -->
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav me-auto">
-					<li class="nav-item">
-						<NuxtLink class="nav-link" to="/packages">Packages</NuxtLink>
-					</li>
-					<li class="nav-item">
-						<NuxtLink class="nav-link" to="/orders">Orders</NuxtLink>
-					</li>
-					<li class="nav-item">
-						<NuxtLink class="nav-link" to="/alerts">Alerts</NuxtLink>
-					</li>
-					<li class="nav-item">
-						<NuxtLink class="nav-link" to="/sensors">Sensors</NuxtLink>
-					</li>
-					<li class="nav-item">
-						<NuxtLink class="nav-link" to="/products">Products</NuxtLink>
-					</li>
-					<li class="nav-item">
+					<!-- Admin-Specific Links -->
+					<li v-if="isAdmin" class="nav-item">
 						<NuxtLink class="nav-link" to="/product_types">Product Types</NuxtLink>
 					</li>
-					<li class="nav-item">
-						<NuxtLink class="nav-link" to="/cart">Cart</NuxtLink>
-					</li>
-					<li class="nav-item">
+					<li v-if="isAdmin" class="nav-item">
 						<NuxtLink class="nav-link" to="/package_types">Package Types</NuxtLink>
 					</li>
+					<li v-if="isAdmin" class="nav-item">
+						<NuxtLink class="nav-link" to="/packages">Packages</NuxtLink>
+					</li>
+					<li v-if="isAdmin" class="nav-item">
+						<NuxtLink class="nav-link" to="/sensors">Sensors</NuxtLink>
+					</li>
+
+					<!-- Customer Links -->
+					<li v-if="isCustomer || isAdmin" class="nav-item">
+						<NuxtLink class="nav-link" to="/cart">Cart</NuxtLink>
+					</li>
+					<li v-if="isCustomer || isAdmin" class="nav-item">
+						<NuxtLink class="nav-link" to="/products">Products</NuxtLink>
+					</li>
+					<li v-if="isCustomer || isAdmin" class="nav-item">
+						<NuxtLink class="nav-link" to="/orders">Orders</NuxtLink>
+					</li>
+					<li v-if="isCustomer || isAdmin" class="nav-item">
+						<NuxtLink class="nav-link" to="/alerts">Alerts</NuxtLink>
+					</li>
 				</ul>
+
 				<!-- Login/Logout Links -->
 				<div class="navbar-nav ms-auto">
 					<NuxtLink v-if="!isLoggedIn" class="nav-link login-link" to="/auth">Login</NuxtLink>
@@ -49,48 +53,29 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from 'vue';
-import { useRouter } from 'vue-router'
+import { ref, onMounted, onUnmounted } from 'vue';
+import { useRouter } from 'vue-router';
 
-const router = useRouter()
-
+const router = useRouter();
 const isLoggedIn = ref(false);
+const isAdmin = ref(false);
+const isCustomer = ref(false);
 
 const checkLoginStatus = () => {
 	if (typeof window !== 'undefined') {
-		isLoggedIn.value = !!localStorage.getItem('jwt_token');
+		const token = localStorage.getItem('jwt_token');
+		const userType = localStorage.getItem('user_type');
+		isLoggedIn.value = !!token;
+
+		if (userType) {
+			isAdmin.value = userType === 'Administrator';
+			isCustomer.value = userType === 'Customer';
+		} else {
+			isAdmin.value = false;
+			isCustomer.value = false;
+		}
 	}
 };
-
-// Watch `localStorage` directly for changes in the same tab
-const observeLocalStorage = () => {
-	if (typeof window !== 'undefined') {
-		const originalSetItem = localStorage.setItem;
-		localStorage.setItem = function (key, value) {
-			const event = new Event('local-storage-change');
-			event.key = key;
-			event.newValue = value;
-			window.dispatchEvent(event);
-			originalSetItem.apply(this, arguments);
-		};
-	}
-};
-
-// Listen for custom `local-storage-change` events
-onMounted(() => {
-	observeLocalStorage();
-	checkLoginStatus();
-	if (typeof window !== 'undefined') {
-		window.addEventListener('local-storage-change', checkLoginStatus);
-	}
-});
-
-// Cleanup listener
-onUnmounted(() => {
-	if (typeof window !== 'undefined') {
-		window.removeEventListener('local-storage-change', checkLoginStatus);
-	}
-});
 
 const logout = () => {
 	if (typeof window !== 'undefined') {
@@ -98,9 +83,25 @@ const logout = () => {
 		localStorage.removeItem('username');
 		localStorage.removeItem('user_type');
 		checkLoginStatus();
-		router.push('/auth')
+		router.push('/auth');
 	}
 };
+
+onMounted(() => {
+	checkLoginStatus();
+
+	// Listen for localStorage changes (works for other tabs too)
+	if (typeof window !== 'undefined') {
+		window.addEventListener('storage', checkLoginStatus);
+	}
+});
+
+onUnmounted(() => {
+	// Clean up the event listener
+	if (typeof window !== 'undefined') {
+		window.removeEventListener('storage', checkLoginStatus);
+	}
+});
 </script>
 
 <style scoped>

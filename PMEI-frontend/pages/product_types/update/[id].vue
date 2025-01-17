@@ -87,10 +87,6 @@ async function update() {
     color: red;
 }
 
-.wrapper {
-    padding: 50px;
-}
-
 .btn {
     padding: 6px 12px;
     margin: 5px;

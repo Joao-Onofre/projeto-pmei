@@ -100,8 +100,7 @@ export default {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	min-height: 100vh;
-	background-color: #f9f9f9;
+	min-height: 60vh;
 	padding: 20px;
 }
 

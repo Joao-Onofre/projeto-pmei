@@ -2,12 +2,8 @@
   <div class="wrapper">
     <!-- Search Bar -->
     <div class="search-container">
-      <input
-        type="text"
-        v-model="searchQuery"
-        class="search-bar"
-        placeholder="Search by Alert ID, Package ID or Type"
-      />
+      <input type="text" v-model="searchQuery" class="search-bar"
+        placeholder="Search by Alert ID, Package ID or Type" />
     </div>
 
     <!-- Alert Table -->
@@ -76,10 +72,6 @@ export default {
 </script>
 
 <style scoped>
-.wrapper {
-  padding: 50px;
-}
-
 .table {
   width: 100%;
   border-collapse: collapse;

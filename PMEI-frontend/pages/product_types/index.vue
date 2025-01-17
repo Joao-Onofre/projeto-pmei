@@ -98,7 +98,6 @@ async function importProductType(event) {
             throw new Error(error.message || 'Failed to import product types')
         }
 
-        alert('Product types imported successfully')
         await refresh()
     } catch (err) {
         console.error('Error importing products types:', err)
@@ -135,10 +134,6 @@ function exportToCSV() {
 </script>
 
 <style scoped>
-.wrapper {
-    padding: 50px;
-}
-
 .search-container {
     margin-bottom: 20px;
     display: flex;

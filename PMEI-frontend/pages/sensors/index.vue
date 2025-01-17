@@ -2,12 +2,7 @@
   <div class="wrapper">
     <!-- Search Bar -->
     <div class="search-container">
-      <input
-        type="text"
-        v-model="searchQuery"
-        class="search-bar"
-        placeholder="Search by Sensor ID, Type or Status"
-      />
+      <input type="text" v-model="searchQuery" class="search-bar" placeholder="Search by Sensor ID, Type or Status" />
     </div>
 
     <!-- Sensor Table -->
@@ -62,10 +57,6 @@ export default {
 </script>
 
 <style scoped>
-.wrapper {
-  padding: 50px;
-}
-
 .search-container {
   margin-bottom: 20px;
   display: flex;

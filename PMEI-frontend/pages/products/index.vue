@@ -186,10 +186,6 @@ function exportToCSV() {
 </script>
 
 <style scoped>
-.wrapper {
-    padding: 50px;
-}
-
 .search-container {
     margin-bottom: 20px;
     display: flex;
