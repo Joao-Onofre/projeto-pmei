@@ -1,16 +1,16 @@
 <template>
     <div class="container">
         <div class="wrapper">
-            <!-- Error Display -->
             <div v-if="error" class="alert alert-danger">Error: {{ error.message }}</div>
-
-            <!-- Search Bar and Create Button -->
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <input type="text" v-model="searchQuery" class="search-bar" placeholder="Search by Product Type Name" />
             </div>
-            <!-- Button for Redirecting to Create Page -->
-            <button class="btn btn-create" @click="redirectToCreatePage">Create New Product Type</button>
-            <!-- Product Type Table -->
+            <div class="action-buttons">
+                <button class="btn btn-create" @click="redirectToCreatePage">Create New Product</button>
+                <label for="file-upload" class="btn btn-import">Import Types</label>
+                <input id="file-upload" type="file" @change="importProductType" style="display: none" />
+                <button class="btn btn-export" @click="exportToCSV">Export to CSV</button>
+            </div>
             <table class="table">
                 <thead>
                     <tr>
@@ -20,7 +20,6 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Display filtered product types -->
                     <tr v-for="type in filteredTypes" :key="type.id">
                         <td>{{ type.id }}</td>
                         <td>{{ type.type }}</td>
@@ -29,7 +28,6 @@
                             <button class="btn btn-delete" @click="deleteProductType(type.id)">Delete</button>
                         </td>
                     </tr>
-                    <!-- Placeholder row when no types match the search -->
                     <tr v-if="filteredTypes.length === 0">
                         <td colspan="3">No product types match your search.</td>
                     </tr>
@@ -43,17 +41,14 @@
 import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 
-// Configuration and API endpoint
 const config = useRuntimeConfig()
 const api = config.public.API_URL
-const searchQuery = ref('') // For the search input
+const searchQuery = ref('')
 
-// Fetching product types
 const { data: productTypes, error, refresh } = await useFetch(`${api}/product-type`)
 
 const router = useRouter()
 
-// Computed property for filtered product types
 const filteredTypes = computed(() => {
     return productTypes.value
         ? productTypes.value.filter((type) =>
@@ -62,12 +57,10 @@ const filteredTypes = computed(() => {
         : []
 })
 
-// Redirect to the Update Product Type page
 function editProductType(typeId) {
     router.push(`/product_types/update/${typeId}`)
 }
 
-// Delete a product type and refresh the list
 async function deleteProductType(id) {
     try {
         const requestOptions = {
@@ -76,19 +69,70 @@ async function deleteProductType(id) {
         }
         const response = await $fetch(`${api}/product-type/${id}`, requestOptions)
         if (response) {
-            await refresh() // Refresh the list after successful deletion
+            await refresh()
         }
     } catch (err) {
         console.error('Error deleting product type:', err)
     }
 }
 
-// Redirect to the Create Product Type page
 function redirectToCreatePage() {
     router.push('/product_types/create')
 }
-</script>
 
+async function importProductType(event) {
+    const file = event.target.files[0]
+    if (!file) return
+
+    const formData = new FormData()
+    formData.append('file', file)
+
+    try {
+        const response = await fetch(`${api}/product-type/import`, {
+            method: 'POST',
+            body: formData,
+        })
+
+        if (!response.ok) {
+            const error = await response.json()
+            throw new Error(error.message || 'Failed to import product types')
+        }
+
+        alert('Product types imported successfully')
+        await refresh()
+    } catch (err) {
+        console.error('Error importing products types:', err)
+        alert(`Error importing products types: ${err.message}`)
+    }
+}
+
+function exportToCSV() {
+    if (!productTypes.value || productTypes.value.length === 0) {
+        alert("No products to export.");
+        return;
+    }
+
+    const csvContent = [
+        ["ID", "type"],
+        ...productTypes.value.map(product => [
+            product.id,
+            product.type
+        ]),
+    ]
+        .map(row => row.map(field => `"${field}"`).join(","))
+        .join("\n");
+
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const link = document.createElement("a");
+    const url = URL.createObjectURL(blob);
+
+    link.setAttribute("href", url);
+    link.setAttribute("download", "productTypes.csv");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+</script>
 
 <style scoped>
 .wrapper {
@@ -130,7 +174,6 @@ function redirectToCreatePage() {
     font-weight: bold;
 }
 
-/* Button styles */
 .btn {
     padding: 6px 12px;
     margin: 0 4px;
@@ -158,7 +201,25 @@ function redirectToCreatePage() {
     font-size: 14px;
 }
 
+.btn-import {
+    background-color: #ffc107;
+    color: white;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
 .btn:hover {
+    opacity: 0.9;
+}
+
+.btn-export {
+    background-color: #17a2b8;
+    color: white;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.btn-export:hover {
     opacity: 0.9;
 }
 </style>

@@ -106,19 +106,15 @@ public class ProductService {
         }
     }
 
-    // Helper method to process and persist products
     private List<Product> processAndPersistProducts(Map<Integer, List<String>> data) {
         List<Product> products = new ArrayList<>();
         boolean isFirstRow = true;
-
-        // Expected column indices based on header row
         int nameIndex = -1, descriptionIndex = -1, priceIndex = -1, typeIdIndex = -1;
 
         for (Map.Entry<Integer, List<String>> entry : data.entrySet()) {
             List<String> row = entry.getValue();
 
             if (isFirstRow) {
-                // Map headers to indices
                 for (int i = 0; i < row.size(); i++) {
                     String header = row.get(i).toLowerCase();
                     if (header.equals("name")) nameIndex = i;
@@ -127,21 +123,16 @@ public class ProductService {
                     if (header.equals("typeid")) typeIdIndex = i;
                 }
                 isFirstRow = false;
-
-                // Validate header indices
                 if (nameIndex == -1 || descriptionIndex == -1 || priceIndex == -1 || typeIdIndex == -1) {
                     throw new IllegalArgumentException("Invalid headers. Expected: Name, Description, Price, TypeId.");
                 }
                 continue;
             }
-
-            // Extract product data from row
             String name = row.get(nameIndex);
             String description = row.get(descriptionIndex);
             double price = Double.parseDouble(row.get(priceIndex));
             long typeId = Long.parseLong(row.get(typeIdIndex));
 
-            // Persist the product using ProductBean
             Product product = productBean.create(name, description, (float) price, typeId);
             products.add(product);
         }

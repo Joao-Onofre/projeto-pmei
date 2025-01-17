@@ -24,7 +24,8 @@ export default {
 				{ id: 3, title: 'Alerts', link: '/alerts', icon: 'alerts-icon.png' },
 				{ id: 4, title: 'Sensors', link: '/sensors', icon: 'sensors-icon.png' },
 				{ id: 5, title: 'Products', link: '/products', icon: 'dairy-products.png' },
-				{ id: 6, title: 'Product Types', link: '/product_types', icon: 'products.png' }
+				{ id: 6, title: 'Product Types', link: '/product_types', icon: 'products.png' },
+				{ id: 7, title: 'Cart', link: '/cart', icon: 'trolley.png' }
 			],
 		}
 	},
