@@ -3,7 +3,10 @@ package pt.ipleiria.estg.ei.dae.projeto.projetopmei.ejbs.typesBeans;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.entityTypes.OrderStatusType;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.entityTypes.PackageType;
+
+import java.util.List;
 
 @Stateless
 public class PackageTypeBean {
@@ -23,5 +26,13 @@ public class PackageTypeBean {
     public PackageType findById(long typeId) {
         PackageType packageType = entityManager.find(PackageType.class, typeId);
         return packageType;
+    }
+
+    public List<PackageType> findAll() {
+        List<PackageType> packageTypes = entityManager.createNamedQuery("getAllPackageTypes", PackageType.class).getResultList();
+        for (PackageType packageType : packageTypes) {
+            packageType.getType();
+        }
+        return packageTypes;
     }
 }

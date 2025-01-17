@@ -29,7 +29,6 @@ public class CustomerService {
 
 	@GET
 	@Path("/")
-	@RolesAllowed({"Administrator"})
 	public List<CustomerDTO> getAllCustomers() {
 		return CustomerDTO.from(customerBean.findAll());
 	}

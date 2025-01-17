@@ -7,7 +7,14 @@ import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.Product;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @Entity
+@NamedQueries({
+        @NamedQuery(
+                name = "getAllPackageTypes",
+                query = "SELECT t FROM PackageType t" // JPQL
+        )
+})
 public class PackageType {
 
     //-------------- Atributos ----------------

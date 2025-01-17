@@ -49,6 +49,7 @@ public class OrderBean {
         Order order = new Order();
         order.setCustomer(customer);
         order.setStatus(status);
+        entityManager.persist(order);
 
         for (ProductDTO productDTO : products) {
             Product product = productBean.find(productDTO.getId());

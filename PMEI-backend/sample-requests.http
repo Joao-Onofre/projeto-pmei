@@ -5,6 +5,14 @@ Accept: application/json
 
 { "username": "admin", "password": "123" }
 
+### CHANGE PASSWORD
+PATCH http://localhost:8080/academics/api/auth/set-password
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzEyOTgyNSwiZXhwIjoxNzM3MTMzNDI0fQ.fGoMbM1JJMNIxhBD5pumOXOlc6hFDSwXC-WVtCkf0fVSJoGTIHo6crnU52cblsXa
+
+{ "oldPassword": "123", "newPassword": "1234", "confirmPassword": "1234" }
+
 ### GET ALL USERS
 GET http://localhost:8080/academics/api/user
 Accept: application/json

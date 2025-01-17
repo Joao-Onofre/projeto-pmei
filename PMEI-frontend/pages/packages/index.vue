@@ -1,122 +1,92 @@
 <template>
-  <div class="wrapper">
-    <!-- Search Bar -->
-    <div class="search-container">
-      <input
-        type="text"
-        v-model="searchQuery"
-        class="search-bar"
-        placeholder="Search by Package ID or Status"
-      />
-    </div>
-
-    <!-- Package Table -->
-    <table class="table">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Status</th>
-          <th>Sensors</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Display filtered packages -->
-        <tr v-for="pkg in filteredPackages" :key="pkg.id">
-          <td>{{ pkg.id }}</td>
-          <td>{{ pkg.status }}</td>
-          <td>
-            <ul>
-              <li v-for="sensor in pkg.sensors" :key="sensor.sensorId">
-                {{ sensor.type }} ({{ sensor.status }})
-              </li>
-            </ul>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+	<div class="container mt-5">
+		<div class="d-flex justify-content-between align-items-center mb-4">
+			<h2>Packages</h2>
+			<nuxt-link to="/packages/create" class="btn btn-light btn-lg">Create a New Package</nuxt-link>
+		</div>
+		<table class="order-table">
+			<thead class="thead-dark text-center">
+				<tr>
+					<th>ID</th>
+					<th>Package Type</th>
+					<th>Total Sensors</th>
+					<th>Total Products</th>
+					<th>Order ID</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody class="text-center">
+				<!-- Display filtered orders -->
+				<tr v-for="pack in packages" :key="pack.id">
+					<td>{{ pack.id }}</td>
+					<td>{{ pack.packageTypeName }}</td>
+					<td>{{ totalSensors(pack) }}</td>
+					<td>{{ totalProducts(pack) }}</td>
+					<td>{{ pack.order }}</td>
+					<td class="d-flex gap-2 justify-content-center">
+						<button @click.prevent="deletePackage(pack.id)" class="btn btn-outline-danger btn-sm">Delete</button>
+						<nuxt-link :to="`/packages/${pack.id}`" class="btn btn-outline-dark btn-sm">Details</nuxt-link>
+						<!--<nuxt-link :to="`/packages/update/${pack.id}`" class="btn btn-outline-info btn-sm">Update</nuxt-link>-->
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      searchQuery: '',
-      // Mock package data
-      packages: [
-        {
-          id: '123',
-          status: 'in_transit',
-          sensors: [
-            { sensorId: 'sensor001', type: 'temperature', status: 'active' },
-            { sensorId: 'sensor002', type: 'acceleration', status: 'active' },
-          ],
-        },
-        {
-          id: '456',
-          status: 'delivered',
-          sensors: [
-            { sensorId: 'sensor003', type: 'humidity', status: 'inactive' },
-          ],
-        },
-        {
-          id: '789',
-          status: 'pending',
-          sensors: [
-            { sensorId: 'sensor004', type: 'pressure', status: 'active' },
-          ],
-        },
-      ],
-    }
-  },
-  computed: {
-    filteredPackages() {
-      // Return filtered packages based on the search query for both ID and Status
-      return this.packages.filter(
-        (pkg) =>
-          pkg.id.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
-          pkg.status.toLowerCase().includes(this.searchQuery.toLowerCase()),
-      )
-    },
-  },
+<script setup>
+import { ref, computed } from "vue"
+const config = useRuntimeConfig()
+const api = config.public.API_URL
+
+// Reactive state for orders
+const packages = ref([]);
+const getPackages = async () => {
+	try {
+		const response = await fetch(`${api}/package`);
+		packages.value = await response.json();
+	} catch (error) {
+		console.error("Error fetching packages:", error);
+	}
 }
+
+console.log(packages.value)
+
+// Calculate total sensors in a package
+const totalSensors = (pack) => {
+	return pack.sensorList ? pack.sensorList.length : 0;
+};
+
+// Calculate total products in a package
+const totalProducts = (pack) => {
+	return pack.packageProducts
+		? pack.packageProducts.reduce((total, product) => total + product.quantity, 0)
+		: 0;
+};
+
+
+async function deletePackage(id) {
+	try {
+		const requestOptions = {
+			method: 'DELETE',
+			headers: { 'Content-Type': 'application/json' },
+		}
+		const response = await fetch(`${api}/package/${id}`, requestOptions)
+		console.log(response)
+
+		if (!response.ok) {
+			throw new Error('Failed to delete the package.')
+		}
+
+		// Refresh the data after successful deletion
+		await getPackages()
+
+	} catch (error) {
+		console.error('Error deleting package:', error.message)
+		// Optionally display the error in the UI
+	}
+}
+
+// Fetch orders when the component is mounted
+getPackages();
 </script>
-
-<style scoped>
-.wrapper {
-  padding: 50px;
-}
-
-.table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 20px 0;
-}
-
-.table th,
-.table td {
-  border: 1px solid #ddd;
-  padding: 8px;
-}
-
-.table th {
-  background-color: #f4f4f4;
-  font-weight: bold;
-}
-
-/* Styling for the search bar */
-.search-container {
-  margin-bottom: 20px;
-  display: flex;
-  justify-content: flex-start;
-}
-
-.search-bar {
-  margin-top: 20px;
-  padding: 8px;
-  font-size: 16px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  width: 100%;
-}
-</style>

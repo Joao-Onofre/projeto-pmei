@@ -8,6 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@NamedQueries({
+        @NamedQuery(
+                name = "getAllOrderStatus",
+                query = "SELECT s FROM OrderStatusType s" // JPQL
+        )
+})
 public class OrderStatusType {
 
     //-------------- Atributos ----------------
