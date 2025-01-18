@@ -14,7 +14,7 @@
 						<th>ID</th>
 						<th>Status</th>
 						<th>Customer ID</th>
-						<th>Delivery State</th>
+						<th>Delivery Date</th>
 						<th>Packages</th>
 						<th>Sensors</th>
 						<th>Activity</th>
@@ -27,13 +27,16 @@
 						<td>{{ order.id }}</td>
 						<td>{{ order.statusName }}</td>
 						<td>{{ order.customerUsername }}</td>
-						<td>{{ order.statusName }}</td>
+						<td>{{ order.deliveryDate ? new Date(order.deliveryDate).toISOString().slice(0, 16).replace('T',
+							' ') : '-----' }}</td>
+
 						<td>{{ totalPackages(order) }}</td>
 						<td>{{ totalSensors(order) }}</td>
 						<td>{{ order.terminated ? "Inactive" : "Active" }}</td>
 						<td>
 							<nuxt-link :to="`/orders/${order.id}`" class="btn btn-dark">Details</nuxt-link>
-							<nuxt-link :to="`/orders/update/${order.id}`" class="btn btn-edit">Update</nuxt-link>
+							<nuxt-link v-if="userType == 'Administrator'" :to="`/orders/update/${order.id}`"
+								class="btn btn-edit">Update</nuxt-link>
 							<button @click.prevent="deleteOrder(order.id)" class="btn btn-delete">Terminate</button>
 						</td>
 					</tr>
@@ -54,11 +57,13 @@ const error = ref(null);
 
 let username = null;
 let userType = null;
+let token = null;
 if (typeof window !== 'undefined') {
 	username = localStorage.getItem('username');
 	userType = localStorage.getItem('user_type');
+	token = localStorage.getItem('jwt_token');
 	console.log(userType)
-	if (!username || !userType) {
+	if (!username || !userType || !token) {
 		error.value = 'No username or user type found. Please log in.';
 	}
 }
@@ -68,13 +73,23 @@ if (typeof window !== 'undefined') {
 const orders = ref([]);
 const getOrders = async () => {
 	try {
-		// Determine the endpoint based on user type
-		const endpoint = userType === 'customer' ? `${api}/${username}/orders` : `${api}/order`;
+		const endpoint = userType === 'Customer'
+			? `${api}/customer/${username}/orders`
+			: `${api}/order`;
 
-		// Fetch data from the appropriate endpoint
-		const response = await fetch(endpoint);
+		console.log(`Fetching orders from: ${endpoint}`);
+
+		const response = await fetch(endpoint, {
+			headers: {
+				'Content-Type': 'application/json',
+				'Authorization': `Bearer ${token}`,
+			},
+		});
+
 		if (!response.ok) {
-			throw new Error('Failed to fetch orders');
+			const errorText = await response.text();
+			console.error(`Error fetching orders: ${errorText}`);
+			throw new Error(`Failed to fetch orders: ${response.statusText}`);
 		}
 
 		orders.value = await response.json();
@@ -82,6 +97,7 @@ const getOrders = async () => {
 		console.error('Error fetching orders:', error);
 	}
 };
+
 
 // Helper function to calculate total packages
 const totalPackages = (order) => {

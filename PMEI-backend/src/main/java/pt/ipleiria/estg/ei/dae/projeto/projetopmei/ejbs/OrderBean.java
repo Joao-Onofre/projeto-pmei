@@ -204,6 +204,7 @@ public class OrderBean {
         Hibernate.initialize(order.getPackageList());
         return order;
     }
+
     public List<Order> findCustomerOrders(String username) throws MyEntityNotFoundException {
         Customer customer = customerBean.find(username);
         if(customer == null) {

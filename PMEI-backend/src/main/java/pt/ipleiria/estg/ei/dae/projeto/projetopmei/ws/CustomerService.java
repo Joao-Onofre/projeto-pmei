@@ -113,12 +113,6 @@ public class CustomerService {
 	@Path("{username}/orders")
 	@RolesAllowed({"Customer", "Administrator"})
 	public Response getCustomerOrders(@PathParam("username") String username) throws MyEntityNotFoundException {
-		var principal = securityContext.getUserPrincipal();
-
-		if (!principal.getName().equals(username) && !securityContext.isUserInRole("Administrator")) {
-			return Response.status(Response.Status.FORBIDDEN).build();
-		}
-
 		return Response.ok(OrderDTO.from(orderBean.findCustomerOrders(username))).build();
 	}
 }

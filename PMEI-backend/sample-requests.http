@@ -233,7 +233,11 @@ Accept: application/json
 DELETE http://localhost:8080/academics/api/cart/customer/customer1/remove/1
 Accept: application/json
 
-
+### GET ORDERS FROM COSTUMER
+GET http://localhost:8080/academics/api/customer/customer1/orders
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzIyODM5NSwiZXhwIjoxNzM3MjMxOTk1fQ.Jl0IZjqKwD2OPcsX2KH2HljBTM7YuOjMY8A17RBUDxDIohPVZovEklydfIm0l4cZ
 
 
 
