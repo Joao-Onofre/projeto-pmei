@@ -106,11 +106,13 @@ Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzA0N
 ### GET PRODUCTS
 GET http://localhost:8080/academics/api/product
 Accept: application/json
-//Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ0aWFnbyIsImlhdCI6MTczMjcxNDQzMCwiZXhwIjoxNzMyNzE4MDMwfQ.6C9-XZ4D--nwwrXNpoW4eEiVPT6-Tjnviqw22wTPfgmNjdWdwG0zVFQIhb1aSRdz
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzIzMDYzNCwiZXhwIjoxNzM3MjM0MjM0fQ.BznR9JvZcHYLy0ElBAX3VM5iqubRkcufz8OtlMrnHkPfGcy7iqr7XjnF8i0a2k0_
 
 ### GET PRODUCT
 GET http://localhost:8080/academics/api/product/1
 Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzIzMDYzNCwiZXhwIjoxNzM3MjM0MjM0fQ.BznR9JvZcHYLy0ElBAX3VM5iqubRkcufz8OtlMrnHkPfGcy7iqr7XjnF8i0a2k0_
+
 
 ### GET PRODUCT
 GET http://localhost:8080/academics/api/product/search/jonkler
@@ -120,11 +122,13 @@ Accept: application/json
 POST http://localhost:8080/academics/api/product
 Content-Type: application/json
 Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzIzMDYzNCwiZXhwIjoxNzM3MjM0MjM0fQ.BznR9JvZcHYLy0ElBAX3VM5iqubRkcufz8OtlMrnHkPfGcy7iqr7XjnF8i0a2k0_
+
 
 {
 "name": "teste",
-"description": "teste jonkler",
-"price": 69,
+"description": "teste",
+"price": 60,
 "productTypeId": 1
 }
 
@@ -134,9 +138,9 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "name": "jonkler moment",
-  "description": "darkness batman",
-  "price": 420,
+  "name": "teste 1",
+  "description": "teste",
+  "price": 10,
   "productTypeId": 1
 }
 
@@ -151,7 +155,7 @@ Accept: application/json
 GET http://localhost:8080/academics/api/product-type
 Accept: application/json
 
-### GET PRODUCT ORDER
+### GET ORDER
 GET http://localhost:8080/academics/api/order
 Accept: application/json
 
@@ -165,7 +169,7 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "type": "mr jonk"
+  "type": "Teste Tipo"
 }
 
 ### UPDATE PRODUCT TYPE
@@ -174,11 +178,11 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "type": "jonkler moment"
+  "type": "teste tipo"
 }
 
 ### DELETE PRODUCT TYPES
-DELETE http://localhost:8080/academics/api/product-type/2
+DELETE http://localhost:8080/academics/api/product-type/9
 Content-Type: application/json
 Accept: application/json
 
@@ -226,11 +230,15 @@ POST http://localhost:8080/academics/api/cart/customer/customer2/add?productId=2
 Content-Type: application/json
 
 ### GET PRODUCT FROM COSTUMER
-GET http://localhost:8080/academics/api/cart/customer/customer1
+GET http://localhost:8080/academics/api/cart/customer/customer2
 Accept: application/json
 
 ### DELETE PRODUCT FROM COSTUMER
-DELETE http://localhost:8080/academics/api/cart/customer/customer1/remove/1
+DELETE http://localhost:8080/academics/api/cart/customer/customer2/remove/2
+Accept: application/json
+
+### CLEAR CART FROM COSTUMER
+DELETE http://localhost:8080/academics/api/cart/customer/customer2/clear
 Accept: application/json
 
 ### GET ORDERS FROM COSTUMER
