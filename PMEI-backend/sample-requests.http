@@ -76,6 +76,16 @@ Content-Type: application/json
 Accept: application/json
 //Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNjg3Njk0NywiZXhwIjoxNzM2ODgwNTQ3fQ.158D5OxOOXT8Eiaq0aWJ0rrAIXgadLaur8GqZ-NSr_zBiFCnDjApEylWZv4w1CMZ
 
+### GET PACKAGE
+GET http://localhost:8080/academics/api/package/2
+Content-Type: application/json
+Accept: application/json
+
+### GET ORDER
+GET http://localhost:8080/academics/api/order/2
+Content-Type: application/json
+Accept: application/json
+
 ### DELETE SENSOR
 DELETE http://localhost:8080/academics/api/sensor/1
 Content-Type: application/json
@@ -176,7 +186,7 @@ Accept: application/json
 POST http://localhost:8080/academics/api/alert/
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzE0NzI5NywiZXhwIjoxNzM3MTUwODk3fQ.Sjb0wnpJGAiY9kayNWt3rG8-7w4qTBmrm85RYxxhwV42t9ZMR1EfcU9JM7vqBmTh
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzIxNTcyMywiZXhwIjoxNzM3MjE5MzIzfQ.zxq1leRXfdnM-RKRxsO4UNgfl1s1SLU8uxer9zi9xOIn3r-FkRfwgG7YfXvCN2fq
 
 {
   "message": "Sensor value exceeded threshold",
@@ -185,10 +195,10 @@ Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzE0N
 }
 
 ### GET ALERT
-GET http://localhost:8080/academics/api/alert/1
+GET http://localhost:8080/academics/api/alert
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzE2NTM4NywiZXhwIjoxNzM3MTY4OTg3fQ.4zQJIMmiaaXQxnhMSzykf09OWCFLfRAxI6FxX3641j356Ggc5FXR6Y3_lCH6fCDR
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzIxODI4NiwiZXhwIjoxNzM3MjIxODg2fQ.wxMkHftgKy8f-GJUhlggLhPLR9jD-7PO2pabxe0KnmdtJnF2zQcfXWXZpunE0Kyz
 
 ### DELETE ALERT
 DELETE http://localhost:8080/academics/api/alert/2
