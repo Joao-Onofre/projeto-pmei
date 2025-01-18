@@ -65,7 +65,6 @@ public class SensorService {
                 .build();
     }
 
-
     // Sensor por ID
     @GET
     @Path("/{id}")
@@ -75,13 +74,13 @@ public class SensorService {
                 .build();
     }
 
-    // Atualiza
+    // Atualiza com suporte a alertas
     @PUT
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response updateSensor(@PathParam("id") Long sensorId, SensorDTO sensorDTO) throws MyEntityNotFoundException, Exception {
         // Encontrar o Sensor existente pelo ID
-        Sensor existingSensor = sensorBean.find(sensorId);  // O ID já está na URL
+        Sensor existingSensor = sensorBean.find(sensorId);
         if (existingSensor == null) {
             throw new MyEntityNotFoundException("Sensor not found with ID: " + sensorId);
         }
@@ -101,10 +100,13 @@ public class SensorService {
         }
 
         // Atualizar o timestamp para o momento atual
-        existingSensor.setTimestamp(new java.util.Date()); // Atualiza o timestamp para o momento atual
+        existingSensor.setTimestamp(new java.util.Date()); // Atualiza o timestamp
 
-        // Persistir as alterações no banco de dados
-        sensorBean.update(existingSensor);
+        // Definir o limite (threshold) para os alertas
+        double threshold = 0; // Por exemplo, você pode alterar isso conforme necessário
+
+        // Persistir as alterações e verificar alertas
+        sensorBean.update(existingSensor, threshold);
 
         return Response.status(Response.Status.OK).build();
     }
