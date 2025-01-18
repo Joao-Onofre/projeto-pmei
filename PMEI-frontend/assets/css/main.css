@@ -1,84 +1,84 @@
 .wrapper {
-    padding: 70px;
+  padding: 70px;
 }
 
 .search-container {
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: flex-start;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: flex-start;
 }
 
 .search-bar {
-    padding: 8px;
-    font-size: 16px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    width: 100%;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  width: 100%;
 }
 
 .table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
 }
 
 .table th,
 .table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .table th {
-    background-color: #f4f4f4;
-    font-weight: bold;
+  background-color: #f4f4f4;
+  font-weight: bold;
 }
 
 /* Button styles */
 .btn {
-    padding: 6px 12px;
-    margin: 0 4px;
-    border: none;
-    cursor: pointer;
-    font-size: 14px;
+  padding: 6px 12px;
+  margin: 0 4px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
 }
 
 .btn-edit {
-    background-color: #007bff;
-    color: white;
-    border-radius: 4px;
+  background-color: #007bff;
+  color: white;
+  border-radius: 4px;
 }
 
 .btn-delete {
-    background-color: #dc3545;
-    color: white;
-    border-radius: 4px;
+  background-color: #dc3545;
+  color: white;
+  border-radius: 4px;
 }
 
 .btn-create {
-    background-color: #28a745;
-    color: white;
-    border-radius: 4px;
-    font-size: 14px;
+  background-color: #28a745;
+  color: white;
+  border-radius: 4px;
+  font-size: 14px;
 }
 
 .btn-import {
-    background-color: #ffc107;
-    color: white;
-    border-radius: 4px;
-    font-size: 14px;
+  background-color: #ffc107;
+  color: white;
+  border-radius: 4px;
+  font-size: 14px;
 }
 
 .btn:hover {
-    opacity: 0.9;
+  opacity: 0.9;
 }
 
 .text-danger {
-    color: red;
+  color: red;
 }
 
 .yo {
-    margin-top: 50px !important;
+  margin-top: 50px !important;
 }
