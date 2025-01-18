@@ -10,40 +10,40 @@
 				<button class="btn btn-create" @click="submitOrder">Create Order</button>
 			</div>
 
-			<!-- Cart Table -->
-			<table class="table">
-				<thead>
-					<tr>
-						<th width=10%>ID</th>
-						<th width=16%>Name</th>
-						<th width=16%>Description</th>
-						<th width=10%>Type</th>
-						<th width=10%>Price</th>
-						<th width=10%>Quantity</th>
-						<th width=14%>Actions</th>
-					</tr>
-				</thead>
-				<tbody>
-					<!-- Display cart items -->
-					<tr v-for="product in cart.products" :key="product.id">
-						<td>{{ product.id }}</td>
-						<td>{{ product.name }}</td>
-						<td>{{ product.description }}</td>
-						<td>{{ product.productTypeName }}</td>
-						<td>{{ product.price.toFixed(2) * product.quantity }}€</td>
-						<td>{{ product.quantity }}</td>
-						<td>
-							<button class="btn btn-increment" @click="incrementProduct(product.id)">+</button>
-							<button class="btn btn-decrement" @click="decrementProduct(product.id)">-</button>
-							<button class="btn btn-delete" @click="deleteProduct(product.id)">Delete</button>
-						</td>
-					</tr>
-					<!-- Placeholder row when cart is empty -->
-					<tr v-if="!cart.products || cart.products.length === 0">
-						<td colspan="7">Your cart is empty.</td>
-					</tr>
-				</tbody>
-			</table>
+			<!-- Cart Table Wrapper for Horizontal Scroll -->
+			<div class="table-responsive">
+				<table class="table">
+					<thead>
+						<tr>
+							<th width="5%">ID</th>
+							<th width="9%">Name</th>
+							<th width="16%">Description</th>
+							<th width="7%">Type</th>
+							<th width="4%">Price</th>
+							<th width="6%">Amount</th>
+							<th width="14%">Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr v-for="product in cart.products" :key="product.id">
+							<td>{{ product.id }}</td>
+							<td>{{ product.name }}</td>
+							<td>{{ product.description }}</td>
+							<td>{{ product.productTypeName }}</td>
+							<td>{{ (product.price * product.quantity).toFixed(2) }}€</td>
+							<td>{{ product.quantity }}</td>
+							<td>
+								<button class="btn btn-increment" @click="incrementProduct(product.id)">+</button>
+								<button class="btn btn-decrement" @click="decrementProduct(product.id)">-</button>
+								<button class="btn btn-delete" @click="deleteProduct(product.id)">Delete</button>
+							</td>
+						</tr>
+						<tr v-if="!cart.products || cart.products.length === 0">
+							<td colspan="7">Your cart is empty.</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 		</div>
 	</div>
 </template>
@@ -239,20 +239,30 @@ onMounted(async () => {
 	gap: 10px;
 }
 
+.table-responsive {
+	overflow-x: auto;
+	/* Enable horizontal scrolling */
+	-webkit-overflow-scrolling: touch;
+	/* Smooth scrolling on touch devices */
+	width: 100%;
+}
+
 .table {
 	width: 100%;
+	/* Ensure the table spans the full width */
 	border-collapse: collapse;
 	margin: 20px 0;
-	table-layout: fixed;
+	table-layout: auto;
+	/* Let the table resize dynamically */
 }
 
 .table th,
 .table td {
 	border: 1px solid #ddd;
 	padding: 8px;
-	text-overflow: ellipsis;
 	white-space: nowrap;
-	overflow: hidden;
+	/* Prevent wrapping of table content */
+	text-align: left;
 }
 
 .table th {

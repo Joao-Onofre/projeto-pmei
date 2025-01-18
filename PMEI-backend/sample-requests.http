@@ -151,6 +151,10 @@ Accept: application/json
 GET http://localhost:8080/academics/api/product-type
 Accept: application/json
 
+### GET PRODUCT ORDER
+GET http://localhost:8080/academics/api/order
+Accept: application/json
+
 ### GET PRODUCT TYPE
 GET http://localhost:8080/academics/api/product-type/1
 Accept: application/json
