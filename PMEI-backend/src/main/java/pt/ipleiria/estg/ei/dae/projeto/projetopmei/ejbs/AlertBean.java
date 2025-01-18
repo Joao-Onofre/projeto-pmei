@@ -1,5 +1,6 @@
 package pt.ipleiria.estg.ei.dae.projeto.projetopmei.ejbs;
 
+import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
@@ -18,6 +19,10 @@ public class AlertBean {
 
     @PersistenceContext
     private EntityManager entityManager;
+    @EJB
+    private AdministratorBean administratorBean;
+    @EJB
+    private EmailBean emailBean;
 
     private static final Logger LOGGER = Logger.getLogger(AlertBean.class.getName());
 
@@ -29,6 +34,17 @@ public class AlertBean {
             // Definir timestamp atual caso não esteja definido
             if (alert.getTimestamp() == null) {
                 alert.setTimestamp(LocalDateTime.now());  // Atribuindo o timestamp no momento da criação
+            }
+
+            // Enviar mail aos admins
+            var admins = administratorBean.findAll();
+            for (var admin : admins) {
+                emailBean.send(
+                    admin.getEmail(),
+                    "Alerta do sensor #" + alert.getSensor().getSensorId(),
+                    alert.getMessage()
+                );
+                LOGGER.info("Alerta enviado para: " + admin.getEmail());
             }
 
             // Persistir o alerta
