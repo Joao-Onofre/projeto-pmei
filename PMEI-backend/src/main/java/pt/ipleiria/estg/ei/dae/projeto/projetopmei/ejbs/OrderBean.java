@@ -19,6 +19,8 @@ import pt.ipleiria.estg.ei.dae.projeto.projetopmei.exceptions.MyEntityNotFoundEx
 import java.util.Date;
 import java.util.List;
 
+import static org.hibernate.sql.ast.SqlTreeCreationLogger.LOGGER;
+
 @Stateless
 public class OrderBean {
 
@@ -133,6 +135,15 @@ public class OrderBean {
         String statusName = status.getStatus();
         if(statusName.equals("Delivered")){
             order.setDeliveryDate(new Date());
+
+            // Criar um alerta
+            Alert alert = new Alert();
+            alert.setMessage("Order " + id + " delivered.");
+
+            // Persistir o alerta
+            entityManager.persist(alert);
+
+            LOGGER.info("Alert created: " + alert.getMessage());
         } else if (statusName.equals("Canceled")) {
             order.setTerminated(true);
         }
