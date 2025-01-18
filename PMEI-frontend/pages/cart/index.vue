@@ -14,13 +14,13 @@
 			<table class="table">
 				<thead>
 					<tr>
-						<th>ID</th>
-						<th>Name</th>
-						<th>Description</th>
-						<th>Type</th>
-						<th>Price</th>
-						<th>Quantity</th>
-						<th>Actions</th>
+						<th width=10%>ID</th>
+						<th width=16%>Name</th>
+						<th width=16%>Description</th>
+						<th width=10%>Type</th>
+						<th width=10%>Price</th>
+						<th width=10%>Quantity</th>
+						<th width=14%>Actions</th>
 					</tr>
 				</thead>
 				<tbody>
