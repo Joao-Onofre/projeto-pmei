@@ -24,7 +24,7 @@ public class OrderService {
     private OrderBean orderBean;
 
     @GET
-    @Path("/") //get all orders (Admins)
+    @Path("/")
     public List<OrderDTO> getAllOrders() {
         return OrderDTO.from(orderBean.findAll());
     }

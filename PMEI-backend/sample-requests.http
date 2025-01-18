@@ -9,7 +9,7 @@ Accept: application/json
 PATCH http://localhost:8080/academics/api/auth/set-password
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzEyOTgyNSwiZXhwIjoxNzM3MTMzNDI0fQ.fGoMbM1JJMNIxhBD5pumOXOlc6hFDSwXC-WVtCkf0fVSJoGTIHo6crnU52cblsXa
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzIzMTM1MywiZXhwIjoxNzM3MjM0OTUzfQ.hGnCg7tB1TRkfM9bPd3A-pqtBCGXhl_Ydmj7xUvz5SSz3_J0Y_9PoA6snPsyt5ne
 
 { "oldPassword": "123", "newPassword": "1234", "confirmPassword": "1234" }
 
@@ -18,41 +18,41 @@ POST http://localhost:8080/academics/api/auth/register
 Content-Type: application/json
 Accept: application/json
 
-{ "username": "kintama", "password": "kingyo", "name": "Kin Tama", "email": "kintamasan@mail.jp" }
+{ "username": "customer2", "password": "1234", "name": "Pedro", "email": "pedro@gmail.com" }
 
 ### GET ALL USERS
 GET http://localhost:8080/academics/api/user
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczMzkxOTk4MSwiZXhwIjoxNzMzOTIzNTgxfQ.hjlE-v2TUU0PHJlqN-kt02hOU4rtYEcDfYLx_62Xo6yGfo0LzzxTAV6TEQhMM9QN
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzIzMjA3NiwiZXhwIjoxNzM3MjM1Njc2fQ.55wOcDnxaykb9-eSLtphoUl1VO7L1m6PN_Ffl7LxGfW5PIeJ6Tftm9n__g9HWEXF
 
 ### GET ALL CUSTOMERS
 GET http://localhost:8080/academics/api/customer
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczMzMxMjI4MSwiZXhwIjoxNzMzMzE1ODgxfQ.REaRGa0ZZpU6v9BENlE_zegrBcjkukRTLA4agNZ85sGTS2xcfqv4obcjFoVcvE3A
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzIzMjA3NiwiZXhwIjoxNzM3MjM1Njc2fQ.55wOcDnxaykb9-eSLtphoUl1VO7L1m6PN_Ffl7LxGfW5PIeJ6Tftm9n__g9HWEXF
 
 ### GET USER
 GET http://localhost:8080/academics/api/user/customer1
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzEzOTUwOSwiZXhwIjoxNzM3MTQzMTA5fQ.dqzPYZkndBS29YakuD3nh1B_S_8AfC0IXVtibeD8UymRIVphCvl_lS2bMLW69obd
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzIzMjA3NiwiZXhwIjoxNzM3MjM1Njc2fQ.55wOcDnxaykb9-eSLtphoUl1VO7L1m6PN_Ffl7LxGfW5PIeJ6Tftm9n__g9HWEXF
 
 
 ### CREATE CUSTOMER
 POST http://localhost:8080/academics/api/customer
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzEzNjg3MywiZXhwIjoxNzM3MTQwNDczfQ.zUkT7ksGBsJaba2tq2zf92xRewKSgC_qPYlrYXD8doC77PtOTr_HJPE879SAnIpq
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzIzMjA3NiwiZXhwIjoxNzM3MjM1Njc2fQ.55wOcDnxaykb9-eSLtphoUl1VO7L1m6PN_Ffl7LxGfW5PIeJ6Tftm9n__g9HWEXF
 
 {
-  "username": "customer2",
+  "username": "customer3",
   "password": "1234",
   "name": "Tiago",
   "email": "tiago@mail.pt"
 }
 
 ### GET CUSTOMER
-GET http://localhost:8080/academics/api/customer/customer1
+GET http://localhost:8080/academics/api/customer/customer3
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzEzODA1NSwiZXhwIjoxNzM3MTQxNjU1fQ.PPW8HRh5GSWb6aXgcrugo6GusUGIXQeh9QO47SoSyUCRc_UT6uzjBJW1v11CPJG6
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzIzMjA3NiwiZXhwIjoxNzM3MjM1Njc2fQ.55wOcDnxaykb9-eSLtphoUl1VO7L1m6PN_Ffl7LxGfW5PIeJ6Tftm9n__g9HWEXF
 
 ### CREATE SENSOR
 POST http://localhost:8080/academics/api/sensor
@@ -68,29 +68,19 @@ Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzIzM
 GET http://localhost:8080/academics/api/sensor
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzEzNzcwMSwiZXhwIjoxNzM3MTQxMzAxfQ.a0ocz4FYJpfLtkm9Jcmuj3hzNfYzrsEuDUnKs-VeRDcUbB-KupMShkqA2pa0xO2S
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzIzMjA3NiwiZXhwIjoxNzM3MjM1Njc2fQ.55wOcDnxaykb9-eSLtphoUl1VO7L1m6PN_Ffl7LxGfW5PIeJ6Tftm9n__g9HWEXF
 
 ### GET SENSOR
 GET http://localhost:8080/academics/api/sensor/1
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNjg3Njk0NywiZXhwIjoxNzM2ODgwNTQ3fQ.158D5OxOOXT8Eiaq0aWJ0rrAIXgadLaur8GqZ-NSr_zBiFCnDjApEylWZv4w1CMZ
-
-### GET PACKAGE
-GET http://localhost:8080/academics/api/package/2
-Content-Type: application/json
-Accept: application/json
-
-### GET ORDER
-GET http://localhost:8080/academics/api/order/2
-Content-Type: application/json
-Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzIzMjA3NiwiZXhwIjoxNzM3MjM1Njc2fQ.55wOcDnxaykb9-eSLtphoUl1VO7L1m6PN_Ffl7LxGfW5PIeJ6Tftm9n__g9HWEXF
 
 ### DELETE SENSOR
 DELETE http://localhost:8080/academics/api/sensor/1
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzIzMTExNywiZXhwIjoxNzM3MjM0NzE3fQ.eR38CIUG8QTo4uuA3x79K9ZP-NXQ675zFcc2ZFNhtof82ITD4DSrfE-gE1kmTVnA
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzIzMjA3NiwiZXhwIjoxNzM3MjM1Njc2fQ.55wOcDnxaykb9-eSLtphoUl1VO7L1m6PN_Ffl7LxGfW5PIeJ6Tftm9n__g9HWEXF
 
 ### UPDATE SENSOR
 PUT http://localhost:8080/academics/api/sensor/2
@@ -115,7 +105,7 @@ Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzIzM
 
 
 ### GET PRODUCT
-GET http://localhost:8080/academics/api/product/search/jonkler
+GET http://localhost:8080/academics/api/product/search/TV
 Accept: application/json
 
 ### CREATE PRODUCT
@@ -128,7 +118,7 @@ Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzIzM
 {
 "name": "teste",
 "description": "teste",
-"price": 60,
+"price": 69,
 "productTypeId": 1
 }
 
@@ -247,10 +237,117 @@ Content-Type: application/json
 Accept: application/json
 Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzIyODM5NSwiZXhwIjoxNzM3MjMxOTk1fQ.Jl0IZjqKwD2OPcsX2KH2HljBTM7YuOjMY8A17RBUDxDIohPVZovEklydfIm0l4cZ
 
+### GET ALL ORDERS
+GET http://localhost:8080/academics/api/order/
+Accept: application/json
+
+### GET SPECIFIC ORDER
+GET http://localhost:8080/academics/api/order/1
+Accept: application/json
+
+### POST ORDER
+POST http://localhost:8080/academics/api/order
+Content-Type: application/json
+Accept: application/json
+
+{
+  "customerUsername": "customer1",
+  "productList": [
+    { "id": 1, "quantity": 2 },
+    { "id": 2, "quantity": 5 },
+    { "id": 2, "quantity": 2 }
+  ]
+}
+
+### PUT ORDER
+PUT http://localhost:8080/academics/api/order/1
+Content-Type: application/json
+Accept: application/json
+
+{
+  "status": 5
+}
+
+### DELETE ORDER
+DELETE http://localhost:8080/academics/api/order/1
+Content-Type: application/json
+Accept: application/json
+
+### GET ORDER STATUS
+GET http://localhost:8080/academics/api/orderstatus/
+Accept: application/json
+
+### GET CUSTOMER ORDERS
+GET http://localhost:8080/academics/api/customer/customer1/orders
+Accept: application/json
 
 
 
+### GET ALL PACKAGES
+GET http://localhost:8080/academics/api/package/
+Accept: application/json
 
+### GET SPECIFIC PACKAGE
+GET http://localhost:8080/academics/api/package/2
+Accept: application/json
 
+### POST PACKAGE
+POST http://localhost:8080/academics/api/package
+Content-Type: application/json
+Accept: application/json
 
+{
+  "packageType": 1,
+  "order": 1
+}
 
+### DELETE PACKAGE
+DELETE http://localhost:8080/academics/api/package/2
+Content-Type: application/json
+Accept: application/json
+
+### GET CUSTOMER PACKAGE
+GET http://localhost:8080/academics/api/customer/customer1/packages
+Accept: application/json
+
+### GET PACKAGE TYPES
+GET http://localhost:8080/academics/api/packagetype
+Accept: application/json
+
+### POST PACKAGE TYPE
+POST http://localhost:8080/academics/api/packagetype
+Content-Type: application/json
+Accept: application/json
+
+{
+  "type": "novo tipo"
+}
+
+### PUT PACKAGE
+PUT http://localhost:8080/academics/api/package/3
+Content-Type: application/json
+Accept: application/json
+
+{
+  "packageProducts": [
+    {
+      "product": 2,
+      "quantity": 1
+    }
+  ],
+  "packageType": 5
+}
+
+### PUT PACKAGE TYPE
+PUT http://localhost:8080/academics/api/packagetype/6
+Content-Type: application/json
+Accept: application/json
+
+{
+  "type": "atualizado"
+}
+
+### CLEAR CUSTOMER CART
+DELETE http://localhost:8080/academics/api/cart/customer/customer1/clear
+Content-Type: application/json
+Accept: application/json
