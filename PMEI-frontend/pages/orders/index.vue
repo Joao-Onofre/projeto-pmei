@@ -1,13 +1,9 @@
 <template>
 	<div class="container">
 		<div class="wrapper">
-			<!-- Error Display -->
-			<div v-if="error" class="alert alert-danger">Error: {{ error.message }}</div>
 			<!-- Search Bar and Create Button -->
-			<div class="d-flex justify-content-between align-items-center mb-3">
-				<input type="text" v-model="searchQuery" class="search-bar"
-					placeholder="Search by Product Name, Type, or Description" />
-			</div>
+			<div class="mt-5"></div>
+			<div v-if="error" class="alert alert-danger">Error: {{ error.message }}</div>
 
 			<div v-if="userType !== 'Customer'" class="action-buttons">
 				<nuxt-link to="/orders/create" class="btn btn-create">Create New Order</nuxt-link>
@@ -29,16 +25,16 @@
 					<!-- Display filtered orders -->
 					<tr v-for="order in orders" :key="order.id">
 						<td>{{ order.id }}</td>
-						<td>{{ order.status }}</td>
+						<td>{{ order.statusName }}</td>
 						<td>{{ order.customerUsername }}</td>
 						<td>{{ order.statusName }}</td>
 						<td>{{ totalPackages(order) }}</td>
 						<td>{{ totalSensors(order) }}</td>
-						<td>{{ order.terminated }}</td>
+						<td>{{ order.terminated ? "Inactive" : "Active" }}</td>
 						<td>
 							<nuxt-link :to="`/orders/${order.id}`" class="btn btn-dark">Details</nuxt-link>
 							<nuxt-link :to="`/orders/update/${order.id}`" class="btn btn-edit">Update</nuxt-link>
-							<button @click.prevent="deleteOrder(order.id)" class="btn btn-delete">Delete</button>
+							<button @click.prevent="deleteOrder(order.id)" class="btn btn-delete">Terminate</button>
 						</td>
 					</tr>
 					<tr v-if="orders.length === 0">
@@ -54,6 +50,7 @@
 import { ref, computed } from "vue"
 const config = useRuntimeConfig()
 const api = config.public.API_URL
+const error = ref(null);
 
 let username = null;
 let userType = null;

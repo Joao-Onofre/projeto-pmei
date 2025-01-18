@@ -1,6 +1,8 @@
 <template>
 	<div class="container mt-5">
+		<div class="mt-5"></div>
 		<h1>Create Order</h1>
+		<div v-if="productErr" class="alert alert-danger">Error: {{ productErr }}</div>
 
 		<!-- Customer Username Input -->
 		<div class="form-group">
@@ -84,6 +86,7 @@ const addProductToOrder = () => {
 	} else {
 		order.value.productList.push({
 			id: selectedProduct.value.id,
+			name: selectedProduct.value.name,
 			quantity: productQuantity.value,
 		});
 	}
@@ -100,12 +103,25 @@ const removeProduct = (index) => {
 // Submit the order
 const submitOrder = async () => {
 	try {
+		// Create a copy of productList with only the required fields
+		const filteredProductList = order.value.productList.map((product) => ({
+			id: product.id, // Only include ID and quantity
+			quantity: product.quantity,
+		}));
+
+		// Prepare the order payload
+		const payload = {
+			customerUsername: order.value.customerUsername,
+			productList: filteredProductList,
+		};
+
+		// Make the POST request
 		const response = await fetch(`${api}/order`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
 			},
-			body: JSON.stringify(order.value),
+			body: JSON.stringify(payload),
 		});
 
 		if (!response.ok) {
