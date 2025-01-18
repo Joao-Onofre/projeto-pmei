@@ -159,9 +159,28 @@ public class SensorBean {
 
 
     // Delete sensor
-    public void delete(long sensorId)
-            throws Exception {
-        Sensor sensor = find(sensorId);
-        entityManager.remove(sensor);
+    public void delete(long sensorId) throws Exception {
+        try {
+            // Encontrar o sensor
+            Sensor sensor = find(sensorId);
+
+            // Remover os alertas associados ao sensor
+            List<Alert> alerts = entityManager.createQuery(
+                            "SELECT a FROM Alert a WHERE a.sensor.sensorId = :sensorId", Alert.class)
+                    .setParameter("sensorId", sensorId)
+                    .getResultList();
+
+            for (Alert alert : alerts) {
+                entityManager.remove(alert);
+            }
+
+            // Remover o sensor
+            entityManager.remove(sensor);
+        } catch (Exception e) {
+            // Log de erro e rethrow
+            LOGGER.severe("Erro ao deletar o sensor com ID: " + sensorId + " - " + e.getMessage());
+            throw new RuntimeException("Erro ao deletar o sensor", e);
+        }
     }
+
 }
