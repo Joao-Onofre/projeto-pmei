@@ -27,6 +27,9 @@
 					<input type="password" id="confirm-password" v-model="form.confirmPassword"
 						placeholder="Confirm your password" required />
 				</div>
+				<div v-if="error" class="error-message">
+					{{ error }}
+				</div>
 				<button type="submit" class="auth-button">Sign Up</button>
 				<p class="auth-footer">
 					Already have an account? <a href="/auth">Log in here</a>
@@ -47,17 +50,42 @@ export default {
 				password: '',
 				confirmPassword: '',
 			},
+			error: null
 		}
 	},
 	methods: {
-		handleSignup() {
-			// Mock signup action for testing
-			if (this.form.password !== this.form.confirmPassword) {
-				alert('Passwords do not match!')
-				return
+		async handleSignup() {
+			try {
+				if (this.form.password !== this.form.confirmPassword) {
+					throw new Error('Passwords do not match.');
+				}
+				
+				const config = useRuntimeConfig();
+				const api = config.public.API_URL;
+
+				const { confirmPassword, ...requestBody } = this.form;
+
+				// Register
+				const authResponse = await fetch(`${api}/auth/register`, {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify(requestBody),
+				});
+
+				if (!authResponse.ok) {
+					throw new Error('Failed to signup.');
+				}
+
+				console.log('Register successful');
+
+				// Redirect to the login page
+				this.$router.push('/auth');
+			} catch (error) {
+				console.error('Register error:', error);
+				this.error = error.message;
 			}
-			console.log('Signing up with:', this.form)
-			alert('Signup successful! (Mock)')
 		},
 	},
 }
@@ -143,5 +171,11 @@ export default {
 
 .auth-footer a:hover {
 	text-decoration: underline;
+}
+
+.error-message {
+	color: red;
+	margin-top: 10px;
+	font-size: 0.9rem;
 }
 </style>
