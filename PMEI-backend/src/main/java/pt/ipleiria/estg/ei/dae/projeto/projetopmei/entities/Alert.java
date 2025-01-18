@@ -2,6 +2,7 @@ package pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 public class Alert {
@@ -14,10 +15,6 @@ public class Alert {
     @JoinColumn(name = "sensor_id", referencedColumnName = "sensorId")
     private Sensor sensor;
 
-    @ManyToOne
-    @JoinColumn(name = "user_username", referencedColumnName = "username")
-    private User user; // Adiciona a relação com o User
-
     private LocalDateTime timestamp;
 
     private String message;
@@ -27,10 +24,9 @@ public class Alert {
         this.timestamp = LocalDateTime.now(); // Default timestamp to now
     }
 
-    public Alert(Sensor sensor, User user, String message) {
+    public Alert(Sensor sensor, String message) {
         this();
         this.sensor = sensor;
-        this.user = user;
         this.message = message;
     }
 
@@ -49,14 +45,6 @@ public class Alert {
 
     public void setSensor(Sensor sensor) {
         this.sensor = sensor;
-    }
-
-    public User getUser() {
-        return user; // Adiciona o getter para o usuário
-    }
-
-    public void setUser(User user) {
-        this.user = user; // Adiciona o setter para o usuário
     }
 
     public LocalDateTime getTimestamp() {

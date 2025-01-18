@@ -6,7 +6,6 @@ import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.Alert;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.Sensor;
-import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.User;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.exceptions.MyEntityNotFoundException;
 
 import java.time.LocalDateTime;
@@ -23,12 +22,9 @@ public class AlertBean {
     private static final Logger LOGGER = Logger.getLogger(AlertBean.class.getName());
 
     // Cria um novo alerta
-    public void create(Alert alert, User user) {
+    public void create(Alert alert) {
         try {
             LOGGER.info("Iniciando a criação do alerta: " + alert);
-
-            // Associar o alerta ao usuário
-            alert.setUser(user); // Associa o usuário ao alerta
 
             // Definir timestamp atual caso não esteja definido
             if (alert.getTimestamp() == null) {
@@ -49,11 +45,11 @@ public class AlertBean {
         try {
             Alert alert = entityManager.find(Alert.class, alertId);
             if (alert == null) {
-                throw new MyEntityNotFoundException("Alerta com ID " + alertId + " não encontrado");
+                throw new MyEntityNotFoundException("Alert with ID " + alertId + " not found");
             }
             return alert;
         } catch (NoResultException e) {
-            throw new MyEntityNotFoundException("Alerta com ID " + alertId + " não encontrado");
+            throw new MyEntityNotFoundException("Alert with ID " + alertId + " not found");
         }
     }
 
@@ -68,26 +64,6 @@ public class AlertBean {
                         "SELECT a FROM Alert a WHERE a.sensor.sensorId = :sensorId", Alert.class)
                 .setParameter("sensorId", sensorId)
                 .getResultList();
-    }
-
-    // Busca alertas de um usuário específico
-    public List<Alert> findByUser(User user) {
-        return entityManager.createQuery(
-                        "SELECT a FROM Alert a WHERE a.user = :user", Alert.class)
-                .setParameter("user", user)
-                .getResultList();
-    }
-
-    // Busca um usuário pelo username
-    public User findUserByUsername(String username) throws MyEntityNotFoundException {
-        try {
-            User user = entityManager.createQuery("SELECT u FROM User u WHERE u.username = :username", User.class)
-                    .setParameter("username", username)
-                    .getSingleResult();
-            return user;
-        } catch (NoResultException e) {
-            throw new MyEntityNotFoundException("Usuário com o username " + username + " não encontrado");
-        }
     }
 
     // Atualiza um alerta existente
@@ -132,19 +108,8 @@ public class AlertBean {
             alert.setTimestamp(LocalDateTime.now());  // Definir timestamp atual
             alert.setMessage("Sensor value exceeded threshold: " + sensor.getCurrentValue());  // Mensagem
 
-            // Criar o alerta com um usuário fictício ou baseado em uma lógica
-            User user = getAuthenticatedUser(); // Exemplo de como obter o usuário logado
-            alert.setUser(user);  // Associar o usuário ao alerta
-
             // Persistir o alerta
-            create(alert, user);
+            create(alert);
         }
-    }
-
-    // Método fictício para obter o usuário logado
-    private User getAuthenticatedUser() {
-        // Em um caso real, você deve obter o usuário logado do contexto de segurança
-        // Aqui você pode substituir esse método com a lógica real de autenticação
-        return new User(); // Exemplo fictício
     }
 }

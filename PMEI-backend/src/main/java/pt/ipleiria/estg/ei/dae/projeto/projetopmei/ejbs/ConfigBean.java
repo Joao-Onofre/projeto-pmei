@@ -16,7 +16,6 @@ import pt.ipleiria.estg.ei.dae.projeto.projetopmei.ejbs.typesBeans.ProductTypeBe
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.Product;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.exceptions.MyEntityNotFoundException;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.Alert;
-import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.User;
 
 import java.util.List;
 
@@ -130,12 +129,7 @@ public class ConfigBean {
                     Alert alert = new Alert();
                     alert.setSensor(tempSensor);
                     alert.setMessage("Temperature threshold exceeded: " + (i * 10.0) + "°C");
-
-                    // Obter o administrador (ou o usuário que deve estar associado)
-                    User adminUser = administratorBean.find("admin"); // Ajuste conforme necessário
-
-                    // Passar o administrador como segundo parâmetro
-                    alertBean.create(alert, adminUser);
+                    alertBean.create(alert);
                 }
             }
 
@@ -147,16 +141,11 @@ public class ConfigBean {
                 humiditySensor.setCurrentValue(55.0); // Valor de umidade inicial
                 sensorBean.create(humiditySensor);
 
-                // Criar alertas para sensores de umidade
+
                 Alert alert = new Alert();
                 alert.setSensor(humiditySensor);
                 alert.setMessage("Humidity level exceeded: " + 55.0 + "%");
-
-                // Obter o administrador (ou o usuário que deve estar associado)
-                User adminUser = administratorBean.find("admin"); // Ajuste conforme necessário
-
-                // Passar o administrador como segundo parâmetro
-                alertBean.create(alert, adminUser);
+                alertBean.create(alert);
             }
 
             customerBean.create("customer1", "1234", "Joner Boner", "boner@gmail.com");

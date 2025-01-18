@@ -2,7 +2,6 @@ package pt.ipleiria.estg.ei.dae.projeto.projetopmei.dtos;
 
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.Alert;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.Sensor;
-import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.User;
 
 import java.io.Serializable;
 import java.time.format.DateTimeFormatter;
@@ -15,17 +14,15 @@ public class AlertDTO implements Serializable {
     private String message;
     private String formattedTimestamp; // Formato legível do timestamp
     private Long sensorId; // ID do sensor associado
-    private String username; // Nome de usuário associado ao alerta
 
     // Construtores
     public AlertDTO() {}
 
-    public AlertDTO(long alertId, String message, String formattedTimestamp, Long sensorId, String username) {
+    public AlertDTO(long alertId, String message, String formattedTimestamp, Long sensorId) {
         this.alertId = alertId;
         this.message = message;
         this.formattedTimestamp = formattedTimestamp;
         this.sensorId = sensorId;
-        this.username = username;
     }
 
     // Métodos de conversão
@@ -38,8 +35,7 @@ public class AlertDTO implements Serializable {
                 alert.getAlertId(),
                 alert.getMessage(),
                 alert.getTimestamp() != null ? alert.getTimestamp().format(formatter) : null, // Formata o LocalDateTime
-                alert.getSensor() != null ? alert.getSensor().getSensorId() : null, // Pega o ID do sensor associado
-                alert.getUser() != null ? alert.getUser().getUsername() : null // Pega o username do usuário associado
+                alert.getSensor() != null ? alert.getSensor().getSensorId() : null // Pega o ID do sensor associado
         );
     }
 
@@ -78,13 +74,5 @@ public class AlertDTO implements Serializable {
 
     public void setSensorId(Long sensorId) {
         this.sensorId = sensorId;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 }
