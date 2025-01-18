@@ -59,7 +59,7 @@ public class AuthService {
 	@Path("/register")
 	public Response register(@Valid CustomerDTO data) {
 		try {
-			customerBean.register(data.getUsername(), data.getPassword(), data.getName(), data.getEmail());
+			customerBean.create(data.getUsername(), data.getPassword(), data.getName(), data.getEmail());
 			return Response.status(Response.Status.CREATED).build();
 		} catch (MyEntityExistsException e) {
 			return Response.status(Response.Status.CONFLICT).entity("User already exists").build();
