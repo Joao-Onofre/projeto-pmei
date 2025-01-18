@@ -184,13 +184,13 @@ Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzE0N
 GET http://localhost:8080/academics/api/alert/1
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzE0NzI5NywiZXhwIjoxNzM3MTUwODk3fQ.Sjb0wnpJGAiY9kayNWt3rG8-7w4qTBmrm85RYxxhwV42t9ZMR1EfcU9JM7vqBmTh
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzE2NTM4NywiZXhwIjoxNzM3MTY4OTg3fQ.4zQJIMmiaaXQxnhMSzykf09OWCFLfRAxI6FxX3641j356Ggc5FXR6Y3_lCH6fCDR
 
 ### DELETE ALERT
 DELETE http://localhost:8080/academics/api/alert/2
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzE0OTc2NSwiZXhwIjoxNzM3MTUzMzY1fQ.eI6WZ3KgveBzYLTBW-ap3O63e64qTJ69DJ2YW1PK645yNr2LOGo-x2zFcorqgSqw
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzE2NTM4NywiZXhwIjoxNzM3MTY4OTg3fQ.4zQJIMmiaaXQxnhMSzykf09OWCFLfRAxI6FxX3641j356Ggc5FXR6Y3_lCH6fCDR
 
 
 

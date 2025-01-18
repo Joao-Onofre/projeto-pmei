@@ -5,6 +5,7 @@ import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
+import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.Alert;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.Sensor;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.entityTypes.SensorType;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.entityTypes.StatusType;
@@ -117,14 +118,44 @@ public class SensorBean {
 
 
     // Update de um sensor
-    public void update(Sensor sensor) throws Exception {
+    public void update(Sensor sensor, double threshold) throws Exception {
+        // Procurar o sensor existente pelo ID
         Sensor existingSensor = entityManager.find(Sensor.class, sensor.getSensorId());
-        if (existingSensor != null) {
-            existingSensor.setCurrentValue(sensor.getCurrentValue());
-            existingSensor.setStatusType(sensor.getStatusType());
-            existingSensor.setTimestamp(new Date());
+
+        if (existingSensor == null) {
+            throw new MyEntityNotFoundException("Sensor with ID " + sensor.getSensorId() + " not found.");
         }
+
+        // Obter o valor atual e o valor novo
+        double oldValue = existingSensor.getCurrentValue();
+        double newValue = sensor.getCurrentValue();
+
+        // Atualizar o valor do sensor
+        existingSensor.setCurrentValue(newValue);
+        existingSensor.setTimestamp(new Date());
+
+        // Verificar se o valor atual excede o limite
+        if (newValue > threshold) {
+            double exceededAmount = newValue - threshold;
+
+            // Criar um alerta
+            Alert alert = new Alert();
+            alert.setSensor(existingSensor);
+            alert.setMessage("Exceeded the threshold by " + exceededAmount + " units.");
+
+            // Persistir o alerta
+            entityManager.persist(alert);
+
+            LOGGER.info("Alert created: " + alert.getMessage());
+        }
+
+        // Atualizar o StatusType se necessário
+        existingSensor.setStatusType(sensor.getStatusType());
+
+        // Persistir as alterações do sensor
+        entityManager.merge(existingSensor);
     }
+
 
 
     // Delete sensor

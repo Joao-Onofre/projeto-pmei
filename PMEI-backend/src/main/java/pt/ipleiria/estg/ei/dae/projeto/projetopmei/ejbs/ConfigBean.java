@@ -119,8 +119,7 @@ public class ConfigBean {
             StatusType inactiveStatus = statusTypeBean.findByName("Inactive");
 
             if (temperatureSensorType != null && inactiveStatus != null) {
-                // Criar 10 sensores de temperatura
-                for (int i = 0; i < 10; i++) {
+                for (int i = 0; i < 2; i++) {
                     Sensor tempSensor = new Sensor(temperatureSensorType);
                     tempSensor.setStatusType(inactiveStatus);
                     tempSensor.setCurrentValue(i * 10.0); // Valor inicial para os sensores de temperatura
@@ -142,17 +141,10 @@ public class ConfigBean {
                 humiditySensor.setCurrentValue(55.0); // Valor de umidade inicial
                 sensorBean.create(humiditySensor);
 
-                // Criar alertas para sensor de umidade
+
                 Alert alert = new Alert();
                 alert.setSensor(humiditySensor);
                 alert.setMessage("Humidity level exceeded: " + 55.0 + "%");
-                alertBean.create(alert);
-            }
-
-            // Adicionando mais 10 alertas personalizados
-            for (int i = 1; i <= 10; i++) {
-                Alert alert = new Alert();
-                alert.setMessage("Alert " + i + ": Temperature threshold exceeded! Current temperature: " + (i * 5) + "°C.");
                 alertBean.create(alert);
             }
 

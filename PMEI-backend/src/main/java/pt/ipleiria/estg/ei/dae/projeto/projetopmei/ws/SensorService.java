@@ -86,28 +86,27 @@ public class SensorService {
             throw new MyEntityNotFoundException("Sensor not found with ID: " + sensorId);
         }
 
+        // Atualizar o currentValue se presente no DTO
+        if (sensorDTO.getCurrentValue() != null) {
+            // Define o valor atualizado para o sensor
+            existingSensor.setCurrentValue(sensorDTO.getCurrentValue());
+        }
+
+        // Atualiza o sensor e verifica alertas (passando 20 como limite)
+        sensorBean.update(existingSensor, 20.0);  // Aqui é passado o sensor e o limite (20.0)
+
         // Atualizar o statusType se presente no DTO
         if (sensorDTO.getStatusType() != null) {
             StatusType statusType = statusTypeBean.findByName(sensorDTO.getStatusType());
             if (statusType == null) {
                 throw new MyEntityNotFoundException("StatusType not found with name: " + sensorDTO.getStatusType());
             }
-            existingSensor.setStatusType(statusType); // Atualiza o StatusType
+            existingSensor.setStatusType(statusType);  // Atualiza o StatusType
         }
-
-        // Atualizar o currentValue se presente no DTO
-        if (sensorDTO.getCurrentValue() != null) {
-            existingSensor.setCurrentValue(sensorDTO.getCurrentValue()); // Atualiza o currentValue
-        }
-
-        // Atualizar o timestamp para o momento atual
-        existingSensor.setTimestamp(new java.util.Date()); // Atualiza o timestamp para o momento atual
-
-        // Persistir as alterações no banco de dados
-        sensorBean.update(existingSensor);
 
         return Response.status(Response.Status.OK).build();
     }
+
 
     // Delete
     @DELETE

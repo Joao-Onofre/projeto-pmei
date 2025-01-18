@@ -71,7 +71,20 @@ public class AlertBean {
         Alert existingAlert = find(alert.getAlertId());
         if (existingAlert != null) {
             existingAlert.setMessage(alert.getMessage());
-            existingAlert.setTimestamp(LocalDateTime.now());  // Atualiza o timestamp
+            existingAlert.setTimestamp(LocalDateTime.now());
+
+            // Check if the sensor associated with the alert exists
+            if (existingAlert.getSensor() != null) {
+                // Get the current value of the sensor
+                Double currentValue = existingAlert.getSensor().getCurrentValue();
+
+                // Check if the current value exceeds the threshold (20)
+                if (currentValue != null && currentValue > 20) {
+                    LOGGER.info("Threshold exceeded for sensor ID: " + existingAlert.getSensor().getSensorId());
+                    checkAndCreateAlert(existingAlert.getSensor(), 20);
+                }
+            }
+
             entityManager.merge(existingAlert);
         }
     }
