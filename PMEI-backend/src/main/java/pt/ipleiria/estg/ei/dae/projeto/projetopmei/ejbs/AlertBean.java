@@ -66,6 +66,13 @@ public class AlertBean {
                 .getResultList();
     }
 
+    public List<Alert> findBySensorIds(List<Long> sensorIds) {
+        return entityManager.createQuery("SELECT a FROM Alert a WHERE a.sensor.id IN :sensorIds", Alert.class)
+                .setParameter("sensorIds", sensorIds)
+                .getResultList();
+    }
+
+
     // Atualiza um alerta existente
     public void update(Alert alert) throws MyEntityNotFoundException {
         Alert existingAlert = find(alert.getAlertId());

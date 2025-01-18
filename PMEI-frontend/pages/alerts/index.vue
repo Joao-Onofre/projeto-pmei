@@ -1,16 +1,6 @@
 <template>
   <div class="wrapper">
-    <!-- Search Bar -->
-    <div class="search-container">
-      <input
-        type="text"
-        v-model="searchQuery"
-        class="search-bar"
-        placeholder="Search by Alert ID, Package ID or Type"
-      />
-    </div>
-
-    <!-- Alert Table -->
+    <!-- Tabela de Alertas -->
     <table class="table">
       <thead>
         <tr>
@@ -22,8 +12,8 @@
         </tr>
       </thead>
       <tbody>
-        <!-- Display filtered and paginated alerts -->
-        <tr v-for="alert in paginatedAlerts" :key="alert.id">
+        <!-- Exibe os alertas filtrados e paginados -->
+        <tr v-for="alert in paginatedAlerts" :key="alert.alertId">
           <td>{{ alert.alertId || 'N/A' }}</td>
           <td>{{ alert.sensorId || 'N/A' }}</td>
           <td>{{ alert.message || 'N/A' }}</td>
@@ -42,7 +32,7 @@
 
     <p v-if="filteredAlerts.length === 0">No alerts found.</p>
 
-    <!-- Pagination -->
+    <!-- Paginação -->
     <div class="pagination" v-if="filteredAlerts.length > itemsPerPage">
       <button
         @click="currentPage = 1"
@@ -80,84 +70,144 @@
 </template>
 
 <script>
-let username = null
-let userType = null
-let token = null
-if (typeof window !== 'undefined') {
-  username = localStorage.getItem('username')
-  userType = localStorage.getItem('user_type')
-  token = localStorage.getItem('jwt_token')
-  console.log(userType)
-  if (!username || !userType || !token) {
-    error.value = 'No username or user type found. Please log in.'
-  }
-}
+import { ref, computed, onMounted, watch } from 'vue'
 
 export default {
-  data() {
-    return {
-      searchQuery: '',
-      alerts: [],
-      currentPage: 1,
-      itemsPerPage: 5,
+  setup() {
+    let username = null
+    let userType = null
+    let token = null
+    if (typeof window !== 'undefined') {
+      username = localStorage.getItem('username')
+      userType = localStorage.getItem('user_type')
+      token = localStorage.getItem('jwt_token')
+      console.log(userType)
+      if (!username || !userType || !token) {
+        error.value = 'No username or user type found. Please log in.'
+      }
     }
-  },
-  computed: {
-    filteredAlerts() {
-      const sortedAlerts = [...this.alerts].sort((a, b) => {
+
+    const alerts = ref([])
+    const currentPage = ref(1)
+    const itemsPerPage = 5
+
+    const filteredAlerts = computed(() => {
+      const sortedAlerts = [...alerts.value].sort((a, b) => {
         const dateA = new Date(a.formattedTimestamp)
         const dateB = new Date(b.formattedTimestamp)
         return dateB - dateA
       })
 
-      // Then apply search filter
-      if (!this.searchQuery) return sortedAlerts
+      return sortedAlerts
+    })
 
-      const query = this.searchQuery.toLowerCase()
-      return sortedAlerts.filter(
-        (alert) =>
-          alert.id?.toString().includes(query) ||
-          alert.sensorId?.toString().includes(query) ||
-          alert.message?.toLowerCase().includes(query) ||
-          alert.formattedTimestamp?.toLowerCase().includes(query),
-      )
-    },
-    paginatedAlerts() {
-      const start = (this.currentPage - 1) * this.itemsPerPage
-      const end = start + this.itemsPerPage
-      return this.filteredAlerts.slice(start, end)
-    },
-    totalPages() {
-      return Math.ceil(this.filteredAlerts.length / this.itemsPerPage)
-    },
-  },
-  watch: {
-    searchQuery() {
-      this.currentPage = 1
-    },
-    filteredAlerts() {
-      if (this.currentPage > this.totalPages) {
-        this.currentPage = this.totalPages || 1
+    const paginatedAlerts = computed(() => {
+      const start = (currentPage.value - 1) * itemsPerPage
+      const end = start + itemsPerPage
+      return filteredAlerts.value.slice(start, end)
+    })
+
+    const totalPages = computed(() =>
+      Math.ceil(filteredAlerts.value.length / itemsPerPage),
+    )
+
+    watch(filteredAlerts, () => {
+      if (currentPage.value > totalPages.value) {
+        currentPage.value = totalPages.value || 1
       }
-    },
-  },
-  methods: {
-    async fetchAlerts() {
+    })
+
+    const fetchOrders = async () => {
       try {
         const config = useRuntimeConfig()
-        const response = await fetch(`${config.public.API_URL}/alert`, {
-          headers: {
-            Accept: 'application/json',
-            Authorization: 'Bearer ' + token,
-          },
-        })
-        const data = await response.json()
-        this.alerts = data
+        let ordersData = []
+
+        if (userType === 'Administrator') {
+          // Administrador: Busca direta dos alertas
+          const responseAlerts = await fetch(`${config.public.API_URL}/alert`, {
+            headers: {
+              Accept: 'application/json',
+              Authorization: 'Bearer ' + token,
+            },
+          })
+
+          if (responseAlerts.ok) {
+            const alertsData = await responseAlerts.json()
+            alerts.value = alertsData // Armazena diretamente os alertas
+          } else {
+            console.error(
+              'Failed to fetch alerts for administrator:',
+              await responseAlerts.text(),
+            )
+            alerts.value = []
+          }
+        } else if (userType === 'Customer') {
+          // Cliente: Busca de pedidos e mapeamento de sensores
+          const responseOrders = await fetch(
+            `${config.public.API_URL}/customer/${username}/orders`,
+            {
+              headers: {
+                Accept: 'application/json',
+                Authorization: 'Bearer ' + token,
+              },
+            },
+          )
+
+          if (responseOrders.ok) {
+            ordersData = await responseOrders.json()
+          } else {
+            console.error(
+              'Failed to fetch orders for customer:',
+              await responseOrders.text(),
+            )
+            alerts.value = []
+            return
+          }
+
+          if (ordersData.length === 0) {
+            console.log('No orders found.')
+            alerts.value = []
+            return
+          }
+
+          const sensorIds = ordersData.flatMap((order) =>
+            order.packageList.flatMap((pkg) =>
+              pkg.sensorList.map((sensor) => sensor.sensorId),
+            ),
+          )
+
+          if (sensorIds.length > 0) {
+            const responseAlerts = await fetch(
+              `${config.public.API_URL}/alert/sensors?ids=${sensorIds.join(',')}`,
+              {
+                headers: {
+                  Accept: 'application/json',
+                  Authorization: 'Bearer ' + token,
+                },
+              },
+            )
+
+            if (responseAlerts.ok) {
+              const alertsData = await responseAlerts.json()
+              alerts.value = alertsData
+            } else {
+              console.error(
+                'Error fetching alerts for sensors:',
+                await responseAlerts.text(),
+              )
+              alerts.value = []
+            }
+          } else {
+            console.log('No sensors found in the orders.')
+            alerts.value = []
+          }
+        }
       } catch (error) {
         console.error('Error fetching alerts:', error)
       }
-    },
-    async deleteAlert(alertId) {
+    }
+
+    const deleteAlert = async (alertId) => {
       if (confirm('Are you sure you want to delete this alert?')) {
         try {
           const config = useRuntimeConfig()
@@ -173,7 +223,7 @@ export default {
           )
 
           if (response.ok) {
-            this.alerts = this.alerts.filter(
+            alerts.value = alerts.value.filter(
               (alert) => alert.alertId !== alertId,
             )
             alert('Alert deleted successfully!')
@@ -184,10 +234,19 @@ export default {
           console.error('Error deleting alert:', error)
         }
       }
-    },
-  },
-  mounted() {
-    this.fetchAlerts()
+    }
+
+    onMounted(fetchOrders)
+
+    return {
+      alerts,
+      currentPage,
+      itemsPerPage,
+      filteredAlerts,
+      paginatedAlerts,
+      totalPages,
+      deleteAlert,
+    }
   },
 }
 </script>
@@ -214,24 +273,21 @@ export default {
   font-weight: bold;
 }
 
-.search-container {
-  margin-bottom: 20px;
+.pagination {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  gap: 10px;
 }
 
-.search-bar {
-  margin-top: 20px;
-  padding: 8px;
-  font-size: 16px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  width: 100%;
+.page-info {
+  margin: 0 15px;
+  font-size: 14px;
 }
 
 .btn {
   display: inline-block;
-  width: auto;
   padding: 6px 12px;
   font-size: 14px;
   color: #fff;
@@ -255,27 +311,5 @@ export default {
 
 .btn-sm {
   font-size: 12px;
-}
-
-.btn:hover {
-  background-color: #0056b3;
-}
-
-.btn:disabled {
-  background-color: #cccccc;
-  cursor: not-allowed;
-}
-
-.pagination {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 20px;
-  gap: 10px;
-}
-
-.page-info {
-  margin: 0 15px;
-  font-size: 14px;
 }
 </style>

@@ -21,7 +21,7 @@ import java.util.List;
 @Produces({MediaType.APPLICATION_JSON})
 @Consumes({MediaType.APPLICATION_JSON})
 @Authenticated
-@RolesAllowed({"Administrator"})
+//@RolesAllowed({"Administrator"})
 public class AlertService {
 
     @EJB
@@ -53,6 +53,21 @@ public class AlertService {
         List<Alert> alerts = alertBean.findBySensor(sensorId);
         return AlertDTO.from(alerts);
     }
+
+    // GET: Retorna todos os alertas associados a uma lista de sensores
+    @GET
+    @Path("/sensors")
+    public Response getAlertsBySensorIds(@QueryParam("ids") List<Long> sensorIds) {
+        try {
+            List<Alert> alerts = alertBean.findBySensorIds(sensorIds);
+            return Response.ok(AlertDTO.from(alerts)).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity("Erro ao buscar alertas: " + e.getMessage())
+                    .build();
+        }
+    }
+
 
     // POST: Cria um alerta manualmente
     @POST

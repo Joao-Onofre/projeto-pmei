@@ -20,8 +20,8 @@ import java.util.List;
 @Path("sensor")
 @Produces({MediaType.APPLICATION_JSON})
 @Consumes({MediaType.APPLICATION_JSON})
-@Authenticated
-@RolesAllowed({"Administrator"})
+//@Authenticated
+//@RolesAllowed({"Administrator"})
 public class SensorService {
 
     @EJB
