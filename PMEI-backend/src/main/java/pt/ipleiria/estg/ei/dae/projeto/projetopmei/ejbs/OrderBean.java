@@ -10,10 +10,12 @@ import pt.ipleiria.estg.ei.dae.projeto.projetopmei.dtos.PackageProductDTO;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.dtos.ProductDTO;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.ejbs.typesBeans.OrderStatusBean;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.ejbs.typesBeans.PackageTypeBean;
+import pt.ipleiria.estg.ei.dae.projeto.projetopmei.ejbs.typesBeans.StatusTypeBean;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.*;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.Package;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.entityTypes.OrderStatusType;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.entityTypes.PackageType;
+import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.entityTypes.StatusType;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.exceptions.MyEntityNotFoundException;
 
 import java.util.Date;
@@ -36,6 +38,8 @@ public class OrderBean {
     private PackageTypeBean packageTypeBean;
     @EJB
     private ProductBean productBean;
+    @EJB
+    private StatusTypeBean statusTypeBean;
 
     public Order create(String customerUsername, List<ProductDTO> products) throws MyEntityNotFoundException {
         Customer customer = customerBean.find(customerUsername);
@@ -144,8 +148,26 @@ public class OrderBean {
             entityManager.persist(alert);
 
             LOGGER.info("Alert created: " + alert.getMessage());
-        } else if (statusName.equals("Canceled")) {
             order.setTerminated(true);
+        } else if (statusName.equals("Canceled")) {
+            order.setTerminationDate(new Date());
+            order.setTerminated(true);
+        }
+
+        if (statusName.equals("Delivered") || statusName.equals("Canceled")){
+
+            StatusType sensorStatus = statusTypeBean.findById((long)2);
+
+            // Unlink sensors and set them to inactive
+            for (Package pkg : order.getPackageList()) {
+                for (Sensor sensor : pkg.getSensorList()) {
+                    sensor.setStatusType(sensorStatus); // Set sensor status to inactive
+                    sensor.setPack(null); // Unlink sensor from package
+                    entityManager.merge(sensor); // Persist the changes
+                }
+                pkg.getSensorList().clear(); // Clear the sensors list for the package
+                entityManager.merge(pkg); // Persist the package changes
+            }
         }
 
         entityManager.merge(order);
@@ -182,6 +204,7 @@ public class OrderBean {
         Hibernate.initialize(order.getPackageList());
         return order;
     }
+
     public List<Order> findCustomerOrders(String username) throws MyEntityNotFoundException {
         Customer customer = customerBean.find(username);
         if(customer == null) {

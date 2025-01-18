@@ -51,18 +51,33 @@ import { ref, computed } from "vue"
 const config = useRuntimeConfig()
 const api = config.public.API_URL
 
+let username = null;
+let userType = null;
+if (typeof window !== 'undefined') {
+	username = localStorage.getItem('username');
+	userType = localStorage.getItem('user_type');
+	console.log(userType)
+	if (!username || !userType) {
+		error.value = 'No username or user type found. Please log in.';
+	}
+}
+
 // Reactive state for orders
 const packages = ref([]);
 const getPackages = async () => {
 	try {
-		const response = await fetch(`${api}/package`);
+		// Determine the endpoint based on user type
+		const endpoint = userType === 'customer' ? `${api}/${username}/packages` : `${api}/package`;
+
+		const response = await fetch(endpoint);
+		if (!response.ok) {
+			throw new Error('Failed to fetch packages');
+		}
 		packages.value = await response.json();
 	} catch (error) {
 		console.error("Error fetching packages:", error);
 	}
 }
-
-console.log(packages.value)
 
 // Calculate total sensors in a package
 const totalSensors = (pack) => {

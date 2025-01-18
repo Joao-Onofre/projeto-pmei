@@ -6,23 +6,11 @@
       <form @submit.prevent="handleLogin">
         <div class="form-group">
           <label for="username">Username</label>
-          <input
-            type="username"
-            id="username"
-            v-model="form.username"
-            placeholder="Enter your username"
-            required
-          />
+          <input type="username" id="username" v-model="form.username" placeholder="Enter your username" required />
         </div>
         <div class="form-group">
           <label for="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            v-model="form.password"
-            placeholder="Enter your password"
-            required
-          />
+          <input type="password" id="password" v-model="form.password" placeholder="Enter your password" required />
         </div>
         <div v-if="error" class="error-message">
           {{ error }}
@@ -47,7 +35,7 @@ export default {
       error: null,
     }
   },
-  setup() {},
+  setup() { },
   methods: {
     async handleLogin() {
       try {

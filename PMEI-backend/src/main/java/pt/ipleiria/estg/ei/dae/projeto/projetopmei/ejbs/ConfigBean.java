@@ -148,8 +148,9 @@ public class ConfigBean {
                 alertBean.create(alert);
             }
 
-            customerBean.create("customer1", "1234", "Joner Boner", "boner@gmail.com");
-            productBean.create("jonkler", "skibidi", 69, 1);
+            customerBean.create("customer1", "1234", "João", "customer1@gmail.com");
+            customerBean.create("customer2", "1234", "José", "customer2@gmail.com");
+            productBean.create("Bolonhesa", "Enlatado", 69, 4);
         } catch (Exception e) {
             e.printStackTrace();
         }
