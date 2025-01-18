@@ -1,41 +1,73 @@
 package pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities;
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
 public class Alert {
-
+    //-------------- Atributos ----------------
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long alertId;
+
+    @ManyToOne
+    @JoinColumn(name = "sensor_id", referencedColumnName = "sensorId")
+    private Sensor sensor;
+
+    private LocalDateTime timestamp;
 
     private String message;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date timestamp;
+    //-------------- Construtores ----------------
+    public Alert() {
+        this.timestamp = LocalDateTime.now(); // Default timestamp to now
+    }
 
-    @ManyToOne
-    private Sensor sensor;
-
-    public Alert() {}
-
-    public Alert(String message, Date timestamp, Sensor sensor) {
+    public Alert(Sensor sensor, String message) {
+        this();
+        this.sensor = sensor;
         this.message = message;
-        this.timestamp = timestamp;
+    }
+
+    //-------------- Getters / Setters ----------------
+    public long getAlertId() {
+        return alertId;
+    }
+
+    public void setAlertId(long alertId) {
+        this.alertId = alertId;
+    }
+
+    public Sensor getSensor() {
+        return sensor;
+    }
+
+    public void setSensor(Sensor sensor) {
         this.sensor = sensor;
     }
 
-    // Getters e setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
 
-    public String getMessage() { return message; }
-    public void setMessage(String message) { this.message = message; }
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
+    }
 
-    public Date getTimestamp() { return timestamp; }
-    public void setTimestamp(Date timestamp) { this.timestamp = timestamp; }
+    public String getMessage() {
+        return message;
+    }
 
-    public Sensor getSensor() { return sensor; }
-    public void setSensor(Sensor sensor) { this.sensor = sensor; }
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    //-------------- Métodos Auxiliares ----------------
+    public Double getSensorCurrentValue() {
+        if (sensor != null) {
+            return sensor.getCurrentValue();
+        }
+        return null; // Retorna null se o sensor não estiver associado
+    }
 }

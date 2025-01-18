@@ -1,11 +1,13 @@
 package pt.ipleiria.estg.ei.dae.projeto.projetopmei.ejbs;
 
+import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
-import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.Alert;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.Sensor;
+import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.entityTypes.SensorType;
+import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.entityTypes.StatusType;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.exceptions.MyEntityNotFoundException;
 
 import java.util.Date;
@@ -19,100 +21,116 @@ public class SensorBean {
     @PersistenceContext
     private EntityManager entityManager;
 
+    @EJB
+    private SensorBean sensorBean;
+
     private static final Logger LOGGER = Logger.getLogger(SensorBean.class.getName());
 
-    // Atualiza o sensor e verifica se há necessidade de criar alertas
-    public void update(Sensor sensor, double threshold) throws Exception {
-        Sensor existingSensor = entityManager.find(Sensor.class, sensor.getSensorId());
-
-        if (existingSensor == null) {
-            throw new MyEntityNotFoundException("Sensor with ID " + sensor.getSensorId() + " not found.");
-        }
-
-        // Calcula a diferença entre os valores
-        double oldValue = existingSensor.getCurrentValue();
-        double newValue = sensor.getCurrentValue();
-        double difference = Math.abs(newValue - oldValue);
-
-        // Atualiza os valores do sensor
-        existingSensor.setCurrentValue(newValue);
-        existingSensor.setTimestamp(new Date());
-
-        // Se a diferença exceder o limite, cria um alerta
-        if (difference > threshold) {
-            Alert alert = new Alert(
-                    "Sensor " + existingSensor.getSensorId() + " exceeded the value by " + difference,
-                    new Date(),
-                    existingSensor
-            );
-            entityManager.persist(alert);
-            LOGGER.info("Alert generated: " + alert.getMessage());
-        }
-    }
-
-    // Encontra um sensor pelo ID
-    public Sensor find(long sensorId) throws Exception {
+    // Método para encontrar ou criar o StatusType
+    private StatusType findOrCreateStatusType(String status) {
         try {
+            // Tenta encontrar um StatusType com o status fornecido
             return entityManager.createQuery(
-                            "SELECT s FROM Sensor s WHERE s.sensorId = :sensorId", Sensor.class)
-                    .setParameter("sensorId", sensorId)
-                    .getSingleResult();
+                            "SELECT s FROM StatusType s WHERE s.status = :status",
+                            StatusType.class)
+                    .setParameter("status", status)
+                    .getSingleResult();  // Retorna o StatusType existente
         } catch (NoResultException e) {
-            throw new MyEntityNotFoundException("Sensor with ID " + sensorId + " not found.");
+            // Se não encontrar, cria um novo StatusType
+            StatusType newStatus = new StatusType(status);
+            entityManager.persist(newStatus);  // Persiste o novo StatusType
+            return newStatus;
         }
-    }
-
-    // Encontra todos os sensores
-    public List<Sensor> findAll() {
-        return entityManager.createQuery("SELECT s FROM Sensor s", Sensor.class).getResultList();
     }
 
     // Cria um novo sensor
     public void create(Sensor sensor) {
         try {
-            if (sensor.getTimestamp() == null) {
-                sensor.setTimestamp(new Date());
+            // Log da criação do sensor
+            LOGGER.info("Iniciando a criação do sensor: " + sensor);
+
+            // Verificar se o StatusType já existe, se não, cria um novo
+            if (sensor.getStatusType() != null) {
+                StatusType existingStatus = findOrCreateStatusType(sensor.getStatusType().getStatus());
+                sensor.setStatusType(existingStatus);  // Atualiza o sensor com o StatusType existente
+                LOGGER.info("StatusType associado ao sensor: " + existingStatus.getId());
             }
 
+            // Verificar se o SensorType já existe, se não, cria um novo
+            if (sensor.getSensorType() != null && sensor.getSensorType().getId() == null) {
+                entityManager.persist(sensor.getSensorType());  // Persiste o SensorType se necessário
+                LOGGER.info("SensorType persistido: " + sensor.getSensorType().getId());
+            }
+
+            // Definir valores padrão para o currentValue e timestamp
             if (sensor.getCurrentValue() == null) {
-                sensor.setCurrentValue(0.0); // Define o valor padrão
+                sensor.setCurrentValue(0.0);  // Valor padrão para currentValue
             }
 
+            if (sensor.getTimestamp() == null) {
+                sensor.setTimestamp(new java.util.Date());  // Define o timestamp com a data e hora atuais
+            }
+
+            // Persistir o Sensor
             entityManager.persist(sensor);
-            LOGGER.info("Sensor created: " + sensor.getSensorId());
+            LOGGER.info("Sensor persistido com sucesso: " + sensor.getSensorId());
+
         } catch (Exception e) {
-            LOGGER.log(Level.SEVERE, "Error creating sensor: " + sensor, e);
-            throw new RuntimeException("Error creating sensor", e);
+            // Log de erro detalhado
+            LOGGER.log(Level.SEVERE, "Erro ao persistir o sensor: " + sensor, e);
+            e.printStackTrace();
+            throw new RuntimeException("Erro ao persistir o sensor", e);
         }
     }
 
-    // Atualiza os dados de um sensor (sem alertas)
-    public void update(Sensor sensor) {
+    // Encontra por ID
+    public Sensor find(long sensorId) throws Exception {
         try {
-            Sensor existingSensor = entityManager.find(Sensor.class, sensor.getSensorId());
+            // Buscar o Sensor diretamente sem fazer join com outras tabelas
+            Sensor sensor = entityManager.createQuery(
+                            "SELECT s FROM Sensor s WHERE s.sensorId = :sensorId", Sensor.class)
+                    .setParameter("sensorId", sensorId)
+                    .getSingleResult();
 
-            if (existingSensor == null) {
-                throw new MyEntityNotFoundException("Sensor with ID " + sensor.getSensorId() + " not found.");
+            if (sensor == null) {
+                throw new MyEntityNotFoundException("Sensor with ID " + sensorId + " not found");
             }
-
-            existingSensor.setCurrentValue(sensor.getCurrentValue());
-            existingSensor.setTimestamp(new Date());
-            entityManager.merge(existingSensor);
-        } catch (Exception e) {
-            LOGGER.log(Level.SEVERE, "Error updating sensor: " + sensor, e);
-            throw new RuntimeException("Error updating sensor", e);
+            return sensor;
+        } catch (NoResultException e) {
+            throw new MyEntityNotFoundException("Sensor with ID " + sensorId + " not found");
         }
     }
 
-    // Remove um sensor pelo ID
-    public void delete(long sensorId) throws Exception {
-        Sensor sensor = find(sensorId);
+    // Encontra TODOS os sensores
+    public List<Sensor> findAll(){
+        return entityManager.createQuery("select s from Sensor s").getResultList();
+    }
 
-        if (sensor == null) {
-            throw new MyEntityNotFoundException("Sensor with ID " + sensorId + " not found.");
+    public List<Sensor> findByTypeAndStatus(long sensortypeId, long statustypeId) {
+        return entityManager.createQuery(
+                        "SELECT s FROM Sensor s WHERE s.sensorType.id = :sensortypeId AND s.statusType.id = :statustypeId", Sensor.class)
+                .setParameter("sensortypeId", sensortypeId)
+                .setParameter("statustypeId", statustypeId)
+                .getResultList();
+    }
+
+
+
+    // Update de um sensor
+    public void update(Sensor sensor) throws Exception {
+        Sensor existingSensor = entityManager.find(Sensor.class, sensor.getSensorId());
+        if (existingSensor != null) {
+            existingSensor.setCurrentValue(sensor.getCurrentValue());
+            existingSensor.setStatusType(sensor.getStatusType());
+            existingSensor.setTimestamp(new Date());
         }
+    }
 
+
+    // Delete sensor
+    public void delete(long sensorId)
+            throws Exception {
+        Sensor sensor = find(sensorId);
         entityManager.remove(sensor);
-        LOGGER.info("Sensor deleted: " + sensorId);
     }
 }
