@@ -33,31 +33,42 @@
 </template>
 
 <script>
+let username = null
+let userType = null
+let token = null
+if (typeof window !== 'undefined') {
+  username = localStorage.getItem('username')
+  userType = localStorage.getItem('user_type')
+  token = localStorage.getItem('jwt_token')
+  console.log(userType)
+  if (!username || !userType || !token) {
+    error.value = 'No username or user type found. Please log in.'
+  }
+}
 export default {
   data() {
     return {
-      sensorType: '', // Sensor type selected by the user
-      successMessage: '', // Message to display after successful creation
+      sensorType: '',
+      successMessage: '',
     }
   },
   methods: {
     async createSensor() {
       try {
-        const config = useRuntimeConfig() // Access runtimeConfig
+        const config = useRuntimeConfig()
         const response = await fetch(`${config.public.API_URL}/sensor`, {
           method: 'POST',
           headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
-            Authorization:
-              'Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzEzNzc5MywiZXhwIjoxNzM3MTQxMzkzfQ.rVDV8NN1xjsNpdzRJwZT4xnlEvtWIe77h7bof-7Q9N5gXkbwxVTOsUbNDyAFNIza',
+            Authorization: 'Bearer ' + token,
           },
           body: JSON.stringify({ sensorType: this.sensorType }),
         })
 
         if (response.ok) {
           this.successMessage = 'Sensor created successfully!'
-          this.sensorType = '' // Reset form
+          this.sensorType = ''
         } else {
           throw new Error('Failed to create sensor')
         }
@@ -81,7 +92,6 @@ h2 {
   margin-bottom: 30px;
 }
 
-/* Form Container Styling */
 .form-container {
   max-width: 500px;
   margin: 0 auto;
@@ -91,7 +101,6 @@ h2 {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Form Group Styling */
 .form-group {
   margin-bottom: 20px;
 }
@@ -110,7 +119,6 @@ h2 {
   border-radius: 4px;
 }
 
-/* Button Styling */
 .btn {
   display: block;
   width: 100%;
@@ -138,7 +146,6 @@ h2 {
   background-color: #0056b3;
 }
 
-/* Success Message Styling */
 .success-message {
   text-align: center;
   margin-top: 20px;

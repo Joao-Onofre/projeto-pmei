@@ -36,6 +36,19 @@
 </template>
 
 <script>
+let username = null
+let userType = null
+let token = null
+if (typeof window !== 'undefined') {
+  username = localStorage.getItem('username')
+  userType = localStorage.getItem('user_type')
+  token = localStorage.getItem('jwt_token')
+  console.log(userType)
+  if (!username || !userType || !token) {
+    error.value = 'No username or user type found. Please log in.'
+  }
+}
+
 export default {
   data() {
     return {
@@ -64,8 +77,7 @@ export default {
           {
             headers: {
               Accept: 'application/json',
-              Authorization:
-                'Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzA0ODI4MywiZXhwIjoxNzM3MDUxODgzfQ.6WV5OVM6s8vBz4ut88iJtdtbSpAA2o2ew8-eaF0rv7W4TC21QlzCAC86b3LmOCgI',
+              Authorization: 'Bearer ' + token,
             },
           },
         )
@@ -74,7 +86,6 @@ export default {
           const data = await response.json()
           this.sensor = data
 
-          // Convert numeric status to string if needed
           if (typeof this.sensor.statusType === 'number') {
             this.sensor.statusType =
               this.sensor.statusType === 1 ? 'Active' : 'Inactive'
@@ -108,13 +119,11 @@ export default {
           headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
-            Authorization:
-              'Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzA0ODI4MywiZXhwIjoxNzM3MDUxODgzfQ.6WV5OVM6s8vBz4ut88iJtdtbSpAA2o2ew8-eaF0rv7W4TC21QlzCAC86b3LmOCgI',
+            Authorization: 'Bearer ' + token,
           },
           body: JSON.stringify(requestData),
         })
 
-        // Log the raw response for debugging
         console.log('Response status:', response.status)
         console.log('Response headers:', Object.fromEntries(response.headers))
 
@@ -122,7 +131,6 @@ export default {
         console.log('Raw response:', responseText)
 
         if (response.ok) {
-          // Only try to parse as JSON if there's actual content
           let responseData = null
           if (responseText) {
             try {

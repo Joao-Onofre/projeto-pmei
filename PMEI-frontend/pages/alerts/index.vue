@@ -2,8 +2,12 @@
   <div class="wrapper">
     <!-- Search Bar -->
     <div class="search-container">
-      <input type="text" v-model="searchQuery" class="search-bar"
-        placeholder="Search by Alert ID, Package ID or Type" />
+      <input
+        type="text"
+        v-model="searchQuery"
+        class="search-bar"
+        placeholder="Search by Alert ID, Package ID or Type"
+      />
     </div>
 
     <!-- Alert Table -->
@@ -76,6 +80,19 @@
 </template>
 
 <script>
+let username = null
+let userType = null
+let token = null
+if (typeof window !== 'undefined') {
+  username = localStorage.getItem('username')
+  userType = localStorage.getItem('user_type')
+  token = localStorage.getItem('jwt_token')
+  console.log(userType)
+  if (!username || !userType || !token) {
+    error.value = 'No username or user type found. Please log in.'
+  }
+}
+
 export default {
   data() {
     return {
@@ -87,7 +104,6 @@ export default {
   },
   computed: {
     filteredAlerts() {
-      // First sort alerts by timestamp (most recent first)
       const sortedAlerts = [...this.alerts].sort((a, b) => {
         const dateA = new Date(a.formattedTimestamp)
         const dateB = new Date(b.formattedTimestamp)
@@ -116,11 +132,9 @@ export default {
     },
   },
   watch: {
-    // Reset to first page when search query changes
     searchQuery() {
       this.currentPage = 1
     },
-    // Ensure current page is valid when filtered results change
     filteredAlerts() {
       if (this.currentPage > this.totalPages) {
         this.currentPage = this.totalPages || 1
@@ -134,8 +148,7 @@ export default {
         const response = await fetch(`${config.public.API_URL}/alert`, {
           headers: {
             Accept: 'application/json',
-            Authorization:
-              'Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzE0OTc2NSwiZXhwIjoxNzM3MTUzMzY1fQ.eI6WZ3KgveBzYLTBW-ap3O63e64qTJ69DJ2YW1PK645yNr2LOGo-x2zFcorqgSqw',
+            Authorization: 'Bearer ' + token,
           },
         })
         const data = await response.json()
@@ -149,13 +162,12 @@ export default {
         try {
           const config = useRuntimeConfig()
           const response = await fetch(
-            `${config.public.API_URL}/alert/${alertId}`, // Use 'alertId' para o identificador correto
+            `${config.public.API_URL}/alert/${alertId}`,
             {
               method: 'DELETE',
               headers: {
                 Accept: 'application/json',
-                Authorization:
-                  'Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzE0OTc2NSwiZXhwIjoxNzM3MTUzMzY1fQ.eI6WZ3KgveBzYLTBW-ap3O63e64qTJ69DJ2YW1PK645yNr2LOGo-x2zFcorqgSqw', // Verifique se o token ainda é válido
+                Authorization: 'Bearer ' + token,
               },
             },
           )
@@ -163,7 +175,7 @@ export default {
           if (response.ok) {
             this.alerts = this.alerts.filter(
               (alert) => alert.alertId !== alertId,
-            ) // Use 'alertId' aqui também
+            )
             alert('Alert deleted successfully!')
           } else {
             alert('Failed to delete alert.')

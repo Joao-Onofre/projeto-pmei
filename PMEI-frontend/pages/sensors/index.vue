@@ -115,14 +115,12 @@ export default {
   },
   computed: {
     filteredSensors() {
-      // First sort sensors by timestamp (most recent first)
       const sortedSensors = [...this.sensors].sort((a, b) => {
         const dateA = new Date(a.formattedTimestamp)
         const dateB = new Date(b.formattedTimestamp)
         return dateB - dateA
       })
 
-      // Then apply search filter
       if (!this.searchQuery) return sortedSensors
 
       const query = this.searchQuery.toLowerCase()
@@ -144,11 +142,9 @@ export default {
     },
   },
   watch: {
-    // Reset to first page when search query changes
     searchQuery() {
       this.currentPage = 1
     },
-    // Ensure current page is valid when filtered results change
     filteredSensors() {
       if (this.currentPage > this.totalPages) {
         this.currentPage = this.totalPages || 1
