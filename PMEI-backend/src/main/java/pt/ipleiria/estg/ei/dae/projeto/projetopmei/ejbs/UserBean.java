@@ -7,6 +7,7 @@ import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 import jakarta.validation.ConstraintViolationException;
 import org.hibernate.Hibernate;
+import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.Customer;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.entities.User;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.exceptions.MyConstraintViolationException;
 import pt.ipleiria.estg.ei.dae.projeto.projetopmei.exceptions.MyEntityExistsException;
@@ -83,23 +84,6 @@ public class UserBean {
 
 		try {
 			entityManager.merge(user);
-		} catch (ConstraintViolationException e) {
-			throw new MyConstraintViolationException(e);
-		}
-	}
-
-	public void register(String username, String password, String name, String email) throws MyEntityExistsException, MyConstraintViolationException {
-		failIfExists(username);
-
-		// Create and persist user entity
-		User user = new User();
-		user.setUsername(username);
-		user.setPassword(hasher.hash(password));
-		user.setName(name);
-		user.setEmail(email);
-
-		try {
-			entityManager.persist(user);
 		} catch (ConstraintViolationException e) {
 			throw new MyConstraintViolationException(e);
 		}

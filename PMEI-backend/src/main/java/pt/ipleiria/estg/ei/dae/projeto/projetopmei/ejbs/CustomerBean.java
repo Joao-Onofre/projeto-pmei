@@ -65,4 +65,21 @@ public class CustomerBean {
 		var customer = find(username);
 		entityManager.remove(customer);
 	}
+
+	public void register(String username, String password, String name, String email) throws MyEntityExistsException, MyConstraintViolationException {
+		userBean.failIfExists(username);
+
+		// Create and persist user entity
+		Customer customer = new Customer();
+		customer.setUsername(username);
+		customer.setPassword(hasher.hash(password));
+		customer.setName(name);
+		customer.setEmail(email);
+
+		try {
+			entityManager.persist(customer);
+		} catch (ConstraintViolationException e) {
+			throw new MyConstraintViolationException(e);
+		}
+	}
 }

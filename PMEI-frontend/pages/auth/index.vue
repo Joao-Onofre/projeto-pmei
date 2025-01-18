@@ -46,7 +46,7 @@ export default {
 				const config = useRuntimeConfig();
 				const api = config.public.API_URL;
 
-				// Step 1: Authenticate and retrieve the JWT token
+				// Authenticate and retrieve the JWT token
 				const authResponse = await fetch(`${api}/auth/login`, {
 					method: 'POST',
 					headers: {
@@ -66,7 +66,7 @@ export default {
 				localStorage.setItem('jwt_token', token);
 				localStorage.setItem('username', this.form.username);
 
-				// Step 2: Fetch the user details
+				// Fetch the user details
 				const userResponse = await fetch(`${api}/user/${this.form.username}`, {
 					method: 'GET',
 					headers: {
