@@ -70,7 +70,7 @@ public class PackageBean {
     public Package update(long packageId, List<PackageProductDTO> products, long newPckgTypeId) {
         Package pckg = find(packageId);
         if (pckg == null) {
-            throw new RuntimeException("Package doesn't exist");
+            throw new RuntimeException("Package doesn't exist" + packageId);
         }
 
         PackageType newPckgType = packageTypeBean.findById(newPckgTypeId);
@@ -83,9 +83,6 @@ public class PackageBean {
         // Check if the product list is empty
         if (products == null || products.isEmpty()) {
             pckg.setPackageType(newPckgType);
-            if (newPckgType.getId() == 2) {
-                // TODO: Add sensor logic for this package type
-            }
         } else {
             for (PackageProductDTO productDTO : products) {
                 Product product = productBean.find(productDTO.getProduct());

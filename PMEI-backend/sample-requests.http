@@ -77,7 +77,7 @@ Accept: application/json
 Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzIzMjA3NiwiZXhwIjoxNzM3MjM1Njc2fQ.55wOcDnxaykb9-eSLtphoUl1VO7L1m6PN_Ffl7LxGfW5PIeJ6Tftm9n__g9HWEXF
 
 ### DELETE SENSOR
-DELETE http://localhost:8080/academics/api/sensor/1
+DELETE http://localhost:8080/academics/api/sensor/3
 Content-Type: application/json
 Accept: application/json
 Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzIzMjA3NiwiZXhwIjoxNzM3MjM1Njc2fQ.55wOcDnxaykb9-eSLtphoUl1VO7L1m6PN_Ffl7LxGfW5PIeJ6Tftm9n__g9HWEXF
@@ -163,7 +163,7 @@ Accept: application/json
 }
 
 ### UPDATE PRODUCT TYPE
-PUT http://localhost:8080/academics/api/product-type/1
+PUT http://localhost:8080/academics/api/product-type/6
 Content-Type: application/json
 Accept: application/json
 
@@ -172,7 +172,7 @@ Accept: application/json
 }
 
 ### DELETE PRODUCT TYPES
-DELETE http://localhost:8080/academics/api/product-type/9
+DELETE http://localhost:8080/academics/api/product-type/6
 Content-Type: application/json
 Accept: application/json
 
@@ -189,13 +189,13 @@ Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzIzM
 }
 
 ### GET ALERT
-GET http://localhost:8080/academics/api/alert/1
+GET http://localhost:8080/academics/api/alert/4
 Content-Type: application/json
 Accept: application/json
 Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzIzMTIwNiwiZXhwIjoxNzM3MjM0ODA2fQ.4M3iyGDCx0jvEya42eP5wFPNaSXVKvX4lN7Nf73u6qlz9rqPzyKBkPjQR2hf4YI6
 
 ### DELETE ALERT
-DELETE http://localhost:8080/academics/api/alert/2
+DELETE http://localhost:8080/academics/api/alert/4
 Content-Type: application/json
 Accept: application/json
 Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzIzMTIwNiwiZXhwIjoxNzM3MjM0ODA2fQ.4M3iyGDCx0jvEya42eP5wFPNaSXVKvX4lN7Nf73u6qlz9rqPzyKBkPjQR2hf4YI6
@@ -235,7 +235,7 @@ Accept: application/json
 GET http://localhost:8080/academics/api/customer/customer1/orders
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzIyODM5NSwiZXhwIjoxNzM3MjMxOTk1fQ.Jl0IZjqKwD2OPcsX2KH2HljBTM7YuOjMY8A17RBUDxDIohPVZovEklydfIm0l4cZ
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzIzNTQ1NiwiZXhwIjoxNzM3MjM5MDU2fQ.4JP070dIMJ9zoYB7_5R5X-CizsNXEJSeaHzeyPpzAmdpXUsJVilF0SSnVtNzP3W5
 
 ### GET ALL ORDERS
 GET http://localhost:8080/academics/api/order/
@@ -280,6 +280,8 @@ Accept: application/json
 ### GET CUSTOMER ORDERS
 GET http://localhost:8080/academics/api/customer/customer1/orders
 Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzIzNTQ1NiwiZXhwIjoxNzM3MjM5MDU2fQ.4JP070dIMJ9zoYB7_5R5X-CizsNXEJSeaHzeyPpzAmdpXUsJVilF0SSnVtNzP3W5
+
 
 
 
@@ -302,13 +304,15 @@ Accept: application/json
 }
 
 ### DELETE PACKAGE
-DELETE http://localhost:8080/academics/api/package/2
+DELETE http://localhost:8080/academics/api/package/9
 Content-Type: application/json
 Accept: application/json
 
 ### GET CUSTOMER PACKAGE
 GET http://localhost:8080/academics/api/customer/customer1/packages
 Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczNzIzNTQ1NiwiZXhwIjoxNzM3MjM5MDU2fQ.4JP070dIMJ9zoYB7_5R5X-CizsNXEJSeaHzeyPpzAmdpXUsJVilF0SSnVtNzP3W5
+
 
 ### GET PACKAGE TYPES
 GET http://localhost:8080/academics/api/packagetype
@@ -324,7 +328,7 @@ Accept: application/json
 }
 
 ### PUT PACKAGE
-PUT http://localhost:8080/academics/api/package/3
+PUT http://localhost:8080/academics/api/package/2
 Content-Type: application/json
 Accept: application/json
 
@@ -339,7 +343,7 @@ Accept: application/json
 }
 
 ### PUT PACKAGE TYPE
-PUT http://localhost:8080/academics/api/packagetype/6
+PUT http://localhost:8080/academics/api/packagetype/3
 Content-Type: application/json
 Accept: application/json
 
